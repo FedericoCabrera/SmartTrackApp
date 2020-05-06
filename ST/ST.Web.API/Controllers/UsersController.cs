@@ -20,7 +20,21 @@ namespace ST.Web.API.Controllers
             this.userService = userService;
         }
 
-        // POST: api/Users
+
+        [HttpGet]
+        public IActionResult Get()
+        {
+            try
+            {
+                return Ok(userService.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+       // POST: api/Users
         [HttpPost]
         public IActionResult CreateUser([FromBody] UserModel user)
         {

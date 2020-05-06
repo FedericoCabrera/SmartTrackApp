@@ -34,6 +34,18 @@ namespace ST.BusinessLogic
             unitOfWork.UserRepository.Save();
         }
 
+        public IEnumerable<User> GetAll() 
+        {
+            try
+            {
+                return unitOfWork.UserRepository.Get();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
+        }
+
         public void GetUserByUserName(string userName)
         {
             throw new NotImplementedException();
