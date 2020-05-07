@@ -46,7 +46,7 @@ namespace ST.BusinessLogic
             }
         }
 
-        public void GetUserByUserName(string userName)
+        public User GetUserByUserName(string userName)
         {
             throw new NotImplementedException();
         }

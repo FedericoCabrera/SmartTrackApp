@@ -47,6 +47,17 @@ namespace ST.Data.Repository
             }
         }
 
+        private IRepository<Session> sessionRepository;
+        public IRepository<Session> SessionRepository
+        {
+            get
+            {
+                if (sessionRepository == null)
+                    sessionRepository = new Repository<Session>(dbContext);
+
+                return sessionRepository;
+            }
+        }
 
 
         protected virtual void Dispose(bool disposing)
