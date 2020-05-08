@@ -2,7 +2,7 @@
 
 namespace ST.Data.Entities
 {
-    public class User
+    public abstract class User
     {
         public User()
         {

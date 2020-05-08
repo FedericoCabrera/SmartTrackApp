@@ -1,4 +1,5 @@
 ﻿using ST.Data.DataAccess;
+using ST.Data.Entitie;
 using ST.Data.Entities;
 using ST.Data.Repository.Interfaces;
 using System;
@@ -32,6 +33,42 @@ namespace ST.Data.Repository
                     userRepository = new Repository<User>(dbContext);
 
                 return userRepository;
+            }
+        }
+
+        private IRepository<Administrator> administratorRepository;
+        public IRepository<Administrator> AdministratorRepository
+        {
+            get
+            {
+                if (administratorRepository == null)
+                    administratorRepository = new Repository<Administrator>(dbContext);
+
+                return administratorRepository;
+            }
+        }
+
+        private IRepository<Employee> employeeRepository;
+        public IRepository<Employee> EmployeeRepository
+        {
+            get
+            {
+                if (employeeRepository == null)
+                    employeeRepository = new Repository<Employee>(dbContext);
+
+                return employeeRepository;
+            }
+        }
+
+        private IRepository<Company> companyRepository;
+        public IRepository<Company> CompanyRepository
+        {
+            get
+            {
+                if (companyRepository == null)
+                    companyRepository = new Repository<Company>(dbContext);
+
+                return companyRepository;
             }
         }
 

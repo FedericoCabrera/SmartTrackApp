@@ -18,6 +18,9 @@ namespace ST.Data.DataAccess
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Administrator> Administrators { get; set; }
+        public DbSet<Company> Companys { get; set; }
         public DbSet<Traject> Trajects { get; set; }
     }
 }
