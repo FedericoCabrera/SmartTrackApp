@@ -25,11 +25,10 @@ namespace ST.BusinessLogic.Tests
             unitOfWork.Setup(r => r.UserRepository.Create(It.IsAny<User>()));
             
             IUserService userService = new UserService(unitOfWork.Object);
-            User user1 = new User() { 
+            User user1 = new Employee() { 
                 IdentityNumber = "1111111", 
                 LastName = "Perez", 
                 Name = "Jorge", 
-                IsAdmin = false, 
                 UserName = "JPerez", 
                 Password = "Pass123456" };
 
@@ -40,7 +39,7 @@ namespace ST.BusinessLogic.Tests
 
         [TestMethod]
         [ExpectedException(typeof(InvalidPasswordException))]
-        public void CreateUserInvalidPasswordTest()
+        public void CreateAdminInvalidPasswordTest()
         {
             Mock<IUnitOfWork> unitOfWork = new Mock<IUnitOfWork>();
             unitOfWork
@@ -51,12 +50,11 @@ namespace ST.BusinessLogic.Tests
             unitOfWork.Setup(r => r.UserRepository.Create(It.IsAny<User>()));
 
             IUserService userService = new UserService(unitOfWork.Object);
-            User user1 = new User()
+            User user1 = new Administrator()
             {
                 IdentityNumber = "1111111",
                 LastName = "Perez",
                 Name = "Jorge",
-                IsAdmin = false,
                 UserName = "JPerez",
                 Password = "pass123456"
             };

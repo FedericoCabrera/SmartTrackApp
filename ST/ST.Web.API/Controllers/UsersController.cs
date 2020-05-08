@@ -36,7 +36,7 @@ namespace ST.Web.API.Controllers
 
        // POST: api/Users
         [HttpPost]
-        public IActionResult CreateUser([FromBody] UserModel user)
+        public IActionResult CreateUser([FromBody] EmployeeModel user)
         {
             try
             {

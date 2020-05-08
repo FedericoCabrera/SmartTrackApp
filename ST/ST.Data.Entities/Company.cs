@@ -1,4 +1,4 @@
-﻿using ST.Data.Entitie;
+﻿using ST.Data.Entities;
 using System;
 using System.Collections.Generic;
 

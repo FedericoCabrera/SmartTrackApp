@@ -1,5 +1,4 @@
 ﻿using ST.Data.DataAccess;
-using ST.Data.Entitie;
 using ST.Data.Entities;
 using ST.Data.Repository.Interfaces;
 using System;

@@ -13,12 +13,12 @@ namespace ST.Data.Tests
     public class RepositoryTests
     {
         [TestMethod]
-        public void TestUserAddOk()
+        public void TestAdministratorAddOk()
         {
             var context = ContextFactory.GetMemoryContext(Guid.NewGuid().ToString());
             IRepository<User> userRepository = new Repository<User>(context);
 
-            User user = new User() {IdentityNumber="1111111", LastName = "Perez", Name = "Jorge", IsAdmin = false, UserName = "JPerez", Password = "pass123456" };
+            User user = new Administrator() {IdentityNumber="1111111", LastName = "Perez", Name = "Jorge", UserName = "JPerez", Password = "pass123456" };
 
             var idUsed = user.Id;
 
@@ -37,7 +37,7 @@ namespace ST.Data.Tests
             IRepository<User> userRepository = new Repository<User>(context);
             IRepository<Traject> trajectRepository = new Repository<Traject>(context);
 
-            User user = new User() { IdentityNumber = "1111111", LastName = "Perez", Name = "Jorge", IsAdmin = false, UserName = "JPerez", Password="pass123456" };
+            User user = new Employee() { IdentityNumber = "1111111", LastName = "Perez", Name = "Jorge", UserName = "JPerez", Password="pass123456" };
             Traject traject = new Traject()
             {
                 Distance = 1,
@@ -47,8 +47,7 @@ namespace ST.Data.Tests
                 FinalLongitude = 1000,
                 IsFinished = false,
                 InitialLatitude = 999,
-                InitialLongitude = 999,
-                User = user
+                InitialLongitude = 999
             };
 
             var userIdUsed = user.Id;
@@ -72,9 +71,9 @@ namespace ST.Data.Tests
             var context = ContextFactory.GetMemoryContext(Guid.NewGuid().ToString());
             IRepository<User> userRepository = new Repository<User>(context);
 
-            User user1 = new User() { IdentityNumber = "1111111", LastName = "Perez", Name = "Jorge", IsAdmin = false, UserName = "JPerez", Password = "pass123456" };
-            User user2 = new User() { IdentityNumber = "1111112", LastName = "Perez", Name = "Pedro", IsAdmin = false, UserName = "PePerez", Password = "pass123456" };
-            User user3 = new User() { IdentityNumber = "1111113", LastName = "Perez", Name = "Pepe", IsAdmin = false, UserName = "PPerez", Password = "pass123456" };
+            User user1 = new Employee() { IdentityNumber = "1111111", LastName = "Perez", Name = "Jorge", UserName = "JPerez", Password = "pass123456" };
+            User user2 = new Employee() { IdentityNumber = "1111112", LastName = "Perez", Name = "Pedro", UserName = "PePerez", Password = "pass123456" };
+            User user3 = new Employee() { IdentityNumber = "1111113", LastName = "Perez", Name = "Pepe", UserName = "PPerez", Password = "pass123456" };
 
             List<User> users = new List<User>() { user1, user2, user3 };
 
@@ -96,9 +95,9 @@ namespace ST.Data.Tests
             var context = ContextFactory.GetMemoryContext(Guid.NewGuid().ToString());
             IRepository<User> userRepository = new Repository<User>(context);
 
-            User user1 = new User() { IdentityNumber = "1111111", LastName = "Perez", Name = "Jorge", IsAdmin = false, UserName = "JPerez", Password = "pass123456" };
-            User user2 = new User() { IdentityNumber = "1111112", LastName = "Perez", Name = "Pedro", IsAdmin = false, UserName = "PePerez", Password = "pass123456" };
-            User user3 = new User() { IdentityNumber = "1111113", LastName = "Perez", Name = "Pepe", IsAdmin = false, UserName = "PPerez", Password = "pass123456" };
+            User user1 = new Employee() { IdentityNumber = "1111111", LastName = "Perez", Name = "Jorge", UserName = "JPerez", Password = "pass123456" };
+            User user2 = new Employee() { IdentityNumber = "1111112", LastName = "Perez", Name = "Pedro", UserName = "PePerez", Password = "pass123456" };
+            User user3 = new Employee() { IdentityNumber = "1111113", LastName = "Perez", Name = "Pepe", UserName = "PPerez", Password = "pass123456" };
 
             List<User> users = new List<User>() { user1, user2, user3 };
 
@@ -119,7 +118,7 @@ namespace ST.Data.Tests
             var context = ContextFactory.GetMemoryContext(Guid.NewGuid().ToString());
             IRepository<User> userRepository = new Repository<User>(context);
 
-            User user1 = new User() { IdentityNumber = "1111111", LastName = "Perez", Name = "Jorge", IsAdmin = false, UserName = "JPerez", Password = "pass123456" };
+            User user1 = new Employee() { IdentityNumber = "1111111", LastName = "Perez", Name = "Jorge", UserName = "JPerez", Password = "pass123456" };
 
             userRepository.Create(user1);
             userRepository.Save();
@@ -142,7 +141,7 @@ namespace ST.Data.Tests
             var context = ContextFactory.GetMemoryContext(Guid.NewGuid().ToString());
             IRepository<User> userRepository = new Repository<User>(context);
 
-            User user1 = new User() { IdentityNumber = "1111111", LastName = "Perez", Name = "Jorge", IsAdmin = false, UserName = "JPerez", Password = "pass123456" };
+            User user1 = new Employee() { IdentityNumber = "1111111", LastName = "Perez", Name = "Jorge", UserName = "JPerez", Password = "pass123456" };
 
             userRepository.Create(user1);
             userRepository.Save();
