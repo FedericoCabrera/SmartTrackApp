@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ST.Data.DataAccess;
 
 namespace ST.Data.DataAccess.Migrations
 {
     [DbContext(typeof(STDbContext))]
-    partial class STDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200508144251_Sessions")]
+    partial class Sessions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

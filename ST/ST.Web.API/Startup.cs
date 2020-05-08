@@ -40,6 +40,7 @@ namespace ST.Web.API
             //Dependency Injection
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ISessionService, SessionService>();
 
             //CORS
             services.AddCors(options =>

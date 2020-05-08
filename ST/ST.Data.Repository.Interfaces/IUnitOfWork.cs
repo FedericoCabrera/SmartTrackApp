@@ -7,5 +7,6 @@ namespace ST.Data.Repository.Interfaces
     {
         IRepository<User> UserRepository { get; }
         IRepository<Traject> TrajectRepository { get; }
+        IRepository<Session> SessionRepository { get; }
     }
 }

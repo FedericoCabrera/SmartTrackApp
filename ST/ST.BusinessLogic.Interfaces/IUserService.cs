@@ -10,6 +10,6 @@ namespace ST.BusinessLogic.Interfaces
         IEnumerable<User> GetAll();
         void CreateUser(User user);
         void ModifyUser(Guid userId, User newUser);
-        void GetUserByUserName(string userName);
+        User GetUserByUserName(string userName);
     }
 }
