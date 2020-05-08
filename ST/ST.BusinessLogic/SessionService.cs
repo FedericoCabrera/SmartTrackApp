@@ -11,17 +11,13 @@ namespace ST.BusinessLogic
     public class SessionService : ISessionService
     {
         private IUnitOfWork unitOfWork;
-        private IUserService userService;
-        public SessionService(IUnitOfWork unitOfWork, UserService userService)
+        public SessionService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
-            this.userService = userService;
         }
 
         public Session Create(Guid userId)
         {
-
-
             try
             {
                 Session session = new Session(userId);
@@ -52,8 +48,8 @@ namespace ST.BusinessLogic
             try
             {
 
-                var session = unitOfWork.SessionRepository.Get(x => x.Token.Equals(token)).ToList();
-                return session.First();
+                var session = unitOfWork.SessionRepository.Get(x => x.Token.Equals(token)).FirstOrDefault();
+                return session;
             }
             catch (Exception ex)
             {
@@ -75,5 +71,33 @@ namespace ST.BusinessLogic
             }
         }
 
+        public Session Login(string username, string password)
+        {
+            try
+            {
+                var user = unitOfWork.UserRepository.Get(x => x.UserName.Equals(username)).FirstOrDefault();
+                if (user.Password.Equals(password))
+                {
+                    var session = unitOfWork.SessionRepository.Get(x => x.UserId.Equals(user.Id)).FirstOrDefault();
+                    if (session==null)
+                    {
+                        session = new Session(user.Id);
+                        unitOfWork.SessionRepository.Create(session);
+                    }
+                    else 
+                    {
+                        session.Update(session);
+                        unitOfWork.SessionRepository.Update(session);
+                    }
+                    unitOfWork.SessionRepository.Save();
+                    return session;
+                }
+                throw new Exception();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
+        }
     }
 }

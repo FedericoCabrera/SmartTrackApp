@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ST.Web.API.Models
 {
-    public class SessionModel
+    public class LoginModel
     {
         [Required]
         public string UserName { get; set; }

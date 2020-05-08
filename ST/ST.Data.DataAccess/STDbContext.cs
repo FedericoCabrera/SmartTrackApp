@@ -19,5 +19,6 @@ namespace ST.Data.DataAccess
 
         public DbSet<User> Users { get; set; }
         public DbSet<Traject> Trajects { get; set; }
+        public DbSet<Session> Sessions { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace ST.Data.Entities
 
         public Session(Guid userId)
         {
+            this.Id = Guid.NewGuid();
             this.UserId = userId;
             this.Token = Guid.NewGuid();
             this.LastSession = DateTime.Now;
