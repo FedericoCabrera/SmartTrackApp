@@ -11,5 +11,8 @@ namespace ST.Data.Entities
             Trajects = new List<Traject>();
         }
         public List<Traject> Trajects { get; set; }
+        public Location Location { get; set; }
+        public Status EmployeeStatus { get; set; }
+        public enum Status { DISCONNECTED, CONNECTED, ON_A_TRIP }
     }
 }

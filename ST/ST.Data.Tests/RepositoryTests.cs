@@ -34,27 +34,19 @@ namespace ST.Data.Tests
         public void TestTrajectAddOk()
         {
             var context = ContextFactory.GetMemoryContext(Guid.NewGuid().ToString());
-            IRepository<User> userRepository = new Repository<User>(context);
             IRepository<Traject> trajectRepository = new Repository<Traject>(context);
 
-            User user = new Employee() { IdentityNumber = "1111111", LastName = "Perez", Name = "Jorge", UserName = "JPerez", Password="pass123456" };
             Traject traject = new Traject()
             {
                 Distance = 1,
                 Duration = 1,
                 StartDate = DateTime.Now,
-                FinalLatitude = 1000,
-                FinalLongitude = 1000,
                 IsFinished = false,
-                InitialLatitude = 999,
-                InitialLongitude = 999
+                LocationInitial = new Location() { Latitude = 1000, Longitude = 1000, LocationTime = DateTime.Now },
+                LocationFinal = new Location() { Latitude = 1000, Longitude = 1000, LocationTime = DateTime.Now }
             };
 
-            var userIdUsed = user.Id;
             var trajectIdUsed = traject.Id;
-
-            userRepository.Create(user);
-            userRepository.Save();
 
             trajectRepository.Create(traject);
             trajectRepository.Save();
@@ -62,7 +54,6 @@ namespace ST.Data.Tests
             var trajects = trajectRepository.Get(x => x.Id == traject.Id,null,"User").ToList();
 
             Assert.AreEqual(trajects[0].Id, trajectIdUsed);
-            Assert.AreEqual(trajects[0].User.Id, userIdUsed);
         }
 
         [TestMethod]

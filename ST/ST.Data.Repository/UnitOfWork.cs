@@ -95,6 +95,17 @@ namespace ST.Data.Repository
             }
         }
 
+        private IRepository<Location> locationRepository;
+        public IRepository<Location> LocationRepository
+        {
+            get
+            {
+                if (locationRepository == null)
+                    locationRepository = new Repository<Location>(dbContext);
+
+                return locationRepository;
+            }
+        }
 
         protected virtual void Dispose(bool disposing)
         {

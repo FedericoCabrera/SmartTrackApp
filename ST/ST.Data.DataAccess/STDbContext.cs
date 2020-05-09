@@ -22,6 +22,7 @@ namespace ST.Data.DataAccess
         public DbSet<Administrator> Administrators { get; set; }
         public DbSet<Company> Companys { get; set; }
         public DbSet<Traject> Trajects { get; set; }
+        public DbSet<Location> Locations { get; set; }
         public DbSet<Session> Sessions { get; set; }
     }
 }
