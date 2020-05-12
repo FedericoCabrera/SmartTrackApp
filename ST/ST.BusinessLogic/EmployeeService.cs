@@ -46,7 +46,7 @@ namespace ST.BusinessLogic
             }
         }
 
-        public User GetUserByEmployeeName(string employeeName)
+        public Employee GetEmployeeByEmployeeName(string employeeName)
         {
             throw new NotImplementedException();
         }
@@ -82,5 +82,6 @@ namespace ST.BusinessLogic
         {
             throw new NotImplementedException();
         }
+
     }
 }
