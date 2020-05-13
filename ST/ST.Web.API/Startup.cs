@@ -38,7 +38,7 @@ namespace ST.Web.API
             services.AddDbContext<STDbContext>(o => o.UseSqlServer(connection));
 
             //Dependency Injection
-            services.AddScoped<IUserService, EmployeeService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ISessionService, SessionService>();
 

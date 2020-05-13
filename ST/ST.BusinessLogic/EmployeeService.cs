@@ -27,8 +27,8 @@ namespace ST.BusinessLogic
             ValidateStringProperty(employee.LastName);
             ValidateStringProperty(employee.Name);
             ValidateStringProperty(employee.UserName);
-            ValidateUserPassword(employee.Password);
-            ValidateUserName(employee.UserName);
+            //ValidateUserPassword(employee.Password);
+            //ValidateUserName(employee.UserName);
 
             unitOfWork.UserRepository.Create(employee);
             unitOfWork.UserRepository.Save();
@@ -46,9 +46,18 @@ namespace ST.BusinessLogic
             }
         }
 
-        public Employee GetEmployeeByEmployeeName(string employeeName)
+        public Employee GetEmployeeByUsername(string userName)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                return unitOfWork.EmployeeRepository.Get(x => x.UserName.Equals(userName)).FirstOrDefault();
+                 
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
         }
 
         public void ModifyEmployee(Guid employeeId, Employee newEmployee)

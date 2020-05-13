@@ -23,7 +23,8 @@ namespace ST.BusinessLogic
         {
             try
             {
-                return unitOfWork.EmployeeRepository.Get();
+
+                return unitOfWork.CompanyRepository.Get();
             }
             catch (Exception ex)
             {
