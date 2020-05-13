@@ -87,39 +87,4 @@ public class LoginFragment extends Fragment {
         });
     }
 
-    //DELETE
-    private void getValues() {
-        /*Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Config.BASE_API_URL)
-                //.client(UnsafeOkHttpClient.getUnsafeOkHttpClient())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();*/
-
-        Retrofit retrofit = RetrofitHelper.getInstance().getBuilder();
-
-        IValuesApiService valuesApi = retrofit.create(IValuesApiService.class);
-
-        Call<List<Value>> call = valuesApi.getValues();
-
-        call.enqueue(new Callback<List<Value>>() {
-            @Override
-            public void onResponse(Call<List<Value>> call, Response<List<Value>> response) {
-                if (response.isSuccessful()) {
-                    //textView.setText(response.toString());
-                    for (Value s : response.body()) {
-                        Toast.makeText(thisContext, s.getV1() + " " + s.getV2(), Toast.LENGTH_LONG).show();
-                    }
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Value>> call, Throwable t) {
-                textView.setText(t.getMessage());
-
-                Toast.makeText(thisContext, t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
 }
