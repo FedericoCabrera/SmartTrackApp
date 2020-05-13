@@ -1,8 +1,10 @@
-package com.example.dispmoviles.smarttrackapp;
+package com.isp.smarttrackapp.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.isp.smarttrackapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
