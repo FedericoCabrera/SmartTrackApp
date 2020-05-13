@@ -92,5 +92,9 @@ namespace ST.BusinessLogic
             throw new NotImplementedException();
         }
 
+        public Employee GetEmployeeByEmployeeName(string employeeName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
