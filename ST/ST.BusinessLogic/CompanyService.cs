@@ -23,7 +23,6 @@ namespace ST.BusinessLogic
         {
             try
             {
-
                 return unitOfWork.CompanyRepository.Get();
             }
             catch (Exception ex)
@@ -34,17 +33,43 @@ namespace ST.BusinessLogic
 
         public IEnumerable<Employee> GetAllEmployees(Guid companyId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId)).FirstOrDefault().Employees;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
         }
 
         public void AddEmployee(Guid companyId, Employee employee)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Company company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId)).FirstOrDefault();
+                company.Employees.Add(employee);
+                unitOfWork.CompanyRepository.Update(company);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
         }
 
         public void RemoveEmployee(Guid companyId, Guid employeeId)        
         {
-            throw new NotImplementedException();
+            try
+            {
+                Company company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId)).FirstOrDefault();
+                Employee employee = unitOfWork.EmployeeRepository.Get(x => x.Id.Equals(employeeId)).FirstOrDefault();
+                company.Employees.Remove(employee);
+                unitOfWork.CompanyRepository.Update(company);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
         }
 
     }

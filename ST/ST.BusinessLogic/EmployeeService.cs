@@ -62,7 +62,19 @@ namespace ST.BusinessLogic
 
         public void ModifyEmployee(Guid employeeId, Employee newEmployee)
         {
-            throw new NotImplementedException();
+            Employee employee = unitOfWork.EmployeeRepository.Get(x => x.Id.Equals(employeeId)).FirstOrDefault();
+            ValidateStringProperty(newEmployee.IdentityNumber);
+            ValidateStringProperty(newEmployee.LastName);
+            ValidateStringProperty(newEmployee.Name);
+            ValidateStringProperty(newEmployee.UserName);
+
+            employee.IdentityNumber = newEmployee.IdentityNumber;
+            employee.LastName = newEmployee.LastName;
+            employee.Name = newEmployee.Name;
+            employee.UserName = newEmployee.UserName;
+
+            unitOfWork.UserRepository.Update(employee);
+            unitOfWork.UserRepository.Save();
         }
 
         private void ValidateEmployeeName(string employeeName)
@@ -87,14 +99,17 @@ namespace ST.BusinessLogic
                 throw new RequiredPropertyNotFoundException();
         }
 
-        public Location GetEmployeeLocationByEmployeeName(string employeeName)
+        public Location GetEmployeeLocationByEmployeeName(string userName)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return unitOfWork.EmployeeRepository.Get(x => x.UserName.Equals(userName)).FirstOrDefault().Location;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
         }
 
-        public Employee GetEmployeeByEmployeeName(string employeeName)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
