@@ -1,4 +1,4 @@
-package com.example.dispmoviles.smarttrackapp;
+package com.isp.smarttrackapp;
 
 import org.junit.Test;
 

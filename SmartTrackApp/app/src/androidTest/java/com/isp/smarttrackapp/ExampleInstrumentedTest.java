@@ -1,4 +1,4 @@
-package com.example.dispmoviles.smarttrackapp;
+package com.isp.smarttrackapp;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.dispmoviles.smarttrackapp", appContext.getPackageName());
+        assertEquals("com.isp.smarttrackapp", appContext.getPackageName());
     }
 }

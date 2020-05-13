@@ -10,11 +10,20 @@ namespace ST.Web.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        public class Value
+        {
+            public string V1 { get; set; }
+            public string V2 { get; set; }
+        }
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<Value>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var v1 = new Value{ V1 = "1", V2 = "2" };
+            var v2 = new Value { V1 = "4", V2 = "6" };
+            List<Value> vals = new List<Value>() { v1, v2 };
+
+            return  Ok(vals);
         }
 
         // GET api/values/5
