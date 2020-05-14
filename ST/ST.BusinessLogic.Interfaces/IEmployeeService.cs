@@ -9,7 +9,7 @@ namespace ST.BusinessLogic.Interfaces
         IEnumerable<Employee> GetAll();
         void CreateEmployee(Employee employee);
         void ModifyEmployee(Guid employeeId, Employee newEmployee);
-        Employee GetEmployeeByEmployeeName(string employeeName);
         Location GetEmployeeLocationByEmployeeName(string employeeName);
+        Employee GetEmployeeByUsername(string userName);
     }
 }

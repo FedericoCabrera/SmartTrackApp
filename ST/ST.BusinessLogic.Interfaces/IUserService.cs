@@ -11,5 +11,7 @@ namespace ST.BusinessLogic.Interfaces
         void CreateUser(User user);
         void ModifyUser(Guid userId, User newUser);
         User GetUserByUserName(string userName);
+
+        User GetUserById(Guid id);
     }
 }

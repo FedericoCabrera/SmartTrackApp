@@ -48,8 +48,32 @@ namespace ST.BusinessLogic
 
         public User GetUserByUserName(string userName)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = unitOfWork.UserRepository.Get(x => x.UserName == userName).FirstOrDefault();
+                return user;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception();
+            }
         }
+
+        public User GetUserById(Guid id)
+        {
+            try
+            {
+                var user = unitOfWork.UserRepository.Get(x => x.Id == id).FirstOrDefault();
+                return user;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception();
+            }
+        }
+
 
         public void ModifyUser(Guid userId, User newUser)
         {

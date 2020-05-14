@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ST.BusinessLogic.Interfaces;
+using ST.Data.Entities;
 using ST.Web.API.Models;
 
 namespace ST.Web.API.Controllers
@@ -13,13 +14,16 @@ namespace ST.Web.API.Controllers
     [ApiController]
     public class UsersController : Controller
     {
+        IAdministratorService administratorService;
+        ICompanyService companyService;
         IUserService userService;
 
-        public UsersController(IUserService userService)
+        public UsersController(IAdministratorService administratorService, ICompanyService companyService, IUserService userService)
         {
+            this.administratorService = administratorService;
+            this.companyService = companyService;
             this.userService = userService;
         }
-
 
         [HttpGet]
         public IActionResult Get()
@@ -36,11 +40,14 @@ namespace ST.Web.API.Controllers
 
        // POST: api/Users
         [HttpPost]
-        public IActionResult CreateUser([FromBody] EmployeeModel user)
+        public IActionResult CreateEmployee([FromBody] EmployeeModel employee)
         {
             try
             {
-                userService.CreateUser(user.ToEntity());
+               var token = new Guid(Request.Headers["Authorization"]);
+               Administrator admin = administratorService.GetAdminById(token);
+               userService.CreateUser(employee.ToEntity());
+               companyService.AddEmployee(admin.Company.Id , employee.ToEntity());          
                 return Ok();
             }
             catch (Exception ex)

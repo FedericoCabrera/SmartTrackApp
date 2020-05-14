@@ -4,7 +4,9 @@ namespace ST.Data.Entities
 {
     public class Administrator : User
     {
-        public Administrator(){}
+        public Administrator(){
+            Id = Guid.NewGuid();
+        }
 
         public Company Company { get; set; }
     }

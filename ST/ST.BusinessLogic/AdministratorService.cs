@@ -16,7 +16,26 @@ namespace ST.BusinessLogic
         public AdministratorService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
-        }        
+        }
 
+        public void CreateAdministrator(Administrator administrator)
+        {
+            unitOfWork.AdministratorRepository.Create(administrator);
+            unitOfWork.AdministratorRepository.Save();
+        }
+
+        public Administrator GetAdminById(Guid id)
+        {
+            try
+            {
+                var admin = unitOfWork.AdministratorRepository.Get(x => x.Id == id).FirstOrDefault();
+                return admin;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception();
+            }
+        }
     }
 }

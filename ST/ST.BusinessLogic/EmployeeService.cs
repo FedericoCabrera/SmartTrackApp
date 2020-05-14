@@ -99,17 +99,9 @@ namespace ST.BusinessLogic
                 throw new RequiredPropertyNotFoundException();
         }
 
-        public Location GetEmployeeLocationByEmployeeName(string userName)
+        public Location GetEmployeeLocationByEmployeeName(string employeeName)
         {
-            try
-            {
-                return unitOfWork.EmployeeRepository.Get(x => x.UserName.Equals(userName)).FirstOrDefault().Location;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.ToString());
-            }
+            throw new NotImplementedException();
         }
-
     }
 }

@@ -10,5 +10,8 @@ namespace ST.BusinessLogic.Interfaces
         IEnumerable<Employee> GetAllEmployees(Guid companyId);
         void AddEmployee(Guid companyId, Employee employee);
         void RemoveEmployee(Guid companyId, Guid employeeId);
+        void AddCompany(string name);
+
+        Company GetCompanyByName(string companyName);
     }
 }

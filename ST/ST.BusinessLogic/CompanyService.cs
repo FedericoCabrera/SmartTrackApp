@@ -31,6 +31,21 @@ namespace ST.BusinessLogic
             }
         }
 
+        public Company GetCompanyByName(string companyName)
+        {
+            try
+            {
+                var Company = unitOfWork.CompanyRepository.Get(x => x.Name.Equals(companyName)).FirstOrDefault();
+                return Company;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception();
+            }
+        }
+
+
         public IEnumerable<Employee> GetAllEmployees(Guid companyId)
         {
             try
@@ -50,6 +65,21 @@ namespace ST.BusinessLogic
                 Company company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId)).FirstOrDefault();
                 company.Employees.Add(employee);
                 unitOfWork.CompanyRepository.Update(company);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
+        }
+
+        public void AddCompany(string name)
+        {
+            try
+            {
+                Company company = new Company();
+                company.Name = name;
+                unitOfWork.CompanyRepository.Create(company);
+                unitOfWork.CompanyRepository.Save();
             }
             catch (Exception ex)
             {

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ST.Web.API.Models
 {
-    public class EmployeeModel : Model<Employee, EmployeeModel>
+    public class AdministratorModel : Model<Administrator, AdministratorModel>
     {
-        public EmployeeModel() { }
+        public AdministratorModel() { }
 
-        public EmployeeModel(Employee entity)
+        public AdministratorModel(Administrator entity)
         {
             SetModel(entity);
         }
@@ -23,7 +23,9 @@ namespace ST.Web.API.Models
         public string IdentityNumber { get; set; }
         public bool IsAdmin { get; set; }
 
-        public override Employee ToEntity() => new Employee()
+        public string CompanyName { get; set; }
+
+        public override Administrator ToEntity() => new Administrator()
         {
             Name = this.Name,
             IdentityNumber = this.IdentityNumber,
@@ -32,7 +34,7 @@ namespace ST.Web.API.Models
             UserName = this.UserName,
         };
 
-        protected override EmployeeModel SetModel(Employee entity)
+        protected override AdministratorModel SetModel(Administrator entity)
         {
             Name = entity.Name;
             IdentityNumber = entity.IdentityNumber;

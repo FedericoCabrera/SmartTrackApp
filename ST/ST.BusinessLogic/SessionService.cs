@@ -49,6 +49,7 @@ namespace ST.BusinessLogic
             {
 
                 var session = unitOfWork.SessionRepository.Get(x => x.Token.Equals(token)).FirstOrDefault();
+               // var user = unitOfWork.UserRepository.
                 return session;
             }
             catch (Exception ex)
