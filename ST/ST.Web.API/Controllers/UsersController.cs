@@ -50,10 +50,9 @@ namespace ST.Web.API.Controllers
                var token = new Guid(Request.Headers["Authorization"]);
                var user = sessionService.GetUserByToken(token);
                Administrator admin = administratorService.GetAdminById(user.Id);
-                var c = admin.Company;
-               var g = c.Id;
-               userService.CreateUser(employee.ToEntity());
-               companyService.AddEmployee(g , employee.ToEntity());          
+               var company = admin.Company;
+               var companyId = company.Id;
+               companyService.AddEmployee(companyId, employee.ToEntity());          
                return Ok();
             }
             catch (Exception ex)

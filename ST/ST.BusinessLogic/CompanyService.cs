@@ -75,9 +75,10 @@ namespace ST.BusinessLogic
         {
             try
             {
-                Company company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId)).FirstOrDefault();
+                Company company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId),null,"Employees").FirstOrDefault();
                 company.Employees.Add(employee);
                 unitOfWork.CompanyRepository.Update(company);
+                unitOfWork.CompanyRepository.Save();
             }
             catch (Exception ex)
             {
