@@ -43,14 +43,14 @@ namespace ST.BusinessLogic
             }
         }
 
-        public Session GetUserByToken(Guid token)
+        public User GetUserByToken(Guid token)
         {
             try
             {
 
                 var session = unitOfWork.SessionRepository.Get(x => x.Token.Equals(token)).FirstOrDefault();
-               // var user = unitOfWork.UserRepository.
-                return session;
+                var user = unitOfWork.UserRepository.Get(x => x.Id.Equals(session.UserId)).FirstOrDefault();
+                return user;
             }
             catch (Exception ex)
             {

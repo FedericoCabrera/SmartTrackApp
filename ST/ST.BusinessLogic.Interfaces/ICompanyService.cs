@@ -11,7 +11,7 @@ namespace ST.BusinessLogic.Interfaces
         void AddEmployee(Guid companyId, Employee employee);
         void RemoveEmployee(Guid companyId, Guid employeeId);
         void AddCompany(string name);
-
+        Company GetCompanyById(Guid id);
         Company GetCompanyByName(string companyName);
     }
 }

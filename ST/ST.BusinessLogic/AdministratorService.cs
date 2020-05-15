@@ -28,9 +28,10 @@ namespace ST.BusinessLogic
         {
             try
             {
-                var admin = unitOfWork.AdministratorRepository.Get(x => x.Id == id).FirstOrDefault();
+                var admin = unitOfWork.AdministratorRepository.Get().Where(x => x.Id == id).FirstOrDefault();
                 return admin;
             }
+
             catch (Exception ex)
             {
 

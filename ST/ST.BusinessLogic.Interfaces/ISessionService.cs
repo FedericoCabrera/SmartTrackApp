@@ -9,8 +9,10 @@ namespace ST.BusinessLogic.Interfaces
     {
         Session Create(Guid userId);
         Session Login (string username, string password);
-        Session GetUserByToken(Guid token);
+        User GetUserByToken(Guid token);
         bool IsAuthentication(Guid token);
         IEnumerable<Session> GetAll();
+
+ 
     }
 }

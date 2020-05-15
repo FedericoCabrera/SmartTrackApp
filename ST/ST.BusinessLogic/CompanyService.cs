@@ -45,6 +45,19 @@ namespace ST.BusinessLogic
             }
         }
 
+        public Company GetCompanyById(Guid id)
+        {
+            try
+            {
+                var Company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(id)).FirstOrDefault();
+                return Company;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception();
+            }
+        }
 
         public IEnumerable<Employee> GetAllEmployees(Guid companyId)
         {
