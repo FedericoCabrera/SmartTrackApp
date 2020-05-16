@@ -17,14 +17,14 @@ namespace ST.Web.API.Controllers
     {
         IAdministratorService administratorService;
         ICompanyService companyService;
-        IUserService userService;
+        IEmployeeService employeeService;
         ISessionService sessionService;
 
         public UsersController(IAdministratorService administratorService, ICompanyService companyService, IUserService userService, ISessionService sessionService)
         {
             this.administratorService = administratorService;
             this.companyService = companyService;
-            this.userService = userService;
+            this.employeeService = employeeService;
             this.sessionService = sessionService;
         }
 
@@ -33,7 +33,7 @@ namespace ST.Web.API.Controllers
         {
             try
             {
-                return Ok(userService.GetAll());
+                return Ok(employeeService.GetAll());
             }
             catch (Exception ex)
             {
@@ -54,6 +54,63 @@ namespace ST.Web.API.Controllers
                var companyId = company.Id;
                companyService.AddEmployee(companyId, employee.ToEntity());          
                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpDelete]
+        public IActionResult RemoveEmployee([FromBody] EmployeeModel employee)
+        {
+            try
+            {
+                var token = new Guid(Request.Headers["Authorization"]);
+                var user = sessionService.GetUserByToken(token);
+                Administrator admin = administratorService.GetAdminById(user.Id);
+                var company = admin.Company;
+                var companyId = company.Id;
+                companyService.RemoveEmployee(companyId, employee.Id);
+                employeeService.RemoveEmployee(employee.ToEntity());
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+
+        }
+
+        [HttpPut]
+        public IActionResult UpdateEmployee([FromBody] EmployeeModel employee)
+        {
+            try
+            {
+                var token = new Guid(Request.Headers["Authorization"]);
+                var user = sessionService.GetUserByToken(token);
+                Administrator admin = administratorService.GetAdminById(user.Id);
+                employeeService.ModifyEmployee(employee.ToEntity());
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+
+        }
+
+
+        [HttpPut]
+        public IActionResult UpdateLocation([FromBody] LocationModel location)
+        {
+            try
+            {
+                var token = new Guid(Request.Headers["Authorization"]);
+                var user = sessionService.GetUserByToken(token);
+                Employee employee = employeeService.GetEmployeeById(user.Id);
+                employeeService.ModifyLocation(employee, location.ToEntity());
+                return Ok();
             }
             catch (Exception ex)
             {
