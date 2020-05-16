@@ -24,15 +24,15 @@ namespace ST.BusinessLogic.Tests
             });
             unitOfWork.Setup(r => r.UserRepository.Create(It.IsAny<User>()));
             
-            IUserService userService = new UserService(unitOfWork.Object);
-            User user1 = new Employee() { 
+            IEmployeeService userService = new EmployeeService(unitOfWork.Object);
+            Employee user1 = new Employee() { 
                 IdentityNumber = "1111111", 
                 LastName = "Perez", 
                 Name = "Jorge", 
                 UserName = "JPerez", 
                 Password = "Pass123456" };
 
-            userService.CreateUser(user1);
+            userService.CreateEmployee(user1);
             unitOfWork.VerifyAll();
 
         }
@@ -49,8 +49,8 @@ namespace ST.BusinessLogic.Tests
                 });
             unitOfWork.Setup(r => r.UserRepository.Create(It.IsAny<User>()));
 
-            IUserService userService = new UserService(unitOfWork.Object);
-            User user1 = new Administrator()
+            IAdministratorService userService = new AdministratorService(unitOfWork.Object);
+            Administrator user1 = new Administrator()
             {
                 IdentityNumber = "1111111",
                 LastName = "Perez",
@@ -59,7 +59,7 @@ namespace ST.BusinessLogic.Tests
                 Password = "pass123456"
             };
 
-            userService.CreateUser(user1);
+            userService.CreateAdministrator(user1);
             unitOfWork.VerifyAll();
 
         }

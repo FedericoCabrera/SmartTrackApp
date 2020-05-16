@@ -30,8 +30,15 @@ namespace ST.BusinessLogic
             //ValidateUserPassword(employee.Password);
             //ValidateUserName(employee.UserName);
 
-            unitOfWork.UserRepository.Create(employee);
-            unitOfWork.UserRepository.Save();
+            Location location = new Location();
+            location.Latitude = 0;
+            location.Longitude = 0;
+            location.LocationTime = DateTime.Now;
+
+            employee.Location = location;
+
+            unitOfWork.EmployeeRepository.Create(employee);
+            unitOfWork.EmployeeRepository.Save();
         }
 
         public IEnumerable<Employee> GetAll() 
@@ -60,21 +67,47 @@ namespace ST.BusinessLogic
             }
         }
 
-        public void ModifyEmployee(Guid employeeId, Employee newEmployee)
+        public Employee GetEmployeeById(Guid employeeId)
         {
-            Employee employee = unitOfWork.EmployeeRepository.Get(x => x.Id.Equals(employeeId)).FirstOrDefault();
-            ValidateStringProperty(newEmployee.IdentityNumber);
-            ValidateStringProperty(newEmployee.LastName);
-            ValidateStringProperty(newEmployee.Name);
-            ValidateStringProperty(newEmployee.UserName);
+            try
+            {
+                return unitOfWork.EmployeeRepository.Get(x => x.Id.Equals(employeeId),null,"Location").FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
+        }
 
-            employee.IdentityNumber = newEmployee.IdentityNumber;
-            employee.LastName = newEmployee.LastName;
-            employee.Name = newEmployee.Name;
-            employee.UserName = newEmployee.UserName;
+        public void ModifyEmployee(Employee employee)
+        {
+            try
+            {
+                ValidateStringProperty(employee.IdentityNumber);
+                ValidateStringProperty(employee.LastName);
+                ValidateStringProperty(employee.Name);
+                ValidateStringProperty(employee.UserName);
 
-            unitOfWork.UserRepository.Update(employee);
-            unitOfWork.UserRepository.Save();
+                unitOfWork.UserRepository.Update(employee);
+                unitOfWork.UserRepository.Save();
+            }
+            catch (Exception ex) 
+            {
+                throw new Exception();
+            }
+        }
+
+        public void RemoveEmployee(Employee employee)
+        {
+            try
+            {
+                unitOfWork.UserRepository.Create(employee);
+                unitOfWork.UserRepository.Save();
+            }
+            catch (Exception ex) 
+            {
+                throw new Exception();
+            }
         }
 
         public void ConnectedEmployee(string username) 
@@ -111,5 +144,23 @@ namespace ST.BusinessLogic
         {
             throw new NotImplementedException();
         }
+
+        public void ModifyLocation(Employee employee, Location location)
+        {
+            try
+            {
+                Location employeeLocation = employee.Location;
+                employeeLocation.Latitude = location.Latitude;
+                employeeLocation.Longitude = location.Longitude;
+                employeeLocation.LocationTime = location.LocationTime;
+                unitOfWork.LocationRepository.Update(employeeLocation);
+                unitOfWork.LocationRepository.Save();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
+        }
+
     }
 }
