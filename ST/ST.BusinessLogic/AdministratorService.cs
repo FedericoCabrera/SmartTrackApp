@@ -38,5 +38,19 @@ namespace ST.BusinessLogic
                 throw new Exception();
             }
         }
+
+        public Administrator GetAdministratorByUsername(string userName)
+        {
+            try
+            {
+
+                return unitOfWork.AdministratorRepository.Get(x => x.UserName.Equals(userName)).FirstOrDefault();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
+        }
     }
 }

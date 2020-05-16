@@ -51,7 +51,6 @@ namespace ST.Web.API.Controllers
             {
                 return BadRequest(ex.ToString());
             }
-
         }
 
         [HttpPost("administrators")]

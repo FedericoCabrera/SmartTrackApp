@@ -11,7 +11,9 @@ namespace ST.BusinessLogic.Interfaces
         void CreateUser(User user);
         void ModifyUser(Guid userId, User newUser);
         User GetUserByUserName(string userName);
-
+        List<Employee> GetUsersByCompany(Guid companyId);
         User GetUserById(Guid id);
+
+        void UpdateUserState(string usaername);
     }
 }

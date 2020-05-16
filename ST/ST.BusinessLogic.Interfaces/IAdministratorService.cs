@@ -9,5 +9,7 @@ namespace ST.BusinessLogic.Interfaces
 
         Administrator GetAdminById(Guid id);
         void CreateAdministrator(Administrator administrator);
+
+        Administrator GetAdministratorByUsername(string userName);
     } 
 }

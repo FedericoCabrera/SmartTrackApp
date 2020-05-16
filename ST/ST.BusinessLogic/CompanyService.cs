@@ -63,7 +63,8 @@ namespace ST.BusinessLogic
         {
             try
             {
-                return unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId)).FirstOrDefault().Employees;
+                var company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId), null, "Employees").FirstOrDefault();
+                return company.Employees;
             }
             catch (Exception ex)
             {

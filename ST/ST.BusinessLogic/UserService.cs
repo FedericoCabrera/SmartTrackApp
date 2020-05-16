@@ -60,6 +60,20 @@ namespace ST.BusinessLogic
             }
         }
 
+        public List<Employee> GetUsersByCompany(Guid companyId)
+        {
+            try
+            {
+                var company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId),null, "Employees").FirstOrDefault();
+                return company.Employees;                
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception();
+            }
+        }
+
         public User GetUserById(Guid id)
         {
             try
@@ -102,6 +116,9 @@ namespace ST.BusinessLogic
                 throw new RequiredPropertyNotFoundException();
         }
 
-
+        public void UpdateUserState(string usaername)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

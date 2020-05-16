@@ -77,6 +77,14 @@ namespace ST.BusinessLogic
             unitOfWork.UserRepository.Save();
         }
 
+        public void ConnectedEmployee(string username) 
+        {
+            var employee = GetEmployeeByUsername(username);
+            employee.EmployeeStatus = Employee.Status.CONNECTED;
+            unitOfWork.UserRepository.Update(employee);
+            unitOfWork.UserRepository.Save();
+        }
+
         private void ValidateEmployeeName(string employeeName)
         {
             var employee = unitOfWork.EmployeeRepository.Get(x => x.Name == employeeName).FirstOrDefault();

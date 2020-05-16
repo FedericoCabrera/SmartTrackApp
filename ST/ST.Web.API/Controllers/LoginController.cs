@@ -14,10 +14,14 @@ namespace ST.Web.API.Controllers
     public class LoginController : ControllerBase
     {
         ISessionService sessionService;
+        IEmployeeService employeeService;
+        IAdministratorService administratorService;
 
-        public LoginController(ISessionService sessionService)
+        public LoginController(ISessionService sessionService, IEmployeeService employeeService, IAdministratorService administratorService)
         {
             this.sessionService = sessionService;
+            this.employeeService = employeeService;
+            this.administratorService = administratorService;
         }
 
 
@@ -25,8 +29,31 @@ namespace ST.Web.API.Controllers
         {
             try
             {
+              
                 var session = sessionService.Login(login.UserName, login.Password);
-                return Ok(session.Token);
+                var ret = new SessionModel();
+                var employee = employeeService.GetEmployeeByUsername(login.UserName);
+                if (employee == null)
+                {
+                    var admin = administratorService.GetAdministratorByUsername(login.UserName);
+                    ret.Name = admin.Name;
+                    ret.Lastname = admin.LastName;
+                    ret.UserId = admin.Id;
+                    ret.Username = admin.LastName;
+                    ret.IsAdmin = true;
+                    ret.Token = session.Token;
+
+                }
+                else
+                {
+                    ret.Name = employee.Name;
+                    ret.Lastname = employee.LastName;
+                    ret.UserId = employee.Id;
+                    ret.Username = employee.LastName;
+                    ret.IsAdmin = false;
+                    ret.Token = session.Token;
+                }
+                return Ok(ret);
             }
             catch (Exception)
             {
@@ -35,5 +62,11 @@ namespace ST.Web.API.Controllers
         }
 
 
+
+        void UpdateEmployeeStatus(string username) 
+        {
+            var employee = employeeService.GetEmployeeByUsername(username);
+
+        }
     }
 }

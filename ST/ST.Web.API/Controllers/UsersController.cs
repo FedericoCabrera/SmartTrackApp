@@ -28,12 +28,15 @@ namespace ST.Web.API.Controllers
             this.sessionService = sessionService;
         }
 
+
+
         [HttpGet]
         public IActionResult Get()
         {
             try
             {
-                return Ok(userService.GetAll());
+                var companyId = GetCompanyID();
+                return Ok(companyService.GetAllEmployees(companyId));     
             }
             catch (Exception ex)
             {
@@ -47,11 +50,7 @@ namespace ST.Web.API.Controllers
         {
             try
             {
-               var token = new Guid(Request.Headers["Authorization"]);
-               var user = sessionService.GetUserByToken(token);
-               Administrator admin = administratorService.GetAdminById(user.Id);
-               var company = admin.Company;
-               var companyId = company.Id;
+               var companyId = GetCompanyID();
                companyService.AddEmployee(companyId, employee.ToEntity());          
                return Ok();
             }
@@ -60,6 +59,24 @@ namespace ST.Web.API.Controllers
                 return BadRequest(ex.ToString());
             }
 
+        }
+
+        private Guid GetCompanyID() 
+        {
+            try
+            {
+                var token = new Guid(Request.Headers["Authorization"]);
+                var user = sessionService.GetUserByToken(token);
+                Administrator admin = administratorService.GetAdminById(user.Id);
+                var company = admin.Company;
+                return company.Id;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception();
+            }
+           
         }
     }
 }

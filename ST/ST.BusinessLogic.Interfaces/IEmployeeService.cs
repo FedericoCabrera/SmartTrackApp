@@ -11,5 +11,7 @@ namespace ST.BusinessLogic.Interfaces
         void ModifyEmployee(Guid employeeId, Employee newEmployee);
         Location GetEmployeeLocationByEmployeeName(string employeeName);
         Employee GetEmployeeByUsername(string userName);
+
+        void ConnectedEmployee(string username);
     }
 }
