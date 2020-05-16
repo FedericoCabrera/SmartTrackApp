@@ -35,12 +35,9 @@ namespace ST.Web.API.Controllers
         {
             try
             {
-<<<<<<< HEAD
                 var companyId = GetCompanyID();
                 return Ok(companyService.GetAllEmployees(companyId));     
-=======
-                return Ok(employeeService.GetAll());
->>>>>>> 2bfd42915634cab45ff9328be0b155647ec4d6bb
+
             }
             catch (Exception ex)
             {

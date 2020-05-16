@@ -13,11 +13,8 @@ namespace ST.BusinessLogic.Interfaces
         Location GetEmployeeLocationByEmployeeName(string employeeName);
         void ModifyLocation(Employee employee, Location location);
         Employee GetEmployeeByUsername(string userName);
-<<<<<<< HEAD
-
         void ConnectedEmployee(string username);
-=======
         Employee GetEmployeeById(Guid employeeId);
->>>>>>> 2bfd42915634cab45ff9328be0b155647ec4d6bb
+
     }
 }
