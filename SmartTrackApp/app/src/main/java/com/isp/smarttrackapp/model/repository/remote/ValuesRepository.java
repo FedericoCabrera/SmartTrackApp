@@ -1,6 +1,5 @@
-package com.isp.smarttrackapp.model.repository;
+package com.isp.smarttrackapp.model.repository.remote;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.isp.smarttrackapp.model.entities.Value;

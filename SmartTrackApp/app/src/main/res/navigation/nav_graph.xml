@@ -23,18 +23,39 @@
         android:name="com.isp.smarttrackapp.view.LoginFragment"
         android:label="LoginFragment">
         <action
-            android:id="@+id/action_loginFragment_to_createUserFragment"
-            app:destination="@id/createUserFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            android:id="@+id/action_loginFragment_to_mainAdminFragment"
+            app:destination="@id/mainAdminFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_mainEmployeeFragment"
+            app:destination="@id/mainEmployeeFragment" />
     </fragment>
     <fragment
         android:id="@+id/createUserFragment"
         android:name="com.isp.smarttrackapp.view.CreateUserFragment"
         android:label="fragment_create_user"
         tools:layout="@layout/fragment_create_user"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"/>
+    <fragment
+        android:id="@+id/mainAdminFragment"
+        android:name="com.isp.smarttrackapp.view.MainAdminFragment"
+        android:label="fragment_main_admin"
+        tools:layout="@layout/fragment_main_admin"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right">
+        <action
+            android:id="@+id/action_mainAdminFragment_to_createUserFragment"
+            app:destination="@id/createUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainEmployeeFragment"
+        android:name="com.isp.smarttrackapp.view.MainEmployeeFragment"
+        android:label="fragment_main_employee"
+        tools:layout="@layout/fragment_main_employee"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"

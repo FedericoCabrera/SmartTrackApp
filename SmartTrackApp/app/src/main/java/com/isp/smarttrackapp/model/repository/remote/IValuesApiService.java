@@ -1,4 +1,4 @@
-package com.isp.smarttrackapp.model.repository;
+package com.isp.smarttrackapp.model.repository.remote;
 
 import com.isp.smarttrackapp.model.entities.Value;
 

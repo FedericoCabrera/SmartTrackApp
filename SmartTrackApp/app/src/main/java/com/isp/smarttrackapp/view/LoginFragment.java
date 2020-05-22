@@ -6,30 +6,27 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.isp.smarttrackapp.R;
+import com.isp.smarttrackapp.model.entities.Session;
 import com.isp.smarttrackapp.model.entities.Value;
-import com.isp.smarttrackapp.model.repository.IValuesApiService;
-import com.isp.smarttrackapp.Config;
-import com.isp.smarttrackapp.model.repository.RetrofitHelper;
+import com.isp.smarttrackapp.model.repository.local.LocalStorage;
+import com.isp.smarttrackapp.viewmodel.LoginFragmentViewModel;
 import com.isp.smarttrackapp.viewmodel.ValuesViewModel;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -38,8 +35,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginFragment extends Fragment {
 
     private TextView textView;
+    private TextInputEditText txtInputUser;
+    private TextInputEditText txtInputPassword;
+    private Button btnLogin;
+    private Button btnCancelar;
+
     private Context thisContext;
     private ValuesViewModel valuesViewModel;
+    private LoginFragmentViewModel loginViewModel;
+
+    private NavController navController;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -51,20 +56,61 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         // Inflate the layout for this fragment
         thisContext = getActivity();
         valuesViewModel = new ViewModelProvider(this).get(ValuesViewModel.class);
+        loginViewModel = new ViewModelProvider(this).get(LoginFragmentViewModel.class);
+
 
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        textView = view.findViewById(R.id.login_title);
-        observeViewModel(this.valuesViewModel);
+        navController = Navigation.findNavController(view);
+
+        btnLogin = view.findViewById(R.id.li_btn_login);
+        btnCancelar = view.findViewById(R.id.li_btn_cancel);
+        txtInputUser = view.findViewById(R.id.li_txt_input_username);
+        txtInputPassword = view.findViewById(R.id.li_txt_input_password);
+
+        textView = view.findViewById(R.id.li_title);
+
+        btnLogin.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(final View v) {
+                String userName = txtInputUser.getText().toString();
+                String password = txtInputPassword.getText().toString();
+
+                try{
+                    loginViewModel.login(userName, password).observe(getViewLifecycleOwner(), new Observer<Session>() {
+                        @Override
+                        public void onChanged(Session session) {
+                            Toast.makeText(thisContext, session.getToken() + "Admin: " + session.getIsAdmin(), Toast.LENGTH_LONG).show();
+
+                            //TODO: Pass to viewmodel, dont show setValueOK message
+                            LocalStorage localStorage = LocalStorage.getInstance();
+                            boolean setValueOK = localStorage.setValue(session.getToken(),"token");
+
+                            Toast.makeText(thisContext, "SetValueResult: " + setValueOK, Toast.LENGTH_LONG).show();
+
+                            if(session.getIsAdmin())
+                                navController.navigate(R.id.action_loginFragment_to_mainAdminFragment);
+                            else
+                                navController.navigate(R.id.action_loginFragment_to_mainEmployeeFragment);
+                        }
+                    });
+
+                }catch(Exception ex){
+                    Toast.makeText(thisContext, ex.toString(), Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
     }
 
     @Override
@@ -73,6 +119,7 @@ public class LoginFragment extends Fragment {
         thisContext = context;
     }
 
+    // TODO: Delete
     private void observeViewModel(ValuesViewModel valuesViewModel) {
 
         valuesViewModel.getValuesListObservable().observe(getViewLifecycleOwner(), new Observer<List<Value>>() {

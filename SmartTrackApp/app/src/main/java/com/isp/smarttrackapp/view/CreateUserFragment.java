@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.isp.smarttrackapp.R;
+import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 
 
 /**
@@ -30,6 +31,7 @@ public class CreateUserFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
     }
 
