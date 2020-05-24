@@ -50,6 +50,13 @@
         <action
             android:id="@+id/action_mainAdminFragment_to_createUserFragment"
             app:destination="@id/createUserFragment" />
+        <action
+            android:id="@+id/action_mainAdminFragment_to_employeesListFragment"
+            app:destination="@id/employeesListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/mainEmployeeFragment"
@@ -60,4 +67,8 @@
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right"/>
+    <fragment
+        android:id="@+id/employeesListFragment"
+        android:name="com.isp.smarttrackapp.view.EmployeesListFragment"
+        android:label="EmployeesListFragment" />
 </navigation>

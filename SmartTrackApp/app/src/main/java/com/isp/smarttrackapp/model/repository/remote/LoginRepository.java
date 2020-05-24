@@ -38,6 +38,7 @@ public class LoginRepository {
             @Override
             public void onResponse(Call<Session> call, Response<Session> response) {
                 if(response.isSuccessful()){
+
                     data.setValue(response.body());
                 }else{
                     try {
