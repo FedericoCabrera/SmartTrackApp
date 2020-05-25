@@ -20,7 +20,7 @@ namespace ST.Web.API.Controllers
         IEmployeeService employeeService;
         ISessionService sessionService;
 
-        public UsersController(IAdministratorService administratorService, ICompanyService companyService, IUserService userService, ISessionService sessionService)
+        public UsersController(IAdministratorService administratorService, ICompanyService companyService, IEmployeeService employeeService, ISessionService sessionService)
         {
             this.administratorService = administratorService;
             this.companyService = companyService;
