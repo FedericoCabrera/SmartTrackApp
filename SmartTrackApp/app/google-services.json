@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "762203027391",
+    "firebase_url": "https://smarttrackapp-a1c22.firebaseio.com",
+    "project_id": "smarttrackapp-a1c22",
+    "storage_bucket": "smarttrackapp-a1c22.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762203027391:android:717ffcce8361aa8ed7d30a",
+        "android_client_info": {
+          "package_name": "com.isp.smarttrackapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762203027391-uhi3j93anuuh334ei3hdmhmd9j3o0jlv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.isp.smarttrackapp",
+            "certificate_hash": "36ff172a960ca243be2a05a788ef09d5167df6b3"
+          }
+        },
+        {
+          "client_id": "762203027391-qnacf8c3ghiqg5aboo2qjcc48r3q3fb3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvty1q5lxHu8sYOa5BbOhqXg-f0Vmv2EA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "762203027391-qnacf8c3ghiqg5aboo2qjcc48r3q3fb3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
