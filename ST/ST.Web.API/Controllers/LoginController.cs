@@ -29,7 +29,6 @@ namespace ST.Web.API.Controllers
         {
             try
             {
-              
                 var session = sessionService.Login(login.UserName, login.Password);
                 var ret = new SessionModel();
                 var employee = employeeService.GetEmployeeByUsername(login.UserName);

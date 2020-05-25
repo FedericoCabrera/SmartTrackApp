@@ -78,6 +78,8 @@ public class LoginFragment extends Fragment {
 
         textView = view.findViewById(R.id.li_title);
 
+        this.observeViewModel(this.valuesViewModel);
+
         btnLogin.setOnClickListener(new View.OnClickListener(){
 
             @Override
