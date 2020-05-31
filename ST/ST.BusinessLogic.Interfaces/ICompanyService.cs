@@ -13,5 +13,6 @@ namespace ST.BusinessLogic.Interfaces
         void AddCompany(string name);
         Company GetCompanyById(Guid id);
         Company GetCompanyByName(string companyName);
+        IEnumerable<Employee> GetEmployeesActiveWithLocation(Guid companyId);
     }
 }

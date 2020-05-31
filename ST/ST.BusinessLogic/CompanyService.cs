@@ -118,5 +118,22 @@ namespace ST.BusinessLogic
             }
         }
 
+        public IEnumerable<Employee> GetEmployeesActiveWithLocation(Guid companyId)
+        {
+            try
+            {
+                Company company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId), null, "Employees").FirstOrDefault();
+                List<Employee> employees = new List<Employee>();
+                foreach (Employee emp in company.Employees)
+                {
+                    employees.Add(unitOfWork.EmployeeRepository.Get(x => x.Id.Equals(emp.Id) && x.EmployeeStatus.Equals(Employee.Status.CONNECTED), null, "Location").FirstOrDefault());
+                }
+                return employees;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
+        }
     }
 }

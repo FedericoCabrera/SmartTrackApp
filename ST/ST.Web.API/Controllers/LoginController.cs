@@ -24,7 +24,7 @@ namespace ST.Web.API.Controllers
             this.administratorService = administratorService;
         }
 
-
+        [HttpPost]
         public IActionResult Post([FromBody]LoginModel login)
         {
             try
@@ -60,12 +60,5 @@ namespace ST.Web.API.Controllers
             }
         }
 
-
-
-        void UpdateEmployeeStatus(string username) 
-        {
-            var employee = employeeService.GetEmployeeByUsername(username);
-
-        }
     }
 }

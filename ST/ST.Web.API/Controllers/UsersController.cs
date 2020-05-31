@@ -28,8 +28,6 @@ namespace ST.Web.API.Controllers
             this.sessionService = sessionService;
         }
 
-
-
         [HttpGet]
         public IActionResult Get()
         {
@@ -45,7 +43,22 @@ namespace ST.Web.API.Controllers
             }
         }
 
-       // POST: api/Users
+        [HttpGet]
+        public IActionResult GetLocation()
+        {
+            try
+            {
+                var companyId = GetCompanyID();
+                return Ok(companyService.GetEmployeesActiveWithLocation(companyId));
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        // POST: api/Users
         [HttpPost]
         public IActionResult CreateEmployee([FromBody] EmployeeModel employee)
         {
@@ -69,10 +82,13 @@ namespace ST.Web.API.Controllers
                 var token = new Guid(Request.Headers["Authorization"]);
                 var user = sessionService.GetUserByToken(token);
                 Administrator admin = administratorService.GetAdminById(user.Id);
-                var company = admin.Company;
-                var companyId = company.Id;
-                companyService.RemoveEmployee(companyId, employee.Id);
-                employeeService.RemoveEmployee(employee.ToEntity());
+                if(admin != null)
+                { 
+                    var company = admin.Company;
+                    var companyId = company.Id;
+                    companyService.RemoveEmployee(companyId, employee.Id);
+                    employeeService.RemoveEmployee(employee.ToEntity());
+                }
                 return Ok();
             }
             catch (Exception ex)
@@ -99,7 +115,6 @@ namespace ST.Web.API.Controllers
             }
 
         }
-
 
         [HttpPut]
         public IActionResult UpdateLocation([FromBody] LocationModel location)
