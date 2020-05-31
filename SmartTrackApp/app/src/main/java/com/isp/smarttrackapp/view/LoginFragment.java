@@ -20,8 +20,8 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.isp.smarttrackapp.R;
-import com.isp.smarttrackapp.model.entities.Session;
-import com.isp.smarttrackapp.model.entities.Value;
+import com.isp.smarttrackapp.entities.Session;
+import com.isp.smarttrackapp.entities.Value;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 import com.isp.smarttrackapp.viewmodel.LoginFragmentViewModel;
 import com.isp.smarttrackapp.viewmodel.ValuesViewModel;
