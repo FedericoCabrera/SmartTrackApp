@@ -1,4 +1,4 @@
-package com.isp.smarttrackapp.model.entities;
+package com.isp.smarttrackapp.entities;
 
 public class Employee {
 

@@ -16,11 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.isp.smarttrackapp.R;
-import com.isp.smarttrackapp.model.entities.Employee;
-import com.isp.smarttrackapp.model.entities.Session;
-import com.isp.smarttrackapp.model.repository.local.LocalStorage;
+import com.isp.smarttrackapp.entities.Employee;
 import com.isp.smarttrackapp.viewmodel.EmployeeListFragmentViewModel;
-import com.isp.smarttrackapp.viewmodel.LoginFragmentViewModel;
 
 import java.util.List;
 

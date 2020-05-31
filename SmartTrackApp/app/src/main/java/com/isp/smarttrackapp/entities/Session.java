@@ -1,6 +1,4 @@
-package com.isp.smarttrackapp.model.entities;
-
-import java.sql.Date;
+package com.isp.smarttrackapp.entities;
 
 public class Session {
     private String userId;

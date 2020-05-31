@@ -7,8 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.isp.smarttrackapp.model.entities.Login;
-import com.isp.smarttrackapp.model.entities.Session;
+import com.isp.smarttrackapp.entities.Login;
+import com.isp.smarttrackapp.entities.Session;
 import com.isp.smarttrackapp.model.repository.remote.LoginRepository;
 
 public class LoginFragmentViewModel extends AndroidViewModel {

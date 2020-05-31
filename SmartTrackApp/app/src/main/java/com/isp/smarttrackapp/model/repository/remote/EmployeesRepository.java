@@ -2,9 +2,7 @@ package com.isp.smarttrackapp.model.repository.remote;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.isp.smarttrackapp.model.entities.Employee;
-import com.isp.smarttrackapp.model.entities.Login;
-import com.isp.smarttrackapp.model.entities.Session;
+import com.isp.smarttrackapp.entities.Employee;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 
 import java.io.IOException;

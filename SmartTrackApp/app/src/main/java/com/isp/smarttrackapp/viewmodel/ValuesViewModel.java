@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.isp.smarttrackapp.model.entities.Value;
+import com.isp.smarttrackapp.entities.Value;
 import com.isp.smarttrackapp.model.repository.remote.ValuesRepository;
 
 import java.util.List;

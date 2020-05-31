@@ -1,4 +1,4 @@
-package com.isp.smarttrackapp.model.entities;
+package com.isp.smarttrackapp.entities;
 
 import com.google.gson.annotations.SerializedName;
 
