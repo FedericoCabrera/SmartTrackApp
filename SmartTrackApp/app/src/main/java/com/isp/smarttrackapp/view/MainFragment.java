@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -16,8 +17,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.isp.smarttrackapp.R;
+import com.isp.smarttrackapp.viewmodel.LoginFragmentViewModel;
+import com.isp.smarttrackapp.viewmodel.MainFragmentViewModel;
 
 import static android.os.SystemClock.sleep;
 
@@ -34,6 +38,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
     private Context thisContext;
 
+    private MainFragmentViewModel viewModel;
+
     public MainFragment() {
         // Required empty public constructor
     }
@@ -43,6 +49,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        viewModel = new ViewModelProvider(this).get(MainFragmentViewModel.class);
 
         return inflater.inflate(R.layout.fragment_main, container, false);
     }
@@ -70,24 +77,26 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         textView.startAnimation(myAnim);
         imgView.startAnimation(myAnim);
 
+        //If needed make use of animation time to load app info.
+        //Otherwise keep this value for animation purposes
+        viewModel.initFCMToken();
         Thread thread = new Thread(){
             public void run(){
                 try {
-                    //If needed make use of animation time to load app info.
-                    //Otherwise keep this value for animation purposes
                     sleep(getResources().getInteger(R.integer.long_anim_time));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
                     navController = Navigation.findNavController(viewAux);
                     navController.navigate(R.id.action_mainFragment_to_loginFragment);
+                } catch (InterruptedException e) {
+                    Toast.makeText(thisContext,"Ha ocurrido un error inesperado.",Toast.LENGTH_LONG);
                 }
             }
         };
 
         thread.start();
-        /*navController = Navigation.findNavController(view);
+
+                /*navController = Navigation.findNavController(view);
         navController.navigate(R.id.action_mainFragment_to_loginFragment);*/
+
 
     }
 }

@@ -38,7 +38,7 @@ namespace ST.BusinessLogic.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidPasswordException))]
+        [ExpectedException(typeof(HandledException))]
         public void CreateAdminInvalidPasswordTest()
         {
             Mock<IUnitOfWork> unitOfWork = new Mock<IUnitOfWork>();

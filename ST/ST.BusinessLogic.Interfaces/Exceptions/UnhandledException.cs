@@ -4,8 +4,10 @@ using System.Text;
 
 namespace ST.BusinessLogic.Interfaces.Exceptions
 {
-    public class LogicException : Exception
+    public class UnhandledException : Exception
     {
-        public ResultCode.Code Code { get; set; }
+        public UnhandledException(string message) : base(message)
+        {
+        }
     }
 }

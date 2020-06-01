@@ -26,31 +26,18 @@ namespace ST.BusinessLogic
 
         public Administrator GetAdminById(Guid id)
         {
-            try
-            {
-                var admin = unitOfWork.AdministratorRepository.Get(x => x.Id == id,null,"Company").FirstOrDefault();
-                return admin;
-            }
 
-            catch (Exception ex)
-            {
+            var admin = unitOfWork.AdministratorRepository.Get(x => x.Id == id,null,"Company").FirstOrDefault();
+            if (admin == null)
+                throw new HandledException("Administrador no existente.");
 
-                throw new Exception();
-            }
+            return admin;
+
         }
 
         public Administrator GetAdministratorByUsername(string userName)
         {
-            try
-            {
-
-                return unitOfWork.AdministratorRepository.Get(x => x.UserName.Equals(userName)).FirstOrDefault();
-
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.ToString());
-            }
+            return unitOfWork.AdministratorRepository.Get(x => x.UserName.Equals(userName)).FirstOrDefault();
         }
     }
 }

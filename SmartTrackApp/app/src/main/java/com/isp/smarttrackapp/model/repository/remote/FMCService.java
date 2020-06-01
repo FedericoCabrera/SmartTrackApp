@@ -54,7 +54,7 @@ public class FMCService extends com.google.firebase.messaging.FirebaseMessagingS
 
     }
 
-    public static String getFCMToken(){
+    public void initFCMToken(){
         final StringBuilder token = new StringBuilder();
 
         FirebaseInstanceId.getInstance().getInstanceId()
@@ -67,9 +67,9 @@ public class FMCService extends com.google.firebase.messaging.FirebaseMessagingS
 
                         // Get new Instance ID token
                         token.append(task.getResult().getToken());
+                        LocalStorage.getInstance().setValue(token.toString(),"fcm_token");
                     }
                 });
 
-        return token.toString();
     }
 }
