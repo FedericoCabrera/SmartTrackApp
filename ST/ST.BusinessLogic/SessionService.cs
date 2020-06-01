@@ -1,4 +1,5 @@
 ﻿using ST.BusinessLogic.Interfaces;
+using ST.BusinessLogic.Interfaces.Exceptions;
 using ST.Data.Entities;
 using ST.Data.Repository.Interfaces;
 using System;
@@ -18,43 +19,31 @@ namespace ST.BusinessLogic
 
         public Session Create(Guid userId)
         {
-            try
-            {
-                Session session = new Session(userId);
-                unitOfWork.SessionRepository.Create(session);
-                unitOfWork.SessionRepository.Save();
-                return session;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("error la crear sesion");
-            }
+
+            Session session = new Session(userId);
+            unitOfWork.SessionRepository.Create(session);
+            unitOfWork.SessionRepository.Save();
+            return session;
+
         }
 
         public IEnumerable<Session> GetAll()
         {
-            try
-            {
-                return unitOfWork.SessionRepository.Get();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception();
-            }
+            return unitOfWork.SessionRepository.Get();
         }
 
         public User GetUserByToken(Guid token)
         {
-            try
-            {
-                var session = unitOfWork.SessionRepository.Get(x => x.Token.Equals(token)).FirstOrDefault();
-                var user = unitOfWork.UserRepository.Get(x => x.Id.Equals(session.UserId)).FirstOrDefault();
-                return user;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception();
-            }
+            
+            var session = unitOfWork.SessionRepository.Get(x => x.Token.Equals(token)).FirstOrDefault();
+            if (session == null)
+                throw new HandledException();
+            var user = unitOfWork.UserRepository.Get(x => x.Id.Equals(session.UserId)).FirstOrDefault();
+            if (user == null)
+                throw new HandledException();
+
+            return user;
+
         }
 
         public bool IsAuthentication(Guid token)
@@ -63,41 +52,46 @@ namespace ST.BusinessLogic
             try
             {
                 var session = GetUserByToken(token);
-                return isAuthentication;
+                isAuthentication = true;
             }
-            catch
+            catch(HandledException he)
             {
-                throw new Exception();
+                isAuthentication = false;
             }
+            
+            return isAuthentication;
+
         }
 
         public Session Login(string username, string password)
         {
-            try
+
+            var user = unitOfWork.UserRepository.Get(x => x.UserName.Equals(username)).FirstOrDefault();
+
+            if (user == null)
+                throw new HandledException("Datos de ingreso inválidos.");
+
+            if (user.Password.Equals(password))
             {
-                var user = unitOfWork.UserRepository.Get(x => x.UserName.Equals(username)).FirstOrDefault();
-                if (user.Password.Equals(password))
+                var session = unitOfWork.SessionRepository.Get(x => x.UserId.Equals(user.Id)).FirstOrDefault();
+                if (session==null)
                 {
-                    var session = unitOfWork.SessionRepository.Get(x => x.UserId.Equals(user.Id)).FirstOrDefault();
-                    if (session==null)
-                    {
-                        session = new Session(user.Id);
-                        unitOfWork.SessionRepository.Create(session);
-                    }
-                    else 
-                    {
-                        session.Update(session);
-                        unitOfWork.SessionRepository.Update(session);
-                    }
-                    unitOfWork.SessionRepository.Save();
-                    return session;
+                    session = new Session(user.Id);
+                    unitOfWork.SessionRepository.Create(session);
                 }
-                throw new Exception();
+                else 
+                {
+                    session.Update(session);
+                    unitOfWork.SessionRepository.Update(session);
+                }
+                unitOfWork.SessionRepository.Save();
+                return session;
             }
-            catch (Exception ex)
+            else
             {
-                throw new Exception();
+                throw new HandledException("Datos de ingreso inválidos.");
             }
+             
         }
     }
 }

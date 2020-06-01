@@ -13,7 +13,6 @@ namespace ST.BusinessLogic
     {
         private IUnitOfWork unitOfWork;
 
-        //PASSWORD_REGEX: The password must contain at least one upper case and one lower case character, it can contain a number
         public CompanyService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
@@ -21,101 +20,72 @@ namespace ST.BusinessLogic
 
         public IEnumerable<Company> GetAll() 
         {
-            try
-            {
-                return unitOfWork.CompanyRepository.Get();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception();
-            }
+            return unitOfWork.CompanyRepository.Get();
         }
 
         public Company GetCompanyByName(string companyName)
         {
-            try
-            {
-                var Company = unitOfWork.CompanyRepository.Get(x => x.Name.Equals(companyName)).FirstOrDefault();
-                return Company;
-            }
-            catch (Exception ex)
-            {
+            var company = unitOfWork.CompanyRepository.Get(x => x.Name.Equals(companyName)).FirstOrDefault();
+            if (company == null)
+                throw new HandledException("Empresa no existente.");
 
-                throw new Exception();
-            }
+            return company;
         }
 
         public Company GetCompanyById(Guid id)
         {
-            try
-            {
-                var Company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(id)).FirstOrDefault();
-                return Company;
-            }
-            catch (Exception ex)
-            {
+            var company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(id)).FirstOrDefault();
+            if (company == null)
+                throw new HandledException("Empresa no existente.");
 
-                throw new Exception();
-            }
+            return company;
         }
 
         public IEnumerable<Employee> GetAllEmployees(Guid companyId)
         {
-            try
-            {
-                var company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId), null, "Employees").FirstOrDefault();
-                return company.Employees;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception();
-            }
+            var company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId), null, "Employees").FirstOrDefault();
+            if (company == null)
+                throw new HandledException("Empresa no existente.");
+
+            return company.Employees;
         }
 
         public void AddEmployee(Guid companyId, Employee employee)
         {
-            try
-            {
-                Company company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId),null,"Employees").FirstOrDefault();
-                company.Employees.Add(employee);
-                unitOfWork.CompanyRepository.Update(company);
-                unitOfWork.CompanyRepository.Save();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception();
-            }
+
+            Company company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId),null,"Employees").FirstOrDefault();
+            if (company == null)
+                throw new HandledException("Empresa no existente.");
+
+            company.Employees.Add(employee);
+            unitOfWork.CompanyRepository.Update(company);
+            unitOfWork.CompanyRepository.Save();
+
         }
 
         public void AddCompany(string name)
         {
-            try
-            {
-                Company company = new Company();
-                company.Name = name;
-                unitOfWork.CompanyRepository.Create(company);
-                unitOfWork.CompanyRepository.Save();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception();
-            }
+            Company company = new Company();
+            company.Name = name;
+            unitOfWork.CompanyRepository.Create(company);
+            unitOfWork.CompanyRepository.Save();
         }
 
         public void RemoveEmployee(Guid companyId, Guid employeeId)        
         {
-            try
-            {
-                Company company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId), null, "Employees").FirstOrDefault();
-                Employee employee = unitOfWork.EmployeeRepository.Get(x => x.Id.Equals(employeeId)).FirstOrDefault();
-                company.Employees.Remove(employee);
-                unitOfWork.CompanyRepository.Update(company);
-                unitOfWork.CompanyRepository.Save();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception();
-            }
+
+            Company company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId), null, "Employees").FirstOrDefault();
+            if (company == null)
+                throw new HandledException("Empresa no existente.");
+
+            Employee employee = unitOfWork.EmployeeRepository.Get(x => x.Id.Equals(employeeId)).FirstOrDefault();
+            if (employee == null)
+                throw new HandledException("Empleado no existente.");
+
+            company.Employees.Remove(employee);
+            unitOfWork.CompanyRepository.Update(company);
+            unitOfWork.CompanyRepository.Save();
+
         }
 
         public IEnumerable<Employee> GetEmployeesActiveWithLocation(Guid companyId)

@@ -27,6 +27,7 @@ namespace ST.BusinessLogic
             ValidateStringProperty(employee.LastName);
             ValidateStringProperty(employee.Name);
             ValidateStringProperty(employee.UserName);
+            ValidateStringProperty(employee.Password);
             //ValidateUserPassword(employee.Password);
             //ValidateUserName(employee.UserName);
 
@@ -43,71 +44,44 @@ namespace ST.BusinessLogic
 
         public IEnumerable<Employee> GetAll() 
         {
-            try
-            {
-                return unitOfWork.EmployeeRepository.Get();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception();
-            }
+
+            return unitOfWork.EmployeeRepository.Get();
         }
 
         public Employee GetEmployeeByUsername(string userName)
         {
-            try
-            {
+            var user = unitOfWork.EmployeeRepository.Get(x => x.UserName.Equals(userName)).FirstOrDefault();
+            if (user == null)
+                throw new HandledException("Usuario no existente.");
 
-                return unitOfWork.EmployeeRepository.Get(x => x.UserName.Equals(userName)).FirstOrDefault();
-                 
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.ToString());
-            }
+            return user;
         }
 
         public Employee GetEmployeeById(Guid employeeId)
         {
-            try
-            {
-                return unitOfWork.EmployeeRepository.Get(x => x.Id.Equals(employeeId),null,"Location").FirstOrDefault();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.ToString());
-            }
+
+            return unitOfWork.EmployeeRepository.Get(x => x.Id.Equals(employeeId),null,"Location").FirstOrDefault();
+
         }
 
         public void ModifyEmployee(Employee employee)
         {
-            try
-            {
-                ValidateStringProperty(employee.IdentityNumber);
-                ValidateStringProperty(employee.LastName);
-                ValidateStringProperty(employee.Name);
-                ValidateStringProperty(employee.UserName);
 
-                unitOfWork.UserRepository.Update(employee);
-                unitOfWork.UserRepository.Save();
-            }
-            catch (Exception ex) 
-            {
-                throw new Exception();
-            }
+            ValidateStringProperty(employee.IdentityNumber);
+            ValidateStringProperty(employee.LastName);
+            ValidateStringProperty(employee.Name);
+            ValidateStringProperty(employee.UserName);
+
+            unitOfWork.UserRepository.Update(employee);
+            unitOfWork.UserRepository.Save();
         }
 
         public void RemoveEmployee(Employee employee)
         {
-            try
-            {
-                unitOfWork.UserRepository.Create(employee);
-                unitOfWork.UserRepository.Save();
-            }
-            catch (Exception ex) 
-            {
-                throw new Exception();
-            }
+
+            unitOfWork.UserRepository.Create(employee);
+            unitOfWork.UserRepository.Save();
+
         }
 
         public void ConnectedEmployee(string username) 
@@ -121,8 +95,8 @@ namespace ST.BusinessLogic
         private void ValidateEmployeeName(string employeeName)
         {
             var employee = unitOfWork.EmployeeRepository.Get(x => x.Name == employeeName).FirstOrDefault();
-            if (employee!=null)
-                throw new InvalidUserNameException();
+            if (employee==null)
+                throw new HandledException("Datos de ingreso invalidos.");
         }
 
         private void ValidateEmployeePassword(string password)
@@ -130,14 +104,14 @@ namespace ST.BusinessLogic
             if (password.Length < MINIMUN_PASSWORD_LENGTH
               || !System.Text.RegularExpressions.Regex.IsMatch(password, PASSWORD_REGEX) || password.Contains(" "))
             {
-                throw new InvalidPasswordException();
+                throw new HandledException("Datos de ingreso invalidos.");
             }
         }
 
         private void ValidateStringProperty(string property)
         {
             if (string.IsNullOrEmpty(property))
-                throw new RequiredPropertyNotFoundException();
+                throw new HandledException("Datos de ingreso invalidos.");
         }
 
         public Location GetEmployeeLocationByEmployeeName(string employeeName)
@@ -147,19 +121,12 @@ namespace ST.BusinessLogic
 
         public void ModifyLocation(Employee employee, Location location)
         {
-            try
-            {
-                Location employeeLocation = employee.Location;
-                employeeLocation.Latitude = location.Latitude;
-                employeeLocation.Longitude = location.Longitude;
-                employeeLocation.LocationTime = location.LocationTime;
-                unitOfWork.LocationRepository.Update(employeeLocation);
-                unitOfWork.LocationRepository.Save();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception();
-            }
+            Location employeeLocation = employee.Location;
+            employeeLocation.Latitude = location.Latitude;
+            employeeLocation.Longitude = location.Longitude;
+            employeeLocation.LocationTime = location.LocationTime;
+            unitOfWork.LocationRepository.Update(employeeLocation);
+            unitOfWork.LocationRepository.Save();
         }
 
     }

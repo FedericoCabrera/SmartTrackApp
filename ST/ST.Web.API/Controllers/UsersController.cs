@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ST.BusinessLogic;
 using ST.BusinessLogic.Interfaces;
+using ST.BusinessLogic.Interfaces.Exceptions;
 using ST.Data.Entities;
 using ST.Web.API.Models;
 
@@ -34,8 +35,27 @@ namespace ST.Web.API.Controllers
             try
             {
                 var companyId = GetCompanyID();
-                return Ok(companyService.GetAllEmployees(companyId));     
 
+                var employees = companyService.GetAllEmployees(companyId);
+
+                var response = new ResponseModelWithData<IEnumerable<Employee>>()
+                {
+                    Data = employees,
+                    IsResponseOK = true
+                };
+
+                return Ok(response);     
+
+            }
+            catch (HandledException he)
+            {
+                var response = new ResponseModelWithData<IEnumerable<Employee>>()
+                {
+                    IsResponseOK = true,
+                    ErrorMessage = he.Message
+                };
+
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -66,7 +86,18 @@ namespace ST.Web.API.Controllers
             {
                var companyId = GetCompanyID();
                companyService.AddEmployee(companyId, employee.ToEntity());          
+
                return Ok();
+            }
+            catch (HandledException he)
+            {
+                var response = new ResponseModel()
+                {
+                    IsResponseOK = true,
+                    ErrorMessage = he.Message
+                };
+
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -91,6 +122,16 @@ namespace ST.Web.API.Controllers
                 }
                 return Ok();
             }
+            catch (HandledException he)
+            {
+                var response = new ResponseModel()
+                {
+                    IsResponseOK = true,
+                    ErrorMessage = he.Message
+                };
+
+                return Ok(response);
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.ToString());
@@ -108,6 +149,16 @@ namespace ST.Web.API.Controllers
                 Administrator admin = administratorService.GetAdminById(user.Id);
                 employeeService.ModifyEmployee(employee.ToEntity());
                 return Ok();
+            }
+            catch (HandledException he)
+            {
+                var response = new ResponseModel()
+                {
+                    IsResponseOK = true,
+                    ErrorMessage = he.Message
+                };
+
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -127,6 +178,16 @@ namespace ST.Web.API.Controllers
                 employeeService.ModifyLocation(employee, location.ToEntity());
                 return Ok();
             }
+            catch (HandledException he)
+            {
+                var response = new ResponseModel()
+                {
+                    IsResponseOK = true,
+                    ErrorMessage = he.Message
+                };
+
+                return Ok(response);
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.ToString());
@@ -136,19 +197,12 @@ namespace ST.Web.API.Controllers
 
         private Guid GetCompanyID() 
         {
-            try
-            {
-                var token = new Guid(Request.Headers["Authorization"]);
-                var user = sessionService.GetUserByToken(token);
-                Administrator admin = administratorService.GetAdminById(user.Id);
-                var company = admin.Company;
-                return company.Id;
-            }
-            catch (Exception ex)
-            {
+            var token = new Guid(Request.Headers["Authorization"]);
+            var user = sessionService.GetUserByToken(token);
+            Administrator admin = administratorService.GetAdminById(user.Id);
+            var company = admin.Company;
 
-                throw new Exception();
-            }
+            return company.Id;
            
         }
     }
