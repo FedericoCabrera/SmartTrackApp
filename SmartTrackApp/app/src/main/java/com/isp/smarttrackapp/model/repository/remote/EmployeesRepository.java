@@ -25,18 +25,14 @@ public class EmployeesRepository {
     public static EmployeesRepository getInstance() {
         if (instance == null)
             instance = new EmployeesRepository();
-
         return instance;
     }
 
     public MutableLiveData<List<Employee>> getEmployees() {
         final MutableLiveData<List<Employee>> data = new MutableLiveData<>();
-
         String token = LocalStorage.getInstance().getValue("token");
         Call<List<Employee>> call = employeesApiService.getEmployees(token);
-
         call.enqueue(new Callback<List<Employee>>() {
-
             @Override
             public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
                 if(response.isSuccessful()){
@@ -49,14 +45,76 @@ public class EmployeesRepository {
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<List<Employee>> call, Throwable t) {
-
             }
         });
-
         return data;
+    }
 
+    public void createEmployee(Employee employee) {
+        String token = LocalStorage.getInstance().getValue("token");
+        Call<Employee> call = employeesApiService.createEmployee(token, employee);
+        call.enqueue(new Callback<Employee>() {
+            @Override
+            public void onResponse(Call<Employee> call, Response<Employee> response) {
+                if(response.isSuccessful()){
+
+                }else{
+                    try {
+                        String error = response.errorBody().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Employee> call, Throwable t) {
+            }
+        });
+    }
+
+    public void removeEmployee(Employee employee) {
+        String token = LocalStorage.getInstance().getValue("token");
+        Call<Employee> call = employeesApiService.removeEmployee(token, employee);
+        call.enqueue(new Callback<Employee>() {
+            @Override
+            public void onResponse(Call<Employee> call, Response<Employee> response) {
+                if(response.isSuccessful()){
+
+                }else{
+                    try {
+                        String error = response.errorBody().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Employee> call, Throwable t) {
+            }
+        });
+    }
+
+    public void updateEmployee(Employee employee) {
+        String token = LocalStorage.getInstance().getValue("token");
+        Call<Employee> call = employeesApiService.updateEmployee(token, employee);
+        call.enqueue(new Callback<Employee>() {
+            @Override
+            public void onResponse(Call<Employee> call, Response<Employee> response) {
+                if(response.isSuccessful()){
+
+                }else{
+                    try {
+                        String error = response.errorBody().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Employee> call, Throwable t) {
+            }
+        });
     }
 }
