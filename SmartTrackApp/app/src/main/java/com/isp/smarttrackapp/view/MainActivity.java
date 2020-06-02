@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mainActivityViewModel.initLocalStorage(this);
-        mainActivityViewModel.initFCMToken();
+        //mainActivityViewModel.initFCMToken();
     }
 
 

@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.isp.smarttrackapp.R;
+import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.Session;
 import com.isp.smarttrackapp.entities.Value;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;
@@ -78,7 +79,7 @@ public class LoginFragment extends Fragment {
 
         textView = view.findViewById(R.id.li_title);
 
-        this.observeViewModel(this.valuesViewModel);
+        //this.observeViewModel(this.valuesViewModel);
 
         btnLogin.setOnClickListener(new View.OnClickListener(){
 
@@ -88,21 +89,29 @@ public class LoginFragment extends Fragment {
                 String password = txtInputPassword.getText().toString();
 
                 try{
-                    loginViewModel.login(userName, password).observe(getViewLifecycleOwner(), new Observer<Session>() {
+                    loginViewModel.login(userName, password).observe(getViewLifecycleOwner(), new Observer<ResponseModel<Session>>() {
                         @Override
-                        public void onChanged(Session session) {
-                            Toast.makeText(thisContext, session.getToken() + "Admin: " + session.getIsAdmin(), Toast.LENGTH_LONG).show();
+                        public void onChanged(ResponseModel<Session> session) {
 
-                            //TODO: Pass to viewmodel, dont show setValueOK message
-                            LocalStorage localStorage = LocalStorage.getInstance();
-                            boolean setValueOK = localStorage.setValue(session.getToken(),"token");
+                            if(session.isResponseOK()){
+                                Toast.makeText(thisContext, session.getData().getToken() + " Admin: " + session.getData().getIsAdmin(), Toast.LENGTH_LONG).show();
 
-                            Toast.makeText(thisContext, "SetValueResult: " + setValueOK, Toast.LENGTH_LONG).show();
+                                //TODO: Pass to viewmodel, dont show setValueOK message
+                                LocalStorage localStorage = LocalStorage.getInstance();
+                                boolean setValueOK = localStorage.setValue(session.getData().getToken(),"token");
 
-                            if(session.getIsAdmin())
-                                navController.navigate(R.id.action_loginFragment_to_mainAdminFragment);
-                            else
-                                navController.navigate(R.id.action_loginFragment_to_mainEmployeeFragment);
+                                //Toast.makeText(thisContext, "SetValueResult: " + setValueOK, Toast.LENGTH_LONG).show();
+                                String fcmToken = localStorage.getValue("fcm_token");
+                                Toast.makeText(thisContext, "FCM_token: " + fcmToken, Toast.LENGTH_LONG).show();
+
+                                if(session.getData().getIsAdmin())
+                                    navController.navigate(R.id.action_loginFragment_to_mainAdminFragment);
+                                else
+                                    navController.navigate(R.id.action_loginFragment_to_mainEmployeeFragment);
+                            }else{
+                                Toast.makeText(thisContext, session.getErrorMessage(), Toast.LENGTH_LONG).show();
+                            }
+
                         }
                     });
 
