@@ -3,6 +3,8 @@ package com.isp.smarttrackapp.model.repository.remote;
 import androidx.lifecycle.MutableLiveData;
 
 import com.isp.smarttrackapp.entities.Employee;
+import com.isp.smarttrackapp.entities.ResponseModel;
+import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 
 import java.io.IOException;
@@ -54,10 +56,10 @@ public class EmployeesRepository {
 
     public void createEmployee(Employee employee) {
         String token = LocalStorage.getInstance().getValue("token");
-        Call<Employee> call = employeesApiService.createEmployee(token, employee);
-        call.enqueue(new Callback<Employee>() {
+        Call<ResponseModelWithData<Employee>> call = employeesApiService.createEmployee(token, employee);
+        call.enqueue(new Callback<ResponseModelWithData<Employee>>() {
             @Override
-            public void onResponse(Call<Employee> call, Response<Employee> response) {
+            public void onResponse(Call<ResponseModelWithData<Employee>> call, Response<ResponseModelWithData<Employee>> response) {
                 if(response.isSuccessful()){
 
                 }else{
@@ -69,17 +71,17 @@ public class EmployeesRepository {
                 }
             }
             @Override
-            public void onFailure(Call<Employee> call, Throwable t) {
+            public void onFailure(Call<ResponseModelWithData<Employee>> call, Throwable t) {
             }
         });
     }
 
     public void removeEmployee(Employee employee) {
         String token = LocalStorage.getInstance().getValue("token");
-        Call<Employee> call = employeesApiService.removeEmployee(token, employee);
-        call.enqueue(new Callback<Employee>() {
+        Call<ResponseModel> call = employeesApiService.removeEmployee(token, employee);
+        call.enqueue(new Callback<ResponseModel>() {
             @Override
-            public void onResponse(Call<Employee> call, Response<Employee> response) {
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                 if(response.isSuccessful()){
 
                 }else{
@@ -91,17 +93,17 @@ public class EmployeesRepository {
                 }
             }
             @Override
-            public void onFailure(Call<Employee> call, Throwable t) {
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
             }
         });
     }
 
     public void updateEmployee(Employee employee) {
         String token = LocalStorage.getInstance().getValue("token");
-        Call<Employee> call = employeesApiService.updateEmployee(token, employee);
-        call.enqueue(new Callback<Employee>() {
+        Call<ResponseModelWithData<Employee>> call = employeesApiService.updateEmployee(token, employee);
+        call.enqueue(new Callback<ResponseModelWithData<Employee>>() {
             @Override
-            public void onResponse(Call<Employee> call, Response<Employee> response) {
+            public void onResponse(Call<ResponseModelWithData<Employee>> call, Response<ResponseModelWithData<Employee>> response) {
                 if(response.isSuccessful()){
 
                 }else{
@@ -113,7 +115,7 @@ public class EmployeesRepository {
                 }
             }
             @Override
-            public void onFailure(Call<Employee> call, Throwable t) {
+            public void onFailure(Call<ResponseModelWithData<Employee>> call, Throwable t) {
             }
         });
     }

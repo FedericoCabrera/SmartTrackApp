@@ -84,10 +84,12 @@ namespace ST.Web.API.Controllers
         {
             try
             {
-               var companyId = GetCompanyID();
-               companyService.AddEmployee(companyId, employee.ToEntity());          
-
-               return Ok();
+                ResponseModelWithData<EmployeeModel> responseModel = new ResponseModelWithData<EmployeeModel>();
+                var companyId = GetCompanyID();
+                companyService.AddEmployee(companyId, employee.ToEntity());
+                responseModel.IsResponseOK = true;
+                responseModel.Data = EmployeeModel.ToModel(employeeService.GetEmployeeByUsername(employee.UserName));
+                return Ok(responseModel);
             }
             catch (HandledException he)
             {
@@ -110,17 +112,24 @@ namespace ST.Web.API.Controllers
         {
             try
             {
+                ResponseModel responseModel = new ResponseModel();
                 var token = new Guid(Request.Headers["Authorization"]);
                 var user = sessionService.GetUserByToken(token);
                 Administrator admin = administratorService.GetAdminById(user.Id);
-                if(admin != null)
-                { 
+                if (admin != null)
+                {
                     var company = admin.Company;
                     var companyId = company.Id;
                     companyService.RemoveEmployee(companyId, employee.Id);
                     employeeService.RemoveEmployee(employee.ToEntity());
+                    responseModel.IsResponseOK = true;
                 }
-                return Ok();
+                else 
+                {
+                    responseModel.IsResponseOK = true;
+                    responseModel.ErrorMessage = "El usuario no tiene permisos";
+                }
+                return Ok(responseModel);
             }
             catch (HandledException he)
             {
@@ -144,11 +153,14 @@ namespace ST.Web.API.Controllers
         {
             try
             {
+                ResponseModelWithData<EmployeeModel> responseModel = new ResponseModelWithData<EmployeeModel>();
                 var token = new Guid(Request.Headers["Authorization"]);
                 var user = sessionService.GetUserByToken(token);
                 Administrator admin = administratorService.GetAdminById(user.Id);
                 employeeService.ModifyEmployee(employee.ToEntity());
-                return Ok();
+                responseModel.IsResponseOK = true;
+                responseModel.Data = EmployeeModel.ToModel(employeeService.GetEmployeeByUsername(employee.UserName));
+                return Ok(responseModel);
             }
             catch (HandledException he)
             {

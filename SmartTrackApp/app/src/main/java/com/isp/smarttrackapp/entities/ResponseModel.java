@@ -1,9 +1,8 @@
 package com.isp.smarttrackapp.entities;
 
-public class ResponseModel<T> {
+public class ResponseModel{
     private boolean isResponseOK;
     private String errorMessage;
-    private T data;
 
     public ResponseModel() {
     }
@@ -11,12 +10,6 @@ public class ResponseModel<T> {
     public ResponseModel(boolean isResponseOk, String errorMessage) {
         this.isResponseOK = isResponseOk;
         this.errorMessage = errorMessage;
-    }
-
-    public ResponseModel(boolean isResponseOk, String errorMessage, T data) {
-        this.isResponseOK = isResponseOk;
-        this.errorMessage = errorMessage;
-        this.data = data;
     }
 
     public boolean isResponseOK() {
@@ -35,11 +28,4 @@ public class ResponseModel<T> {
         this.errorMessage = errorMessage;
     }
 
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
 }
