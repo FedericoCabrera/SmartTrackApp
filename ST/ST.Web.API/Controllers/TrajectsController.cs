@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ST.BusinessLogic;
 using ST.BusinessLogic.Interfaces;
 using ST.BusinessLogic.Interfaces.Exceptions;
+using ST.Data.Entities;
 using ST.Web.API.Models;
 
 namespace ST.Web.API.Controllers
@@ -46,6 +47,40 @@ namespace ST.Web.API.Controllers
 
                 var trajectId = trajectService.CreateTraject(employee, traject.ToEntity());
                 
+                responseModel.IsResponseOK = true;
+                responseModel.Data = trajectId;
+
+                return Ok(responseModel);
+            }
+            catch (HandledException he)
+            {
+                var response = new ResponseModel()
+                {
+                    IsResponseOK = false,
+                    ErrorMessage = he.Message
+                };
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        // POST: api/Users
+        [HttpPost]
+        public IActionResult CreateIncident(Guid trajectId, [FromBody] IncidentModel incident)
+        {
+            try
+            {
+                ResponseModelWithData<Guid> responseModel = new ResponseModelWithData<Guid>();
+
+                var token = Utils.GetToken(Request);
+                var employee = sessionService.GetEmployeeByToken(token);
+
+                trajectService.AssignIncidentToTraject(trajectId, incident.ToEntity());
+
                 responseModel.IsResponseOK = true;
                 responseModel.Data = trajectId;
 
