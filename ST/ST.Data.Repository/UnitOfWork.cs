@@ -107,6 +107,19 @@ namespace ST.Data.Repository
             }
         }
 
+
+        private IRepository<Incident> incidentRepository;
+        public IRepository<Incident> IncidentRepository
+        {
+            get
+            {
+                if (incidentRepository == null)
+                    incidentRepository = new Repository<Incident>(dbContext);
+
+                return incidentRepository;
+            }
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)

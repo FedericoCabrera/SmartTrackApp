@@ -44,6 +44,7 @@ namespace ST.Web.API
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IAdministratorService, AdministratorService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITrajectService, TrajectService>();
 
             //CORS
             services.AddCors(options =>

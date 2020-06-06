@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ST.BusinessLogic;
 using ST.BusinessLogic.Interfaces;
 using ST.BusinessLogic.Interfaces.Exceptions;
+using ST.Data.DataAccess.Migrations;
 using ST.Data.Entities;
 using ST.Web.API.Models;
 
@@ -114,21 +115,15 @@ namespace ST.Web.API.Controllers
             {
                 ResponseModel responseModel = new ResponseModel();
                 var token = new Guid(Request.Headers["Authorization"]);
-                var user = sessionService.GetUserByToken(token);
-                Administrator admin = administratorService.GetAdminById(user.Id);
-                if (admin != null)
-                {
-                    var company = admin.Company;
-                    var companyId = company.Id;
-                    companyService.RemoveEmployee(companyId, employee.Id);
-                    employeeService.RemoveEmployee(employee.ToEntity());
-                    responseModel.IsResponseOK = true;
-                }
-                else 
-                {
-                    responseModel.IsResponseOK = true;
-                    responseModel.ErrorMessage = "El usuario no tiene permisos";
-                }
+                var admin = sessionService.AuthorizeAdminByToken(token);
+                //Administrator admin = administratorService.GetAdminById(user.Id);
+
+                var company = admin.Company;
+                var companyId = company.Id;
+                companyService.RemoveEmployee(companyId, employee.Id);
+                employeeService.RemoveEmployee(employee.ToEntity());
+                responseModel.IsResponseOK = true;
+
                 return Ok(responseModel);
             }
             catch (HandledException he)
@@ -209,7 +204,7 @@ namespace ST.Web.API.Controllers
 
         private Guid GetCompanyID() 
         {
-            var token = new Guid(Request.Headers["Authorization"]);
+            var token = Utils.GetToken(Request);
             var user = sessionService.GetUserByToken(token);
             Administrator admin = administratorService.GetAdminById(user.Id);
             var company = admin.Company;

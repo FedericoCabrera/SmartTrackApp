@@ -5,6 +5,7 @@ using ST.Data.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 
 namespace ST.BusinessLogic
@@ -38,12 +39,47 @@ namespace ST.BusinessLogic
             var session = unitOfWork.SessionRepository.Get(x => x.Token.Equals(token)).FirstOrDefault();
             if (session == null)
                 throw new HandledException();
-            var user = unitOfWork.UserRepository.Get(x => x.Id.Equals(session.UserId)).FirstOrDefault();
+
+            var user = unitOfWork.UserRepository.Get(x => x.Id == session.UserId,null,"Company").FirstOrDefault();
             if (user == null)
                 throw new HandledException();
 
             return user;
 
+        }
+        public Employee GetEmployeeByToken(Guid token)
+        {
+            try
+            {
+                var user = GetUserByToken(token);
+                if (!(user is Employee))
+                    throw new HandledException();
+
+                return (Employee)user;
+            }
+            catch(HandledException he)
+            {
+                throw new HandledException("Usuario no encontrado.");
+            }
+            
+        }
+
+        public Administrator AuthorizeAdminByToken(Guid token)
+        {
+            try
+            {
+                var user = GetUserByToken(token);
+
+                if (!(user is Administrator))
+                    throw new HandledException("Usuario no autorizado.");
+
+                return (Administrator)user;
+            }
+            catch(HandledException he)
+            {
+                throw new HandledException("Usuario no autorizado.");
+            }
+            
         }
 
         public bool IsAuthentication(Guid token)

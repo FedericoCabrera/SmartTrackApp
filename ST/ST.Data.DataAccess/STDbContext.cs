@@ -24,5 +24,6 @@ namespace ST.Data.DataAccess
         public DbSet<Traject> Trajects { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Session> Sessions { get; set; }
+        public DbSet<Incident> Incidents { get; set; }
     }
 }
