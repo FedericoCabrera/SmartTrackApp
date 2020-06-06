@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.ResponseModel;
+import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.entities.Session;
 import com.isp.smarttrackapp.entities.Value;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;
@@ -89,9 +90,9 @@ public class LoginFragment extends Fragment {
                 String password = txtInputPassword.getText().toString();
 
                 try{
-                    loginViewModel.login(userName, password).observe(getViewLifecycleOwner(), new Observer<ResponseModel<Session>>() {
+                    loginViewModel.login(userName, password).observe(getViewLifecycleOwner(), new Observer<ResponseModelWithData<Session>>() {
                         @Override
-                        public void onChanged(ResponseModel<Session> session) {
+                        public void onChanged(ResponseModelWithData<Session> session) {
 
                             if(session.isResponseOK()){
                                 Toast.makeText(thisContext, session.getData().getToken() + " Admin: " + session.getData().getIsAdmin(), Toast.LENGTH_LONG).show();

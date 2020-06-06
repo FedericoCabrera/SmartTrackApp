@@ -9,18 +9,19 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.isp.smarttrackapp.entities.Login;
 import com.isp.smarttrackapp.entities.ResponseModel;
+import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.entities.Session;
 import com.isp.smarttrackapp.model.repository.remote.LoginRepository;
 
 public class LoginFragmentViewModel extends AndroidViewModel {
 
-    private MutableLiveData<ResponseModel<Session>> sessionObservable;
+    private MutableLiveData<ResponseModelWithData<Session>> sessionObservable;
 
     public LoginFragmentViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public LiveData<ResponseModel<Session>> login(String userName, String password) {
+    public LiveData<ResponseModelWithData<Session>> login(String userName, String password) {
 
         Login loginObj = new Login();
         loginObj.setPassword(password);
