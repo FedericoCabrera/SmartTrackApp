@@ -33,11 +33,11 @@ namespace ST.Web.API.Models
                 LocationTime = this.LocationFinal.LocationTime,
                 Longitude = this.LocationFinal.Longitude
             } : null,
-            LocationInitial = this.LocationFinal != null ? new Location()
+            LocationInitial = this.LocationInitial != null ? new Location()
             {
-                Latitude = this.LocationFinal.Latitude,
-                LocationTime = this.LocationFinal.LocationTime,
-                Longitude = this.LocationFinal.Longitude
+                Latitude = this.LocationInitial.Latitude,
+                LocationTime = this.LocationInitial.LocationTime,
+                Longitude = this.LocationInitial.Longitude
             } : null,
             Duration = this.Duration,
             Distance = this.Distance,

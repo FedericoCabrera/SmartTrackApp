@@ -18,11 +18,13 @@ namespace ST.BusinessLogic
             this.unitOfWork = unitOfWork;
         }
 
-        public void CreateTraject(Employee employee, Traject traject)
+        public Guid CreateTraject(Employee employee, Traject traject)
         {
             employee.Trajects.Add(traject);
             unitOfWork.EmployeeRepository.Update(employee);
             unitOfWork.EmployeeRepository.Save();
+
+            return traject.Id;
         }
 
         public void AssignIncidentToTraject(Guid trajectId, Incident incident)

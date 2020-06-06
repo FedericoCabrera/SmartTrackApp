@@ -39,14 +39,15 @@ namespace ST.Web.API.Controllers
         {
             try
             {
-                ResponseModelWithData<TrajectModel> responseModel = new ResponseModelWithData<TrajectModel>();
+                ResponseModelWithData<Guid> responseModel = new ResponseModelWithData<Guid>();
 
                 var token = Utils.GetToken(Request);
                 var employee = sessionService.GetEmployeeByToken(token);
 
-                trajectService.CreateTraject(employee, traject.ToEntity());
+                var trajectId = trajectService.CreateTraject(employee, traject.ToEntity());
                 
                 responseModel.IsResponseOK = true;
+                responseModel.Data = trajectId;
 
                 return Ok(responseModel);
             }
