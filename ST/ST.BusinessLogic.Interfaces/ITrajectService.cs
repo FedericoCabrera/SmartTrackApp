@@ -6,5 +6,8 @@ namespace ST.BusinessLogic.Interfaces
 {
     public interface ITrajectService
     {
+        Guid CreateTraject(Employee employee, Traject traject);
+        void AssignIncidentToTraject(Guid trajectId, Incident incident);
+
     }
 }

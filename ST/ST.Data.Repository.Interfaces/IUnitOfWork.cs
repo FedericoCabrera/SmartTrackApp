@@ -12,5 +12,6 @@ namespace ST.Data.Repository.Interfaces
         IRepository<Location> LocationRepository { get; }
         IRepository<Traject> TrajectRepository { get; }
         IRepository<Session> SessionRepository { get; }
+        IRepository<Incident> IncidentRepository { get; }
     }
 }

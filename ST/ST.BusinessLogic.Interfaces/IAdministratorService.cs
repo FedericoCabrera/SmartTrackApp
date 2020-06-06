@@ -11,5 +11,6 @@ namespace ST.BusinessLogic.Interfaces
         void CreateAdministrator(Administrator administrator);
 
         Administrator GetAdministratorByUsername(string userName);
+        void UpdateAdministratorFirebaseDeviceToken(Guid id, string firebaseDeviceToken);
     } 
 }

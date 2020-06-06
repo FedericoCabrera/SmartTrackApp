@@ -10,7 +10,7 @@ namespace ST.Data.Entities
         public Guid UserId { get; set; }
         public Guid Token { get; set; }
         public DateTime LastSession { get; set; }
-
+        
         public Session() { }
 
         public Session(Guid userId)

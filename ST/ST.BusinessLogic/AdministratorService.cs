@@ -37,7 +37,20 @@ namespace ST.BusinessLogic
 
         public Administrator GetAdministratorByUsername(string userName)
         {
-            return unitOfWork.AdministratorRepository.Get(x => x.UserName.Equals(userName)).FirstOrDefault();
+            var admin = unitOfWork.AdministratorRepository.Get(x => x.UserName.Equals(userName)).FirstOrDefault();
+
+            if (admin == null)
+                throw new HandledException("Administrador no existente.");
+
+            return admin;
+        }
+
+        public void UpdateAdministratorFirebaseDeviceToken(Guid id, string firebaseDeviceToken)
+        {
+            var admin = GetAdminById(id);
+            admin.FirebaseDeviceToken = firebaseDeviceToken;
+            unitOfWork.AdministratorRepository.Update(admin);
+            unitOfWork.AdministratorRepository.Save();
         }
     }
 }
