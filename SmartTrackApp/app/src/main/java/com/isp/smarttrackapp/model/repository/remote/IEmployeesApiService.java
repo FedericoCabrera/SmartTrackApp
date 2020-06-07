@@ -13,6 +13,7 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 import retrofit2.http.DELETE;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface IEmployeesApiService {
     @GET("Users")
@@ -21,9 +22,9 @@ public interface IEmployeesApiService {
     @POST("Users")
     Call<ResponseModelWithData<Employee>> createEmployee(@Header("Authorization") String token, @Body Employee employee);
 
-    @DELETE("Users")
-    Call<ResponseModel> removeEmployee(@Header("Authorization") String token, @Body Employee employee);
+    @DELETE("Users" + "/{id}")
+    Call<ResponseModel> removeEmployee(@Header("Authorization") String token, @Path("id") String id);
 
-    @PUT("Users")
-    Call<ResponseModelWithData<Employee>> updateEmployee(@Header("Authorization") String token, @Body Employee employee);
+    @PUT("Users" + "/{id}")
+    Call<ResponseModelWithData<Employee>> updateEmployee(@Header("Authorization") String token, @Path("id") String id, @Body Employee employee);
 }

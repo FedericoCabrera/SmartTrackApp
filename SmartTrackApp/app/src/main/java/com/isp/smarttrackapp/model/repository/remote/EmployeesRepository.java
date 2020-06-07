@@ -84,7 +84,7 @@ public class EmployeesRepository {
     public MutableLiveData<ResponseModel> removeEmployee(Employee employee) {
         final MutableLiveData<ResponseModel> data = new MutableLiveData<>();
         String token = LocalStorage.getInstance().getValue("token");
-        Call<ResponseModel> call = employeesApiService.removeEmployee(token, employee);
+        Call<ResponseModel> call = employeesApiService.removeEmployee(token, employee.getId());
         call.enqueue(new Callback<ResponseModel>() {
             @Override
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
@@ -107,7 +107,7 @@ public class EmployeesRepository {
 
     public void updateEmployee(Employee employee) {
         String token = LocalStorage.getInstance().getValue("token");
-        Call<ResponseModelWithData<Employee>> call = employeesApiService.updateEmployee(token, employee);
+        Call<ResponseModelWithData<Employee>> call = employeesApiService.updateEmployee(token, employee.getId(), employee);
         call.enqueue(new Callback<ResponseModelWithData<Employee>>() {
             @Override
             public void onResponse(Call<ResponseModelWithData<Employee>> call, Response<ResponseModelWithData<Employee>> response) {
