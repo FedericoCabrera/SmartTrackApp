@@ -81,14 +81,15 @@ public class EmployeesRepository {
         return data;
     }
 
-    public void removeEmployee(Employee employee) {
+    public MutableLiveData<ResponseModel> removeEmployee(Employee employee) {
+        final MutableLiveData<ResponseModel> data = new MutableLiveData<>();
         String token = LocalStorage.getInstance().getValue("token");
         Call<ResponseModel> call = employeesApiService.removeEmployee(token, employee);
         call.enqueue(new Callback<ResponseModel>() {
             @Override
             public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
                 if(response.isSuccessful()){
-
+                    data.setValue(response.body());
                 }else{
                     try {
                         String error = response.errorBody().string();
@@ -101,6 +102,7 @@ public class EmployeesRepository {
             public void onFailure(Call<ResponseModel> call, Throwable t) {
             }
         });
+        return data;
     }
 
     public void updateEmployee(Employee employee) {

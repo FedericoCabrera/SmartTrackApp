@@ -1,6 +1,7 @@
 package com.isp.smarttrackapp.model.repository.remote;
 
 import com.isp.smarttrackapp.entities.Employee;
+import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
 
 import java.util.List;
@@ -18,11 +19,11 @@ public interface IEmployeesApiService {
     Call<ResponseModelWithData<List<Employee>>> getEmployees(@Header("Authorization") String token);
 
     @POST("Users")
-    Call createEmployee(@Header("Authorization") String token, @Body Employee employee);
+    Call<ResponseModelWithData<Employee>> createEmployee(@Header("Authorization") String token, @Body Employee employee);
 
     @DELETE("Users")
-    Call removeEmployee(@Header("Authorization") String token, @Body Employee employee);
+    Call<ResponseModel> removeEmployee(@Header("Authorization") String token, @Body Employee employee);
 
     @PUT("Users")
-    Call updateEmployee(@Header("Authorization") String token, @Body Employee employee);
+    Call<ResponseModelWithData<Employee>> updateEmployee(@Header("Authorization") String token, @Body Employee employee);
 }
