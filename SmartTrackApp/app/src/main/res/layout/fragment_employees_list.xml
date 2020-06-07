@@ -22,9 +22,20 @@
                 android:id="@+id/el_btn_addEmployee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="93dp"
-                android:layout_marginRight="93dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:text="@string/el_btn_addEmployee" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_below="@id/el_employeesList"
+                android:id="@+id/el_btn_removeEmployee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_toStartOf="@id/el_btn_addEmployee"
+                android:layout_toLeftOf="@id/el_btn_addEmployee"
+                android:text="@string/el_btn_removeEmployee" />
 
         </RelativeLayout>
 </ScrollView>

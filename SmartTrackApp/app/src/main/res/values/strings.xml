@@ -8,7 +8,20 @@
     <string name="li_btn_login">Ingresar</string>
     <string name="cancel_btn">Cancelar</string>
     <string name="am_employees_btn">Empleados</string>
+<<<<<<< HEAD
     <string name="el_btn_addEmployee">Nuevo</string>
     <string name="em_btn_trajects">Viajes</string>
+=======
 
+    <string name="el_btn_addEmployee">New Employee</string>
+    <string name="el_btn_removeEmployee">Remove Employee</string>
+>>>>>>> 200c51ca69577ce6301b71e5590aac30997cf438
+
+    <string name="cu_in_username">Username</string>
+    <string name="cu_in_password">Password</string>
+    <string name="cu_in_name">Name</string>
+    <string name="cu_in_lastname">Lastname</string>
+    <string name="cu_in_identityNumber">Identity Number</string>
+    <string name="cu_btn_cancel">Cancel</string>
+    <string name="cu_btn_addEmployee">Add Employee</string>
 </resources>
