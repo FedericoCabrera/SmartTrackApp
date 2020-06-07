@@ -25,7 +25,7 @@ public class CreateEmployeeFragmentViewModel extends AndroidViewModel {
         Employee employeeObj = new Employee();
         employeeObj.setName(name);
         employeeObj.setLastName(lastname);
-        employeeObj.setIdentyNumber(identityNumber);
+        employeeObj.setIdentityNumber(identityNumber);
         employeeObj.setPassword(password);
         employeeObj.setUserName(userName);
 

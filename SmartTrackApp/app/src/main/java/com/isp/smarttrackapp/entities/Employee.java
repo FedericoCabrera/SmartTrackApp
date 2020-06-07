@@ -7,7 +7,7 @@ public class Employee {
     private String id;
     private String userName;
     private String password;
-    private String identyNumber;
+    private String identityNumber;
 
     public String getName() {
         return name;
@@ -49,11 +49,11 @@ public class Employee {
         this.password = password;
     }
 
-    public String getIdentyNumber() {
-        return identyNumber;
+    public String getIdentityNumber() {
+        return identityNumber;
     }
 
-    public void setIdentyNumber(String identyNumber) {
-        this.identyNumber = identyNumber;
+    public void setIdentityNumber(String identityNumber) {
+        this.identityNumber = identityNumber;
     }
 }
