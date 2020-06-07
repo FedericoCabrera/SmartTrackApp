@@ -1,6 +1,7 @@
 package com.isp.smarttrackapp.model.repository.remote;
 
 import com.isp.smarttrackapp.entities.Employee;
+import com.isp.smarttrackapp.entities.ResponseModelWithData;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import retrofit2.http.PUT;
 
 public interface IEmployeesApiService {
     @GET("Users")
-    Call<List<Employee>> getEmployees(@Header("Authorization") String token);
+    Call<ResponseModelWithData<List<Employee>>> getEmployees(@Header("Authorization") String token);
 
     @POST("Users")
     Call createEmployee(@Header("Authorization") String token, @Body Employee employee);

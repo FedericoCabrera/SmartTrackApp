@@ -64,7 +64,7 @@ namespace ST.Web.API.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("location", Name = "Get Location")]
         public IActionResult GetLocation()
         {
             try

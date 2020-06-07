@@ -8,4 +8,7 @@
     <string name="li_btn_login">Ingresar</string>
     <string name="cancel_btn">Cancelar</string>
     <string name="am_employees_btn">Empleados</string>
+    <string name="el_btn_addEmployee">Nuevo</string>
+
+
 </resources>

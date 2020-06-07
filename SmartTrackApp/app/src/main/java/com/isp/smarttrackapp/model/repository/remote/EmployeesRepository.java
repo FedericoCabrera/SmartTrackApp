@@ -30,13 +30,13 @@ public class EmployeesRepository {
         return instance;
     }
 
-    public MutableLiveData<List<Employee>> getEmployees() {
-        final MutableLiveData<List<Employee>> data = new MutableLiveData<>();
+    public MutableLiveData<ResponseModelWithData<List<Employee>>> getEmployees() {
+        final MutableLiveData<ResponseModelWithData<List<Employee>>> data = new MutableLiveData<>();
         String token = LocalStorage.getInstance().getValue("token");
-        Call<List<Employee>> call = employeesApiService.getEmployees(token);
-        call.enqueue(new Callback<List<Employee>>() {
+        Call<ResponseModelWithData<List<Employee>>> call = employeesApiService.getEmployees(token);
+        call.enqueue(new Callback<ResponseModelWithData<List<Employee>>>() {
             @Override
-            public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
+            public void onResponse(Call<ResponseModelWithData<List<Employee>>> call, Response<ResponseModelWithData<List<Employee>>> response) {
                 if(response.isSuccessful()){
                     data.setValue(response.body());
                 }else{
@@ -47,9 +47,12 @@ public class EmployeesRepository {
                     }
                 }
             }
+
             @Override
-            public void onFailure(Call<List<Employee>> call, Throwable t) {
+            public void onFailure(Call<ResponseModelWithData<List<Employee>>> call, Throwable t) {
+
             }
+
         });
         return data;
     }
