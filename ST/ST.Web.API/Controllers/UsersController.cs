@@ -108,8 +108,8 @@ namespace ST.Web.API.Controllers
             }
         }
 
-        [HttpDelete]
-        public IActionResult RemoveEmployee([FromBody] EmployeeModel employee)
+        [HttpDelete("{id}")]
+        public IActionResult RemoveEmployee(Guid id)
         {
             try
             {
@@ -120,8 +120,8 @@ namespace ST.Web.API.Controllers
 
                 var company = admin.Company;
                 var companyId = company.Id;
-                companyService.RemoveEmployee(companyId, employee.Id);
-                employeeService.RemoveEmployee(employee.ToEntity());
+                companyService.RemoveEmployee(companyId, id);
+                employeeService.RemoveEmployee(id);
                 responseModel.IsResponseOK = true;
 
                 return Ok(responseModel);

@@ -72,15 +72,15 @@ namespace ST.BusinessLogic
             ValidateStringProperty(employee.Name);
             ValidateStringProperty(employee.UserName);
 
-            unitOfWork.UserRepository.Update(employee);
-            unitOfWork.UserRepository.Save();
+            unitOfWork.EmployeeRepository.Update(employee);
+            unitOfWork.EmployeeRepository.Save();
         }
 
-        public void RemoveEmployee(Employee employee)
+        public void RemoveEmployee(Guid employeeId)
         {
-
-            unitOfWork.UserRepository.Create(employee);
-            unitOfWork.UserRepository.Save();
+            var e = unitOfWork.EmployeeRepository.GetByID(employeeId);
+            unitOfWork.EmployeeRepository.Delete(e);
+            unitOfWork.EmployeeRepository.Save();
 
         }
 

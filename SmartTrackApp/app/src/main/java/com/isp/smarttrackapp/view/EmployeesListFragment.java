@@ -69,10 +69,6 @@ public class EmployeesListFragment extends Fragment {
             employeesViewModel.getEmployees().observe(getViewLifecycleOwner(), new Observer<ResponseModelWithData<List<Employee>>>() {
                 @Override
                 public void onChanged(ResponseModelWithData<List<Employee>> employees) {
-                    List<String> users = new ArrayList<>();
-                    for (Employee e: employees.getData()) {
-                        users.add(e.getUserName());
-                    }
                     ArrayAdapter<Employee> arrayAdapter = new ArrayAdapter<Employee>(thisContext, android.R.layout.simple_list_item_1, employees.getData() );
                     listView.setAdapter(arrayAdapter);
                 }
