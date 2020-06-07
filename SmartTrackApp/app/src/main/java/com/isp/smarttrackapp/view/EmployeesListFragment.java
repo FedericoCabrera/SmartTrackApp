@@ -28,6 +28,8 @@ import com.isp.smarttrackapp.viewmodel.EmployeeListFragmentViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.http.HEAD;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -37,11 +39,8 @@ public class EmployeesListFragment extends Fragment {
     private NavController navController;
     private ListView listView;
     private Button btnAddEmployee;
-<<<<<<< HEAD
-    private NavController navController;
-=======
     private Button btnRemoveEmployee;
->>>>>>> 200c51ca69577ce6301b71e5590aac30997cf438
+
 
     private EmployeeListFragmentViewModel employeesViewModel;
     public EmployeesListFragment() {
@@ -62,19 +61,9 @@ public class EmployeesListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
         listView = view.findViewById(R.id.el_employeesList);
-<<<<<<< HEAD
         navController = Navigation.findNavController(view);
         btnAddEmployee = view.findViewById(R.id.el_btn_addEmployee);
-        btnAddEmployee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_employeesListFragment_to_createUserFragment);
-            }
-        });
-=======
-        btnAddEmployee = view.findViewById(R.id.el_btn_addEmployee);
         btnRemoveEmployee = view.findViewById(R.id.el_btn_removeEmployee);
->>>>>>> 200c51ca69577ce6301b71e5590aac30997cf438
         try{
             employeesViewModel.getEmployees().observe(getViewLifecycleOwner(), new Observer<ResponseModelWithData<List<Employee>>>() {
                 @Override

@@ -103,9 +103,8 @@
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right">
         <action
-<<<<<<< HEAD
-            android:id="@+id/action_employeesListFragment_to_createUserFragment"
-            app:destination="@id/createUserFragment"
+            android:id="@+id/action_employeesListFragment_to_createEmployeeFragment"
+            app:destination="@id/createEmployeeFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -123,10 +122,6 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             />
-=======
-            android:id="@+id/action_employeesListFragment_to_createEmployeeFragment"
-            app:destination="@id/createEmployeeFragment" />
->>>>>>> 200c51ca69577ce6301b71e5590aac30997cf438
     </fragment>
     <fragment
         android:id="@+id/createIncidentFragment"
