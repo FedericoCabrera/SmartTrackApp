@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -72,7 +73,7 @@ public class EmployeesListFragment extends Fragment {
                     for (Employee e: employees.getData()) {
                         users.add(e.getUserName());
                     }
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(thisContext, android.R.layout.simple_list_item_1, users );
+                    ArrayAdapter<Employee> arrayAdapter = new ArrayAdapter<Employee>(thisContext, android.R.layout.simple_list_item_1, employees.getData() );
                     listView.setAdapter(arrayAdapter);
                 }
             });

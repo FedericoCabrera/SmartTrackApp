@@ -113,7 +113,6 @@ public class CreateEmployeeFragment extends Fragment {
 
             }
         });
-
     }
 
     @Override

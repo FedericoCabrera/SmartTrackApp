@@ -1,5 +1,7 @@
 package com.isp.smarttrackapp.entities;
 
+import androidx.annotation.NonNull;
+
 public class Employee {
 
     private String name;
@@ -55,5 +57,11 @@ public class Employee {
 
     public void setIdentityNumber(String identityNumber) {
         this.identityNumber = identityNumber;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.name.concat(" ").concat(this.lastName);
     }
 }
