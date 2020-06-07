@@ -28,6 +28,8 @@ import com.isp.smarttrackapp.viewmodel.EmployeeListFragmentViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.http.HEAD;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -38,6 +40,7 @@ public class EmployeesListFragment extends Fragment {
     private ListView listView;
     private Button btnAddEmployee;
     private Button btnRemoveEmployee;
+
 
     private EmployeeListFragmentViewModel employeesViewModel;
     public EmployeesListFragment() {
@@ -58,6 +61,7 @@ public class EmployeesListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
         listView = view.findViewById(R.id.el_employeesList);
+        navController = Navigation.findNavController(view);
         btnAddEmployee = view.findViewById(R.id.el_btn_addEmployee);
         btnRemoveEmployee = view.findViewById(R.id.el_btn_removeEmployee);
         try{

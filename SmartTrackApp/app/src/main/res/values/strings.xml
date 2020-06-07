@@ -8,10 +8,9 @@
     <string name="li_btn_login">Ingresar</string>
     <string name="cancel_btn">Cancelar</string>
     <string name="am_employees_btn">Empleados</string>
-
+    <string name="em_btn_trajects">Viajes</string>
     <string name="el_btn_addEmployee">New Employee</string>
     <string name="el_btn_removeEmployee">Remove Employee</string>
-
     <string name="cu_in_username">Username</string>
     <string name="cu_in_password">Password</string>
     <string name="cu_in_name">Name</string>
