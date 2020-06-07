@@ -24,7 +24,8 @@
         android:label="LoginFragment">
         <action
             android:id="@+id/action_loginFragment_to_mainAdminFragment"
-            app:destination="@id/mainAdminFragment" />
+            app:destination="@id/mainAdminFragment"
+            />
         <action
             android:id="@+id/action_loginFragment_to_mainEmployeeFragment"
             app:destination="@id/mainEmployeeFragment" />
@@ -54,6 +55,27 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_mainAdminFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_mainAdminFragment_to_trackingFragment"
+            app:destination="@id/trackingFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_mainAdminFragment_to_reportsFragment"
+            app:destination="@id/reportsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/mainEmployeeFragment"
@@ -63,7 +85,15 @@
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right"/>
+        app:popExitAnim="@anim/slide_out_right">
+        <action
+            android:id="@+id/action_mainEmployeeFragment_to_createTrajectFragment"
+            app:destination="@id/createTrajectFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
     <fragment
         android:id="@+id/employeesListFragment"
         android:name="com.isp.smarttrackapp.view.EmployeesListFragment"
@@ -74,6 +104,39 @@
         app:popExitAnim="@anim/slide_out_right">
         <action
             android:id="@+id/action_employeesListFragment_to_createUserFragment"
-            app:destination="@id/createUserFragment" />
+            app:destination="@id/createUserFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
+    <fragment
+        android:id="@+id/createTrajectFragment"
+        android:name="com.isp.smarttrackapp.view.CreateTrajectFragment"
+        android:label="CreateTrajectFragment" >
+        <action
+            android:id="@+id/action_createTrajectFragment_to_createIncidentFragment"
+            app:destination="@id/createIncidentFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/createIncidentFragment"
+        android:name="com.isp.smarttrackapp.view.CreateIncidentFragment"
+        android:label="CreateIncidentFragment" />
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.isp.smarttrackapp.view.NotificationsFragment"
+        android:label="NotificationsFragment" />
+    <fragment
+        android:id="@+id/trackingFragment"
+        android:name="com.isp.smarttrackapp.view.TrackingFragment"
+        android:label="TrackingFragment" />
+    <fragment
+        android:id="@+id/reportsFragment"
+        android:name="com.isp.smarttrackapp.view.ReportsFragment"
+        android:label="ReportsFragment" />
 </navigation>

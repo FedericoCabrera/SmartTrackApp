@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +36,8 @@ public class EmployeesListFragment extends Fragment {
 
     private Context thisContext;
     private ListView listView;
-    private Button addEmployee;
+    private Button btnAddEmployee;
+    private NavController navController;
 
     private EmployeeListFragmentViewModel employeesViewModel;
     public EmployeesListFragment() {
@@ -54,7 +57,14 @@ public class EmployeesListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         listView = view.findViewById(R.id.el_employeesList);
-        addEmployee = view.findViewById(R.id.el_btn_addEmployee);
+        navController = Navigation.findNavController(view);
+        btnAddEmployee = view.findViewById(R.id.el_btn_addEmployee);
+        btnAddEmployee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_employeesListFragment_to_createUserFragment);
+            }
+        });
         try{
             employeesViewModel.getEmployees().observe(getViewLifecycleOwner(), new Observer<ResponseModelWithData<List<Employee>>>() {
                 @Override

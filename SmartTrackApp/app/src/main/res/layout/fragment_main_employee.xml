@@ -11,4 +11,10 @@
         android:layout_height="match_parent"
         android:text="Employee" />
 
+    <Button
+        android:id="@+id/em_btn_trajects"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/em_btn_trajects" />
+
 </FrameLayout>
