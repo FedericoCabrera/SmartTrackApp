@@ -13,6 +13,8 @@
             >
             <ListView
                 android:id="@+id/el_employeesList"
+                android:choiceMode="singleChoice"
+                android:listSelector="#B6A3FF"
                 android:layout_width="match_parent"
                 android:layout_height="400dp">
             </ListView>
