@@ -19,7 +19,7 @@
 
 
         <TextView
-            android:id="@+id/li_title"
+            android:id="@+id/cu_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -32,10 +32,49 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/user_hint">
+            android:hint="@string/cu_in_name">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/li_txt_input_username"
+                android:id="@+id/cu_txt_input_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/cu_in_lastname">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/cu_txt_input_lastname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/cu_in_identityNumber">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/cu_txt_input_identityNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/cu_in_username">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/cu_txt_input_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -46,11 +85,11 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password_hint"
+            android:hint="@string/cu_in_password"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/li_txt_input_password"
+                android:id="@+id/cu_txt_input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
@@ -61,23 +100,23 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/li_btn_login"
+                android:id="@+id/cu_btn_addEmployee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:text="@string/li_btn_login" />
+                android:text="@string/cu_btn_addEmployee" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/li_btn_cancel"
+                android:id="@+id/cu_btn_cancel"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
                 android:layout_marginRight="12dp"
-                android:layout_toStartOf="@id/li_btn_login"
-                android:layout_toLeftOf="@id/li_btn_login"
-                android:text="@string/cancel_btn" />
+                android:layout_toStartOf="@id/cu_btn_addEmployee"
+                android:layout_toLetOf="@id/cu_btn_addEmployee"
+                android:text="@string/cu_btn_cancel" />
 
         </RelativeLayout>
 

@@ -10,5 +10,11 @@
     <string name="am_employees_btn">Empleados</string>
     <string name="el_btn_addEmployee">Nuevo</string>
 
-
+    <string name="cu_in_username">Username</string>
+    <string name="cu_in_password">Password</string>
+    <string name="cu_in_name">Name</string>
+    <string name="cu_in_lastname">Lastname</string>
+    <string name="cu_in_identityNumber">Identity Number</string>
+    <string name="cu_btn_cancel">Cancel</string>
+    <string name="cu_btn_addEmployee">Add Employee</string>
 </resources>

@@ -31,9 +31,9 @@
     </fragment>
     <fragment
         android:id="@+id/createUserFragment"
-        android:name="com.isp.smarttrackapp.view.CreateUserFragment"
+        android:name="com.isp.smarttrackapp.view.CreateEmployeeFragment"
         android:label="fragment_create_user"
-        tools:layout="@layout/fragment_create_user"
+        tools:layout="@layout/fragment_create_employee"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
