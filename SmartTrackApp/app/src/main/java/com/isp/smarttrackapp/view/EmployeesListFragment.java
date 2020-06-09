@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
@@ -39,6 +40,7 @@ public class EmployeesListFragment extends Fragment {
     private Context thisContext;
     private NavController navController;
     private ListView listView;
+    private Employee employeeSelected;
     private Button btnAddEmployee;
     private Button btnRemoveEmployee;
 
@@ -78,11 +80,28 @@ public class EmployeesListFragment extends Fragment {
             Toast.makeText(thisContext, ex.toString(), Toast.LENGTH_LONG).show();
         }
 
-
         btnAddEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.action_employeesListFragment_to_createEmployeeFragment);
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng) {
+                Employee selected = (Employee)(listView.getItemAtPosition(myItemInt));
+                if(employeeSelected != null) {
+                    if (selected.getId() != employeeSelected.getId()){
+                        employeeSelected = (Employee) (listView.getItemAtPosition(myItemInt));
+                    }
+                    else {
+                        employeeSelected = null;
+                    }
+                }
+                else
+                    {
+                        employeeSelected = (Employee) (listView.getItemAtPosition(myItemInt));
+                    }
             }
         });
 
@@ -92,7 +111,7 @@ public class EmployeesListFragment extends Fragment {
             public void onClick(final View v) {
                 try{
                     Employee employee = ((Employee) listView.getSelectedItem());
-                    employeesViewModel.removeEmployee(employee).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                    employeesViewModel.removeEmployee(employeeSelected).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                         @Override
                         public void onChanged(ResponseModel res) {
 

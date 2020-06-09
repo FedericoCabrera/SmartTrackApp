@@ -39,9 +39,9 @@ namespace ST.Web.API.Controllers
 
                 var employees = companyService.GetAllEmployees(companyId);
 
-                var response = new ResponseModelWithData<IEnumerable<Employee>>()
+                var response = new ResponseModelWithData<IEnumerable<EmployeeModel>>()
                 {
-                    Data = employees,
+                    Data = EmployeeModel.ToModel(employees),
                     IsResponseOK = true
                 };
 

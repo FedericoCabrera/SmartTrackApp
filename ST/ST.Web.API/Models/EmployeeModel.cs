@@ -42,5 +42,15 @@ namespace ST.Web.API.Models
 
             return this;
         }
+
+        public static List<EmployeeModel> ToEntity(List<Employee> employess) 
+        {
+            List<EmployeeModel> employeesModel = new List<EmployeeModel>();
+            foreach (Employee e in employess)
+            {
+                employeesModel.Add(EmployeeModel.ToModel(e));
+            }
+            return employeesModel;
+        }
     }
 }
