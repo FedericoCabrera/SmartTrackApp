@@ -10,6 +10,9 @@ public class Employee {
     private String userName;
     private String password;
     private String identityNumber;
+    private String status;
+    //public Status enumStatus;
+    //public enum Status { DISCONNECTED, CONNECTED, ON_A_TRIP }
 
     public String getName() {
         return name;
@@ -59,9 +62,23 @@ public class Employee {
         this.identityNumber = identityNumber;
     }
 
+    public String getStatus() {
+        return this.status;
+    }
+    public String showStatus() {
+        String st = "";
+        if(this.status.equals("DISCONNECTED")) { st = "Desconectado"; }
+        if(this.status.equals("CONNECTED")) { st = "Conectado"; }
+        if(this.status.equals("ON_A_TRIP")) { st = "En Viaje"; }
+        return st;
+    }
+    public void setStatus(String newStatus) {
+        this.status = newStatus;
+    }
+
     @NonNull
     @Override
     public String toString() {
-        return this.name.concat(" ").concat(this.lastName);
+        return this.name.concat(" ").concat(this.lastName).concat(" - ").concat(this.showStatus());
     }
 }

@@ -64,6 +64,7 @@ public class EmployeesListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
         listView = view.findViewById(R.id.el_employeesList);
+        employeeSelected = null;
         navController = Navigation.findNavController(view);
         btnAddEmployee = view.findViewById(R.id.el_btn_addEmployee);
         btnRemoveEmployee = view.findViewById(R.id.el_btn_removeEmployee);
@@ -89,19 +90,7 @@ public class EmployeesListFragment extends Fragment {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng) {
-                Employee selected = (Employee)(listView.getItemAtPosition(myItemInt));
-                if(employeeSelected != null) {
-                    if (selected.getId() != employeeSelected.getId()){
-                        employeeSelected = (Employee) (listView.getItemAtPosition(myItemInt));
-                    }
-                    else {
-                        employeeSelected = null;
-                    }
-                }
-                else
-                    {
-                        employeeSelected = (Employee) (listView.getItemAtPosition(myItemInt));
-                    }
+                employeeSelected = (Employee)(listView.getItemAtPosition(myItemInt));
             }
         });
 
@@ -110,21 +99,27 @@ public class EmployeesListFragment extends Fragment {
             @Override
             public void onClick(final View v) {
                 try{
-                    Employee employee = ((Employee) listView.getSelectedItem());
-                    employeesViewModel.removeEmployee(employeeSelected).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
-                        @Override
-                        public void onChanged(ResponseModel res) {
+                    if(employeeSelected != null){
+                        employeesViewModel.removeEmployee(employeeSelected).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                            @Override
+                            public void onChanged(ResponseModel res) {
 
-                            if(res.isResponseOK()){
-                                //Toast.makeText(thisContext, session.getData().getToken() + " Admin: " + session.getData().getIsAdmin(), Toast.LENGTH_LONG).show();
+                                if(res.isResponseOK()){
+                                    Toast.makeText(thisContext, "Employee " + employeeSelected.getName() + " was successfully removed", Toast.LENGTH_LONG).show();
+                                    employeesViewModel.getEmployees().observe(getViewLifecycleOwner(), new Observer<ResponseModelWithData<List<Employee>>>() {
+                                        @Override
+                                        public void onChanged(ResponseModelWithData<List<Employee>> employees) {
+                                            ArrayAdapter<Employee> arrayAdapter = new ArrayAdapter<Employee>(thisContext, android.R.layout.simple_list_item_1, employees.getData() );
+                                            listView.setAdapter(arrayAdapter);
+                                        }
+                                    });
+                                }else{
+                                    Toast.makeText(thisContext, res.getErrorMessage(), Toast.LENGTH_LONG).show();
+                                }
 
-                            }else{
-                                Toast.makeText(thisContext, res.getErrorMessage(), Toast.LENGTH_LONG).show();
                             }
-
-                        }
-                    });
-
+                        });
+                    }
                 }catch(Exception ex){
                     Toast.makeText(thisContext, ex.toString(), Toast.LENGTH_LONG).show();
                 }
