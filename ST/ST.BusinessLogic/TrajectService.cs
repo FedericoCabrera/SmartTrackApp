@@ -22,12 +22,6 @@ namespace ST.BusinessLogic
 
         public Guid CreateTraject(Employee employee, Traject traject)
         {
-            /*TODO: Delete this: */
-            /*FirebaseMessagingClient.GetInstance().SendNotification("fYMVkLYUr3w:APA91bG48aa4bxstNOHt6gMgIIWFC8j9IXR71gyiTtd6hmUmmwDPllgpcDZAPo7iJeJ-Ko5Tagy7L_dJae1doDO_YrJbnP0-UJxGw1o7_-dygDbOkPkhDOjS2EdynnkrhFqjCgC3wNTP"
-                , "Titulo prueba", "Prueba desde backend" + DateTime.Now.ToString());*/
-
-
-            /****************************/
 
             employee.Trajects.Add(traject);
             unitOfWork.EmployeeRepository.Update(employee);
@@ -58,7 +52,7 @@ namespace ST.BusinessLogic
                 foreach (var admin in administrators)
                 {
                     if(admin.FirebaseDeviceToken != null)
-                        firebaseMessagingRestClient.SendNotification(admin.FirebaseDeviceToken, "Incidente reportado.", $"{employee.UserName} ha reportado un incidente a la hora {DateTime.Now.ToString()}");
+                        firebaseMessagingRestClient.SendNotification(admin.FirebaseDeviceToken, "Incidente reportado.", $"{employee.UserName} ha reportado un incidente a la hora {incident.CreationTime}");
                 }
             }
         }
