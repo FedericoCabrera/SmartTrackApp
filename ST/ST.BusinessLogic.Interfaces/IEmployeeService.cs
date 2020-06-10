@@ -1,6 +1,7 @@
 ﻿using ST.Data.Entities;
 using System;
 using System.Collections.Generic;
+using static ST.Data.Entities.Employee;
 
 namespace ST.BusinessLogic.Interfaces
 {
@@ -15,6 +16,7 @@ namespace ST.BusinessLogic.Interfaces
         Employee GetEmployeeByUsername(string userName);
         void ConnectedEmployee(string username);
         Employee GetEmployeeById(Guid employeeId);
+        void PutEmployeeStatus(Guid employeeId, Status employeeStatus);
 
     }
 }

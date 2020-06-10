@@ -4,18 +4,21 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="user_hint">Usuario</string>
-    <string name="password_hint">Password</string>
+    <string name="password_hint">Contraseña</string>
     <string name="li_btn_login">Ingresar</string>
     <string name="cancel_btn">Cancelar</string>
     <string name="am_employees_btn">Empleados</string>
     <string name="em_btn_trajects">Viajes</string>
-    <string name="el_btn_addEmployee">New Employee</string>
-    <string name="el_btn_removeEmployee">Remove Employee</string>
-    <string name="cu_in_username">Username</string>
-    <string name="cu_in_password">Password</string>
-    <string name="cu_in_name">Name</string>
-    <string name="cu_in_lastname">Lastname</string>
-    <string name="cu_in_identityNumber">Identity Number</string>
-    <string name="cu_btn_cancel">Cancel</string>
-    <string name="cu_btn_addEmployee">Add Employee</string>
+    <string name="el_btn_addEmployee">Nuevo</string>
+    <string name="el_btn_removeEmployee">Eliminar</string>
+    <string name="cu_in_username">Nombre de suario</string>
+    <string name="cu_in_password">Contrasena</string>
+    <string name="cu_in_name">Nombre</string>
+    <string name="cu_in_lastname">Apellido</string>
+    <string name="cu_in_identityNumber">Cedula identidad</string>
+    <string name="cu_btn_cancel">Cancelar</string>
+    <string name="cu_btn_addEmployee">Agregar</string>
+    <string name="cu_title">Empleado</string>
+    <string name="el_btn_editEmployee">Editar</string>
+
 </resources>

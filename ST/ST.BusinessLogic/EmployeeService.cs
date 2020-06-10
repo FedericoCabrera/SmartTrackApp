@@ -5,7 +5,7 @@ using ST.BusinessLogic.Interfaces;
 using ST.BusinessLogic.Interfaces.Exceptions;
 using ST.Data.Entities;
 using ST.Data.Repository.Interfaces;
-
+using static ST.Data.Entities.Employee;
 
 namespace ST.BusinessLogic
 {
@@ -35,6 +35,7 @@ namespace ST.BusinessLogic
             location.Latitude = 0;
             location.Longitude = 0;
             location.LocationTime = DateTime.Now;
+            employee.EmployeeStatus = Employee.Status.DISCONNECTED;
 
             employee.Location = location;
 
@@ -46,6 +47,20 @@ namespace ST.BusinessLogic
         {
 
             return unitOfWork.EmployeeRepository.Get();
+        }
+
+        public void PutEmployeeStatus(Guid employeeId, Status employeeStatus) {
+            var employee = GetEmployeeById(employeeId);
+            if (employeeStatus.Equals(Status.CONNECTED))
+                employee.EmployeeStatus = Status.CONNECTED;
+            if (employeeStatus.Equals(Status.DISCONNECTED))
+                employee.EmployeeStatus = Status.DISCONNECTED;
+            if (employeeStatus.Equals(Status.ON_A_TRIP))
+                employee.EmployeeStatus = Status.ON_A_TRIP;
+            unitOfWork.EmployeeRepository.Update(employee);
+            unitOfWork.EmployeeRepository.Save();
+
+
         }
 
         public Employee GetEmployeeByUsername(string userName)
@@ -75,6 +90,7 @@ namespace ST.BusinessLogic
             unitOfWork.EmployeeRepository.Update(employee);
             unitOfWork.EmployeeRepository.Save();
         }
+
 
         public void RemoveEmployee(Guid employeeId)
         {

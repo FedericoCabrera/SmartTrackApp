@@ -9,6 +9,7 @@ using ST.BusinessLogic.Interfaces;
 using ST.BusinessLogic.Interfaces.Exceptions;
 using ST.Data.Entities;
 using ST.Web.API.Models;
+using static ST.Data.Entities.Employee;
 
 namespace ST.Web.API.Controllers
 {
@@ -41,14 +42,16 @@ namespace ST.Web.API.Controllers
                 ret.Name = user.Name;
                 ret.Lastname = user.LastName;
                 ret.UserId = user.Id;
-                ret.Username = user.LastName;
+                ret.Username = user.UserName;
                 ret.Token = session.Token;
 
                 if (user is Administrator)
                     ret.IsAdmin = true;
-                else
+                else {
                     ret.IsAdmin = false;
-
+                    employeeService.PutEmployeeStatus(ret.UserId, Status.CONNECTED);
+                }
+                   
                 var response = new ResponseModelWithData<SessionModel>()
                 {
                     Data = ret,
@@ -72,6 +75,41 @@ namespace ST.Web.API.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+
+
+        [HttpPut("{id}")]
+        public IActionResult Logout(Guid id)
+        {
+            try
+            {
+                var user = userService.GetUserById(id);
+                if (user is Employee)
+                employeeService.GetEmployeeById(id);
+                employeeService.PutEmployeeStatus(id , Status.DISCONNECTED);
+                var response = new ResponseModel()
+                {
+                    ErrorMessage = "",
+                    IsResponseOK = true
+                };
+
+                return Ok(response);
+            }
+            catch (HandledException he)
+            {
+                var response = new ResponseModel()
+                {
+                    IsResponseOK = false,
+                    ErrorMessage = he.Message
+                };
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
 
     }
 }

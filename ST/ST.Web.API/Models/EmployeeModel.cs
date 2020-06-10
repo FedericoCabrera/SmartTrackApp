@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static ST.Data.Entities.Employee;
 
 namespace ST.Web.API.Models
 {
@@ -22,24 +23,28 @@ namespace ST.Web.API.Models
         public string Password { get; set; }
         public string IdentityNumber { get; set; }
         public bool IsAdmin { get; set; }
+        public Status EmployeeStatus { get; set; }
 
         public override Employee ToEntity() => new Employee()
         {
+            Id = this.Id,
             Name = this.Name,
             IdentityNumber = this.IdentityNumber,
             LastName = this.LastName,
             Password = this.Password,
             UserName = this.UserName,
+            EmployeeStatus =  this.EmployeeStatus,
         };
 
         protected override EmployeeModel SetModel(Employee entity)
         {
+            Id = entity.Id;
             Name = entity.Name;
             IdentityNumber = entity.IdentityNumber;
             LastName = entity.LastName;
             Password = entity.Password;
             UserName = entity.UserName;
-
+            EmployeeStatus = entity.EmployeeStatus;
             return this;
         }
 

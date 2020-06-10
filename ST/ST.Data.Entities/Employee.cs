@@ -13,6 +13,6 @@ namespace ST.Data.Entities
         public List<Traject> Trajects { get; set; }
         public Location Location { get; set; }
         public Status EmployeeStatus { get; set; }
-        public enum Status { DISCONNECTED, CONNECTED, ON_A_TRIP }
-    }
+        public enum Status { DISCONNECTED, CONNECTED, ON_A_TRIP } 
+}
 }
