@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_loginFragment_to_mainEmployeeFragment"
             app:destination="@id/mainEmployeeFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_mapsActivity"
+            app:destination="@id/mapsActivity" />
     </fragment>
     <fragment
         android:id="@+id/createUserFragment"
@@ -71,4 +74,9 @@
         android:id="@+id/employeesListFragment"
         android:name="com.isp.smarttrackapp.view.EmployeesListFragment"
         android:label="EmployeesListFragment" />
+    <activity
+        android:id="@+id/mapsActivity"
+        android:name="com.isp.smarttrackapp.view.MapsActivity"
+        android:label="activity_maps"
+        tools:layout="@layout/activity_maps" />
 </navigation>

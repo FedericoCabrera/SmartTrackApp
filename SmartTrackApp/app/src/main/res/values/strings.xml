@@ -8,4 +8,9 @@
     <string name="li_btn_login">Ingresar</string>
     <string name="cancel_btn">Cancelar</string>
     <string name="am_employees_btn">Empleados</string>
+    <string name="em_start_traject_btn">Comenzar trayecto</string>
+    <string name="em_start_workingday_btn">Comenzar jornada</string>
+    <string name="am_logout_btn">Salir</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="emenu_new_traject">Nuevo trayecto</string>
 </resources>
