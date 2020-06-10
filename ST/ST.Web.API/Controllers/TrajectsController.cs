@@ -34,7 +34,7 @@ namespace ST.Web.API.Controllers
         }
 
 
-        // POST: api/Users
+        // POST: api/Traject
         [HttpPost]
         public IActionResult CreateTraject([FromBody] TrajectModel traject)
         {
@@ -68,8 +68,8 @@ namespace ST.Web.API.Controllers
             }
         }
 
-        // POST: api/Users
-        [HttpPost]
+        // POST: api/Traject/trajectId
+        [HttpPost("{trajectId}")]
         public IActionResult CreateIncident(Guid trajectId, [FromBody] IncidentModel incident)
         {
             try
@@ -79,7 +79,7 @@ namespace ST.Web.API.Controllers
                 var token = Utils.GetToken(Request);
                 var employee = sessionService.GetEmployeeByToken(token);
 
-                trajectService.AssignIncidentToTraject(trajectId, incident.ToEntity());
+                trajectService.AssignIncidentToTraject(trajectId, employee, incident.ToEntity());
 
                 responseModel.IsResponseOK = true;
                 responseModel.Data = trajectId;
