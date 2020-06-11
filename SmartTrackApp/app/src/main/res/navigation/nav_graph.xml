@@ -93,6 +93,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_mainEmployeeFragment_to_employeeMapFragment"
+            app:destination="@id/employeeMapFragment" />
     </fragment>
     <fragment
         android:id="@+id/employeesListFragment"
@@ -139,4 +142,8 @@
         android:id="@+id/reportsFragment"
         android:name="com.isp.smarttrackapp.view.ReportsFragment"
         android:label="ReportsFragment" />
+    <fragment
+        android:id="@+id/employeeMapFragment"
+        android:name="com.isp.smarttrackapp.view.EmployeeMapFragment"
+        android:label="EmployeeMapFragment" />
 </navigation>

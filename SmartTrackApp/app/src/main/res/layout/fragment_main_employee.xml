@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal|center_vertical"
     tools:context=".view.MainEmployeeFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -17,4 +18,12 @@
         android:layout_height="wrap_content"
         android:text="@string/em_btn_trajects" />
 
-</FrameLayout>
+    <Button
+        android:id="@+id/em_btn_new_traject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/em_btn_trajects"
+        android:text="@string/em_btn_new_traject" />
+
+</RelativeLayout>
+

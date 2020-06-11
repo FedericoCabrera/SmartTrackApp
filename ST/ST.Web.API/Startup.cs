@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -45,6 +47,8 @@ namespace ST.Web.API
             services.AddScoped<IAdministratorService, AdministratorService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITrajectService, TrajectService>();
+            services.AddScoped<IFirebaseMessagingRestClient, FirebaseMessagingRestClient>();
+
 
             //CORS
             services.AddCors(options =>

@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FirebaseAdmin" Version="1.13.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.1" />
+    <PackageReference Include="Nancy" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ST.BusinessLogic.Interfaces\ST.BusinessLogic.Interfaces.csproj" />
     <ProjectReference Include="..\ST.Data.Entities\ST.Data.Entities.csproj" />
     <ProjectReference Include="..\ST.Data.Repository.Interfaces\ST.Data.Repository.Interfaces.csproj" />
