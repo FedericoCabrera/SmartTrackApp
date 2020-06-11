@@ -16,6 +16,8 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 
+import java.util.Random;
+
 public class FMCService extends com.google.firebase.messaging.FirebaseMessagingService {
 
     private static FMCService instance;
@@ -47,10 +49,14 @@ public class FMCService extends com.google.firebase.messaging.FirebaseMessagingS
                 .setSmallIcon(R.drawable.ic_st_logo)
                 .setContentTitle(title)
                 .setContentText(body)
+                .setOngoing(false)
+                .setOnlyAlertOnce(false)
                 .setPriority(NotificationCompat.PRIORITY_MAX);
 
         NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        manager.notify(1002, builder.build());
+
+        Random random = new Random();
+        manager.notify(random.nextInt(9999 - 1000) + 1000, builder.build());
 
     }
 

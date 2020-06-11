@@ -107,8 +107,11 @@ public class LoginFragment extends Fragment {
 
                                 if(session.getData().getIsAdmin())
                                     navController.navigate(R.id.action_loginFragment_to_mainAdminFragment);
-                                else
+                                else{
                                     navController.navigate(R.id.action_loginFragment_to_mainEmployeeFragment);
+                                    //navController.navigate(R.id.action_loginFragment_to_mapsActivity);
+                                }
+
                             }else{
                                 Toast.makeText(thisContext, session.getErrorMessage(), Toast.LENGTH_LONG).show();
                             }
