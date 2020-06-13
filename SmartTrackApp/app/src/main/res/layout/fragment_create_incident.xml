@@ -1,15 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+
+    tools:context=".view.CreateIncidentFragment">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/cu_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Incident"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="92dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_centerHorizontal="true"
+        android:text="@string/ci_title"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:paddingTop="50dp"
+        android:layout_marginBottom="100dp"/>
+
+    <RelativeLayout
+        android:id="@+id/ci_relative_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="50dp"
+        android:paddingTop="100dp"
+        android:paddingRight="50dp"
+        android:paddingBottom="25dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ci_txt_input_location_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:hint="@string/ci_txt_input_location">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ci_txt_input_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ci_txt_input_description_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/ci_txt_input_location_layout"
+            android:hint="@string/ci_txt_input_description"
+            android:layout_marginTop="25dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ci_txt_input_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:maxLines="2" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/ci_img_btn"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/ci_txt_input_description_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            app:srcCompat="@drawable/ic_camera_enhance_24px" />
+
+        <ImageView
+            android:id="@+id/ci_img_view"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/ci_img_btn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/ic_crop_free_24px"
+            android:elevation="@dimen/cardview_default_elevation"
+            app:srcCompat="@drawable/ic_crop_free_24px"
+            tools:srcCompat="@drawable/ic_crop_free_24px" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_below="@+id/ci_img_view"
+            android:layout_alignParentEnd="true">
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/ci_btn_cancel"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_toStartOf="@id/ci_btn_addIncident"
+                android:layout_toLeftOf="@id/ci_btn_addIncident"
+                android:text="@string/ci_btn_cancel" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/ci_btn_addIncident"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="@string/ci_btn_addIncident" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

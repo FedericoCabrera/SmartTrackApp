@@ -29,5 +29,10 @@
     <string name="am_logout_btn">Salir</string>
     <string name="emenu_new_traject">Nuevo trayecto</string>
     <string name="em_btn_new_traject">Nuevo trayecto</string>
+    <string name="ci_title">Incidente</string>
+    <string name="ci_txt_input_location">Ubicación</string>
+    <string name="ci_btn_addIncident">Agregar</string>
+    <string name="ci_btn_cancel">Cancelar</string>
+    <string name="ci_txt_input_description">Descripción</string>
 
 </resources>

@@ -60,7 +60,7 @@ public class LoginFragment extends Fragment {
 
         // Inflate the layout for this fragment
         thisContext = getActivity();
-        valuesViewModel = new ViewModelProvider(this).get(ValuesViewModel.class);
+        //valuesViewModel = new ViewModelProvider(this).get(ValuesViewModel.class);
         loginViewModel = new ViewModelProvider(this).get(LoginFragmentViewModel.class);
 
 
