@@ -87,7 +87,6 @@ namespace ST.Web.API.Controllers
             {
                 ResponseModelWithData<EmployeeModel> responseModel = new ResponseModelWithData<EmployeeModel>();
                 var companyId = GetCompanyID();
-                employee.EmployeeStatus = Employee.Status.DISCONNECTED;
                 companyService.AddEmployee(companyId, employee.ToEntity());
                 responseModel.IsResponseOK = true;
                 responseModel.Data = EmployeeModel.ToModel(employeeService.GetEmployeeByUsername(employee.UserName));

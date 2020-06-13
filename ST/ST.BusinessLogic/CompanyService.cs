@@ -56,7 +56,7 @@ namespace ST.BusinessLogic
             Company company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId),null,"Employees").FirstOrDefault();
             if (company == null)
                 throw new HandledException("Empresa no existente.");
-
+            employee.EmployeeStatus = Employee.Status.DISCONNECTED;
             company.Employees.Add(employee);
             unitOfWork.CompanyRepository.Update(company);
             unitOfWork.CompanyRepository.Save();
