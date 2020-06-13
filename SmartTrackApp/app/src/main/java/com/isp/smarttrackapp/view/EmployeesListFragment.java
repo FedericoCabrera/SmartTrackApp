@@ -107,7 +107,7 @@ public class EmployeesListFragment extends Fragment {
                             public void onChanged(ResponseModel res) {
 
                                 if(res.isResponseOK()){
-                                    Toast.makeText(thisContext, "Employee " + employeeSelected.getName() + " was successfully removed", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(thisContext, "El empleado " + employeeSelected.getName() + " ha sido eliminado", Toast.LENGTH_LONG).show();
                                     employeesViewModel.getEmployees().observe(getViewLifecycleOwner(), new Observer<ResponseModelWithData<List<Employee>>>() {
                                         @Override
                                         public void onChanged(ResponseModelWithData<List<Employee>> employees) {

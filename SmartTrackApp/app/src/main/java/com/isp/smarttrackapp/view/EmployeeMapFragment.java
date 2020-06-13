@@ -19,6 +19,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.isp.smarttrackapp.R;
+import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 
 public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback {
     // TODO: Rename parameter arguments, choose names that match
@@ -53,12 +54,11 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-
+        LocalStorage localStorage = LocalStorage.getInstance();
         LatLng place = new LatLng(-34.8856045, -56.1875722);
 
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
-
-        this.googleMap.addMarker(new MarkerOptions().position(place).title("Empleado"));
+        this.googleMap.addMarker(new MarkerOptions().position(place).title(localStorage.getValue("username")));
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(place));
         this.googleMap.animateCamera(zoom);
     }

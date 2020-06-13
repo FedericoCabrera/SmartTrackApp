@@ -28,8 +28,6 @@ namespace ST.BusinessLogic
             ValidateStringProperty(employee.Name);
             ValidateStringProperty(employee.UserName);
             ValidateStringProperty(employee.Password);
-            //ValidateUserPassword(employee.Password);
-            //ValidateUserName(employee.UserName);
 
             Location location = new Location();
             location.Latitude = 0;
@@ -79,13 +77,23 @@ namespace ST.BusinessLogic
 
         }
 
-        public void ModifyEmployee(Employee employee)
+        public void ModifyEmployee(Guid id, Employee newEmployee)
         {
 
-            ValidateStringProperty(employee.IdentityNumber);
-            ValidateStringProperty(employee.LastName);
-            ValidateStringProperty(employee.Name);
-            ValidateStringProperty(employee.UserName);
+            var employee = unitOfWork.EmployeeRepository.Get(x => x.Id.Equals(id)).FirstOrDefault();
+            if (employee == null)
+                throw new HandledException("No existe empleado a modificar.");
+
+            ValidateStringProperty(newEmployee.IdentityNumber);
+            ValidateStringProperty(newEmployee.LastName);
+            ValidateStringProperty(newEmployee.Name);
+            ValidateStringProperty(newEmployee.UserName);
+
+            employee.Name = newEmployee.Name;
+            employee.IdentityNumber = newEmployee.IdentityNumber;
+            employee.LastName = newEmployee.LastName;
+            employee.Password = newEmployee.Password;
+            employee.UserName = newEmployee.UserName;
 
             unitOfWork.EmployeeRepository.Update(employee);
             unitOfWork.EmployeeRepository.Save();

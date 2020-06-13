@@ -82,12 +82,20 @@ public class CreateEmployeeFragment extends Fragment {
 
         textView = view.findViewById(R.id.cu_title);
 
+
+        btnCancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(final View v) {
+                getActivity().onBackPressed();
+            }
+        });
+
         btnAddEmployee.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(final View v) {
-                String name = txtInputName.getText().toString();
-                String lastname = txtInputLastname.getText().toString();
+                final String name = txtInputName.getText().toString();
+                final String lastname = txtInputLastname.getText().toString();
                 String identityNumber = txtInputIdentityNumber.getText().toString();
                 String userName = txtInputUsername.getText().toString();
                 String password = txtInputPassword.getText().toString();
@@ -98,7 +106,12 @@ public class CreateEmployeeFragment extends Fragment {
                         public void onChanged(ResponseModelWithData<Employee> employee) {
 
                             if(employee.isResponseOK()){
-                                //Toast.makeText(thisContext, session.getData().getToken() + " Admin: " + session.getData().getIsAdmin(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(thisContext, "El usuario " + name + " " + lastname + " ha sido creado", Toast.LENGTH_LONG).show();
+                                txtInputName.setText("");
+                                txtInputLastname.setText("");
+                                txtInputIdentityNumber.setText("");
+                                txtInputUsername.setText("");
+                                txtInputPassword.setText("");
 
                             }else{
                                 Toast.makeText(thisContext, employee.getErrorMessage(), Toast.LENGTH_LONG).show();

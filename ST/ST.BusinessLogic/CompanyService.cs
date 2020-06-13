@@ -52,7 +52,18 @@ namespace ST.BusinessLogic
 
         public void AddEmployee(Guid companyId, Employee employee)
         {
-
+            ValidateStringProperty(employee.IdentityNumber);
+            ValidateStringProperty(employee.LastName);
+            ValidateStringProperty(employee.Name);
+            ValidateStringProperty(employee.UserName);
+            ValidateStringProperty(employee.Password);
+            Location location = new Location();
+            location.Latitude = 0;
+            location.Longitude = 0;
+            location.LocationTime = DateTime.Now;
+            var dupEmployee = unitOfWork.EmployeeRepository.Get(x => x.UserName.Equals(employee.UserName)).FirstOrDefault();
+            if (dupEmployee != null)
+                throw new HandledException("Usuario ya existente.");
             Company company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId),null,"Employees").FirstOrDefault();
             if (company == null)
                 throw new HandledException("Empresa no existente.");
@@ -86,6 +97,21 @@ namespace ST.BusinessLogic
             unitOfWork.CompanyRepository.Update(company);
             unitOfWork.CompanyRepository.Save();
 
+        }
+
+        private void ValidateEmployeeName(string employeeName)
+        {
+            var employee = unitOfWork.EmployeeRepository.Get(x => x.Name == employeeName).FirstOrDefault();
+            if (employee == null)
+                throw new HandledException("Datos de ingreso invalidos.");
+        }
+
+
+
+        private void ValidateStringProperty(string property)
+        {
+            if (string.IsNullOrEmpty(property))
+                throw new HandledException("Datos de ingreso invalidos.");
         }
 
         public IEnumerable<Employee> GetEmployeesActiveWithLocation(Guid companyId)

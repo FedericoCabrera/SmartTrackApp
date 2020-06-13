@@ -91,12 +91,20 @@ public class UpdateEmployeeFragment extends Fragment {
         employeeId = localStorage.getValue("idEmployeeForUpdate");
         textView = view.findViewById(R.id.cu_title);
 
+
+        btnCancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(final View v) {
+                getActivity().onBackPressed();
+            }
+        });
+
         btnUpdateEmployee.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(final View v) {
-                String name = txtInputName.getText().toString();
-                String lastname = txtInputLastname.getText().toString();
+               final String name = txtInputName.getText().toString();
+                final String lastname = txtInputLastname.getText().toString();
                 String identityNumber = txtInputIdentityNumber.getText().toString();
                 String userName = txtInputUsername.getText().toString();
                 String password = txtInputPassword.getText().toString();
@@ -107,8 +115,8 @@ public class UpdateEmployeeFragment extends Fragment {
                         public void onChanged(ResponseModel employee) {
 
                             if(employee.isResponseOK()){
-                                //Toast.makeText(thisContext, session.getData().getToken() + " Admin: " + session.getData().getIsAdmin(), Toast.LENGTH_LONG).show();
-
+                                Toast.makeText(thisContext, "El empleado " + name + " " + lastname + " ha sido modificado", Toast.LENGTH_LONG).show();
+                                getActivity().onBackPressed();
                             }else{
                                 Toast.makeText(thisContext, employee.getErrorMessage(), Toast.LENGTH_LONG).show();
                             }

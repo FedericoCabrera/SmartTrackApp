@@ -95,11 +95,12 @@ public class LoginFragment extends Fragment {
                         public void onChanged(ResponseModelWithData<Session> session) {
 
                             if(session.isResponseOK()){
-                                Toast.makeText(thisContext, session.getData().getToken() + " Admin: " + session.getData().getIsAdmin(), Toast.LENGTH_LONG).show();
+                                //Toast.makeText(thisContext, session.getData().getToken() + " Admin: " + session.getData().getIsAdmin(), Toast.LENGTH_LONG).show();
 
                                 //TODO: Pass to viewmodel, dont show setValueOK message
                                 LocalStorage localStorage = LocalStorage.getInstance();
                                 boolean setValueOK = localStorage.setValue(session.getData().getToken(),"token");
+                                setValueOK = localStorage.setValue(session.getData().getUsername(),"username");
 
                                 //Toast.makeText(thisContext, "SetValueResult: " + setValueOK, Toast.LENGTH_LONG).show();
                                 String fcmToken = localStorage.getValue("fcm_token");
