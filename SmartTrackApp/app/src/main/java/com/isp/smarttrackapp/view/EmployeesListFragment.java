@@ -25,6 +25,7 @@ import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.Employee;
 import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
+import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 import com.isp.smarttrackapp.viewmodel.EmployeeListFragmentViewModel;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class EmployeesListFragment extends Fragment {
     private Employee employeeSelected;
     private Button btnAddEmployee;
     private Button btnRemoveEmployee;
-
+    private Button btnUpdateEmployee;
 
     private EmployeeListFragmentViewModel employeesViewModel;
     public EmployeesListFragment() {
@@ -68,6 +69,7 @@ public class EmployeesListFragment extends Fragment {
         navController = Navigation.findNavController(view);
         btnAddEmployee = view.findViewById(R.id.el_btn_addEmployee);
         btnRemoveEmployee = view.findViewById(R.id.el_btn_removeEmployee);
+        btnUpdateEmployee = view.findViewById(R.id.el_btn_editEmployee);
         try{
             employeesViewModel.getEmployees().observe(getViewLifecycleOwner(), new Observer<ResponseModelWithData<List<Employee>>>() {
                 @Override
@@ -124,6 +126,27 @@ public class EmployeesListFragment extends Fragment {
                     Toast.makeText(thisContext, ex.toString(), Toast.LENGTH_LONG).show();
                 }
 
+            }
+        });
+
+        btnUpdateEmployee.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(final View v) {
+                try{
+                    if(employeeSelected != null){
+                        LocalStorage localStorage = LocalStorage.getInstance();
+                        boolean setValueOK = localStorage.setValue(employeeSelected.getId(),"idEmployeeForUpdate");
+                        setValueOK = localStorage.setValue(employeeSelected.getIdentityNumber(),"identityNumberEmployeeForUpdate");
+                        setValueOK = localStorage.setValue(employeeSelected.getLastName(),"lastnameEmployeeForUpdate");
+                        setValueOK = localStorage.setValue(employeeSelected.getName(),"nameEmployeeForUpdate");
+                        setValueOK = localStorage.setValue(employeeSelected.getPassword(),"passwordEmployeeForUpdate");
+                        setValueOK = localStorage.setValue(employeeSelected.getUserName(),"usernameEmployeeForUpdate");
+
+                        navController.navigate(R.id.action_employeesListFragment_to_updateEmployeeFragment);
+                    }
+                }catch(Exception ex){
+                    Toast.makeText(thisContext, ex.toString(), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
