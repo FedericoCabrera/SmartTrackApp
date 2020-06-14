@@ -22,6 +22,9 @@
     <string name="el_btn_editEmployee">Editar</string>
     <string name="uu_btn_updateEmployee">Editar</string>
     <string name="title_activity_maps">Map</string>
+    <string name="am_tracking">Tracking</string>
+
+
 
     <!-- TODO: Borrar si no se usan -->
     <string name="em_start_traject_btn">Comenzar trayecto</string>
