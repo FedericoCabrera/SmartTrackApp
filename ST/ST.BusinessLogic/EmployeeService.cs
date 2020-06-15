@@ -145,7 +145,11 @@ namespace ST.BusinessLogic
 
         public void ModifyLocation(Employee employee, Location location)
         {
-            Location employeeLocation = employee.Location;
+            Location employeeLocation = new Location();
+            if (employee.Location != null) 
+            {
+                employeeLocation = employee.Location;
+            }
             employeeLocation.Latitude = location.Latitude;
             employeeLocation.Longitude = location.Longitude;
             employeeLocation.LocationTime = location.LocationTime;
