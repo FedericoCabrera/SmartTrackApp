@@ -3,6 +3,7 @@ package com.isp.smarttrackapp.model.repository.remote;
 import androidx.lifecycle.MutableLiveData;
 
 import com.isp.smarttrackapp.entities.Employee;
+import com.isp.smarttrackapp.entities.Position;
 import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;
@@ -124,6 +125,30 @@ public class EmployeesRepository {
             }
             @Override
             public void onFailure(Call<ResponseModelWithData<Employee>> call, Throwable t) {
+            }
+        });
+        return data;
+    }
+
+    public MutableLiveData<ResponseModel> updateLocation(Position position) {
+        final MutableLiveData<ResponseModel> data = new MutableLiveData<>();
+        String token = LocalStorage.getInstance().getValue("token");
+        Call<ResponseModel> call = employeesApiService.updateLocation(token, position);
+        call.enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                if(response.isSuccessful()){
+                    data.setValue(response.body());
+                }else{
+                    try {
+                        String error = response.errorBody().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
             }
         });
         return data;
