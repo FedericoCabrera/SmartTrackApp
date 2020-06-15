@@ -124,10 +124,10 @@ namespace ST.BusinessLogic
             List<Employee> employees = new List<Employee>();
             foreach (Employee emp in company.Employees)
             {
-                employees.Add(unitOfWork.EmployeeRepository.Get(x => x.Id.Equals(emp.Id) && x.EmployeeStatus.Equals(Employee.Status.CONNECTED), null, "Location").FirstOrDefault());
+                employees.Add(unitOfWork.EmployeeRepository.Get(x => x.Id.Equals(emp.Id) && (x.EmployeeStatus.Equals(Employee.Status.CONNECTED) || x.EmployeeStatus.Equals(Employee.Status.ON_A_TRIP)), null, "Location").FirstOrDefault());
+           
             }
             return employees;
-
         }
     }
 }

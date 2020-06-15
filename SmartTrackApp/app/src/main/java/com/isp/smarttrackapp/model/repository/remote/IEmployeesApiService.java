@@ -31,4 +31,7 @@ public interface IEmployeesApiService {
 
     @PUT("Users")
     Call<ResponseModel> updateLocation(@Header("Authorization") String token, @Body Position position);
+
+    @GET("Users/location")
+    Call<ResponseModelWithData<List<Employee>>> getLocation(@Header("Authorization") String token);
 }

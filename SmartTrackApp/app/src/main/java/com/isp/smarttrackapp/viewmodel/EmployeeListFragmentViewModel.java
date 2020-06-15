@@ -28,6 +28,8 @@ public class EmployeeListFragmentViewModel extends AndroidViewModel {
         return employeeObservable;
     }
 
+
+
     public LiveData<ResponseModel> removeEmployee(Employee employee) {
 
         removeEmployeeObservable = EmployeesRepository.getInstance().removeEmployee(employee);

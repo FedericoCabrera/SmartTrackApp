@@ -58,6 +58,34 @@ public class EmployeesRepository {
         return data;
     }
 
+
+    public MutableLiveData<ResponseModelWithData<List<Employee>>> getLocation() {
+        final MutableLiveData<ResponseModelWithData<List<Employee>>> data = new MutableLiveData<>();
+        String token = LocalStorage.getInstance().getValue("token");
+        Call<ResponseModelWithData<List<Employee>>> call = employeesApiService.getLocation(token);
+        call.enqueue(new Callback<ResponseModelWithData<List<Employee>>>() {
+            @Override
+            public void onResponse(Call<ResponseModelWithData<List<Employee>>> call, Response<ResponseModelWithData<List<Employee>>> response) {
+                if(response.isSuccessful()){
+                    data.setValue(response.body());
+                }else{
+                    try {
+                        String error = response.errorBody().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModelWithData<List<Employee>>> call, Throwable t) {
+
+            }
+
+        });
+        return data;
+    }
+
     public MutableLiveData<ResponseModelWithData<Employee>> createEmployee(Employee employee) {
         final MutableLiveData<ResponseModelWithData<Employee>> data = new MutableLiveData<>();
         String token = LocalStorage.getInstance().getValue("token");
