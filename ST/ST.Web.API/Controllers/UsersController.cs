@@ -143,7 +143,7 @@ namespace ST.Web.API.Controllers
 
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult UpdateEmployee([FromBody] EmployeeModel employee)
         {
             try

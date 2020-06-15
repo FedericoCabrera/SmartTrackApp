@@ -1,6 +1,7 @@
 package com.isp.smarttrackapp.model.repository.remote;
 
 import com.isp.smarttrackapp.entities.Employee;
+import com.isp.smarttrackapp.entities.Position;
 import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
 
@@ -27,4 +28,7 @@ public interface IEmployeesApiService {
 
     @PUT("Users" + "/{id}")
     Call<ResponseModelWithData<Employee>> updateEmployee(@Header("Authorization") String token, @Path("id") String id, @Body Employee employee);
+
+    @PUT("Users")
+    Call<ResponseModel> updateLocation(@Header("Authorization") String token, @Body Position position);
 }
