@@ -42,11 +42,18 @@ public class LoginRepository {
             public void onResponse(Call<ResponseModelWithData<Session>> call, Response<ResponseModelWithData<Session>> response) {
                 if(response.isSuccessful()){
 
-                    data.setValue(response.body());
+                    if(response.body().isResponseOK()) {
+                        data.setValue(response.body());
 
-                    //Save token in local storage
-                    String token = response.body().getData().getToken();
-                    LocalStorage.getInstance().setValue(token, Config.KEY_USER_TOKEN);
+                        //Save token in local storage
+                        String token = response.body().getData().getToken();
+                        LocalStorage.getInstance().setValue(token, Config.KEY_USER_TOKEN);
+                    }else{
+                        ResponseModelWithData<Session> errorResponse = new ResponseModelWithData<>();
+                        errorResponse.setResponseOK(false);
+                        errorResponse.setErrorMessage(response.body().getErrorMessage());
+                        data.setValue(errorResponse);
+                    }
 
                 }else{
                     String error;
@@ -66,7 +73,6 @@ public class LoginRepository {
 
             @Override
             public void onFailure(Call<ResponseModelWithData<Session>> call, Throwable t){
-                //throw new UnhandledRepositoryException(t.getMessage(), t);
             }
         });
 
