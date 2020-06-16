@@ -24,6 +24,7 @@ namespace ST.Web.API.Models
         public string IdentityNumber { get; set; }
         public bool IsAdmin { get; set; }
         public string EmployeeStatus { get; set; }
+        public Location Location { get; set; }
 
         public override Employee ToEntity() => new Employee()
         {
@@ -44,6 +45,7 @@ namespace ST.Web.API.Models
             Password = entity.Password;
             UserName = entity.UserName;
             EmployeeStatus = entity.EmployeeStatus.ToString();
+            Location = entity.Location;
             return this;
         }
 

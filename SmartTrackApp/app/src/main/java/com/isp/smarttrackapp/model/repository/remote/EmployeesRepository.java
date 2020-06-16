@@ -1,5 +1,7 @@
 package com.isp.smarttrackapp.model.repository.remote;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.isp.smarttrackapp.Config;
@@ -80,6 +82,8 @@ public class EmployeesRepository {
 
             @Override
             public void onFailure(Call<ResponseModelWithData<List<Employee>>> call, Throwable t) {
+
+                Log.println(Log.ERROR,"error", t.getMessage());
 
             }
 

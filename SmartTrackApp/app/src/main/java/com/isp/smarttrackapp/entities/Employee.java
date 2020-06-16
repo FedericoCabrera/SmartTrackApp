@@ -2,6 +2,8 @@ package com.isp.smarttrackapp.entities;
 
 import androidx.annotation.NonNull;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Employee {
 
     private String name;
@@ -11,6 +13,25 @@ public class Employee {
     private String password;
     private String identityNumber;
     private String employeeStatus;
+    @SerializedName("Location")
+    private Position position;
+
+    public String getEmployeeStatus() {
+        return employeeStatus;
+    }
+
+    public void setEmployeeStatus(String employeeStatus) {
+        this.employeeStatus = employeeStatus;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
     //public Status enumStatus;
     public enum Status { DISCONNECTED, CONNECTED, ON_A_TRIP }
 

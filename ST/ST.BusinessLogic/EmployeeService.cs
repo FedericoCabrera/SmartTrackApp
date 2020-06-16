@@ -148,19 +148,17 @@ namespace ST.BusinessLogic
         public void ModifyLocation(Employee employee, Location location)
         {
             Location employeeLocation = new Location();
-            if (employee.Location != null) 
+            if (employee.Location != null)
             {
                 employeeLocation = employee.Location;
-                unitOfWork.LocationRepository.Update(employeeLocation);
-                unitOfWork.LocationRepository.Save();
             }
             employeeLocation.Latitude = location.Latitude;
             employeeLocation.Longitude = location.Longitude;
-            employeeLocation.LocationTime = location.LocationTime;
-
-            unitOfWork.LocationRepository.Create(employeeLocation);
-            unitOfWork.LocationRepository.Save();
-           
+            employeeLocation.LocationTime = location.LocationTime;                
+            
+            employee.Location = employeeLocation;
+            unitOfWork.EmployeeRepository.Update(employee);
+            unitOfWork.EmployeeRepository.Save();
         }
 
     }

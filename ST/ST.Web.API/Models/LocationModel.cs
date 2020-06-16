@@ -25,7 +25,7 @@ namespace ST.Web.API.Models
             Id = this.Id,
             Latitude = this.Latitude,
             Longitude = this.Longitude,
-            LocationTime = this.LocationTime,
+            LocationTime = DateTime.Now,
         };
 
         protected override LocationModel SetModel(Location entity)
