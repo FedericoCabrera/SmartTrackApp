@@ -11,12 +11,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;
+import com.isp.smarttrackapp.viewmodel.MainAdminFragmentViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +28,8 @@ public class MainAdminFragment extends Fragment {
     private Context thisContext;
     private Button btnEmployees;
     private Button btnTracking;
+
+    private MainAdminFragmentViewModel adminViewModel;
     private NavController navController;
 
 
@@ -37,6 +41,8 @@ public class MainAdminFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        adminViewModel = new ViewModelProvider(this).get(MainAdminFragmentViewModel.class);
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main_admin, container, false);
     }
@@ -55,8 +61,9 @@ public class MainAdminFragment extends Fragment {
 
         String token = LocalStorage.getInstance().getValue(Config.KEY_USER_TOKEN);
 
-        Toast.makeText(thisContext, "Admin ingresado con Token: " + token, Toast.LENGTH_LONG).show();
+        Toast.makeText(thisContext, "Admin" + LocalStorage.getInstance().getValue(Config.KEY_USER_USERNAME) +" ingresado con Token: " + token, Toast.LENGTH_LONG).show();
 
+        adminViewModel.updateFCMToken();
 
         btnEmployees = view.findViewById(R.id.am_employees_btn);
         btnEmployees.setOnClickListener(new View.OnClickListener() {
