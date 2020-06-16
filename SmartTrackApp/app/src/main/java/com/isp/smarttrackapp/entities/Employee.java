@@ -10,7 +10,7 @@ public class Employee {
     private String userName;
     private String password;
     private String identityNumber;
-    private String status;
+    private String employeeStatus;
     //public Status enumStatus;
     public enum Status { DISCONNECTED, CONNECTED, ON_A_TRIP }
 
@@ -63,17 +63,17 @@ public class Employee {
     }
 
     public String getStatus() {
-        return this.status;
+        return this.employeeStatus;
     }
     public String showStatus() {
         String st = "";
-        if(this.status.equals(Status.DISCONNECTED)) { st = "Desconectado"; }
-        if(this.status.equals(Status.CONNECTED)) { st = "Conectado"; }
-        if(this.status.equals(Status.ON_A_TRIP)) { st = "En Viaje"; }
+        if(this.employeeStatus.equals(Status.DISCONNECTED.name())) { st = "Desconectado"; }
+        if(this.employeeStatus.equals(Status.CONNECTED.name())) { st = "Conectado"; }
+        if(this.employeeStatus.equals(Status.ON_A_TRIP.name())) { st = "En Viaje"; }
         return st;
     }
     public void setStatus(String newStatus) {
-        this.status = newStatus;
+        this.employeeStatus = newStatus;
     }
 
     @NonNull

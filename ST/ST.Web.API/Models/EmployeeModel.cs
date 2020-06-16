@@ -23,7 +23,7 @@ namespace ST.Web.API.Models
         public string Password { get; set; }
         public string IdentityNumber { get; set; }
         public bool IsAdmin { get; set; }
-        public Status EmployeeStatus { get; set; }
+        public string EmployeeStatus { get; set; }
 
         public override Employee ToEntity() => new Employee()
         {
@@ -33,7 +33,6 @@ namespace ST.Web.API.Models
             LastName = this.LastName,
             Password = this.Password,
             UserName = this.UserName,
-            EmployeeStatus =  this.EmployeeStatus,
         };
 
         protected override EmployeeModel SetModel(Employee entity)
@@ -44,7 +43,7 @@ namespace ST.Web.API.Models
             LastName = entity.LastName;
             Password = entity.Password;
             UserName = entity.UserName;
-            EmployeeStatus = entity.EmployeeStatus;
+            EmployeeStatus = entity.EmployeeStatus.ToString();
             return this;
         }
 

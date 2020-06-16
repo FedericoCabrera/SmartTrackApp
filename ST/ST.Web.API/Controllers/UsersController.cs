@@ -87,7 +87,6 @@ namespace ST.Web.API.Controllers
             {
                 ResponseModelWithData<EmployeeModel> responseModel = new ResponseModelWithData<EmployeeModel>();
                 var companyId = GetCompanyID();
-                employee.EmployeeStatus = Employee.Status.DISCONNECTED;
                 companyService.AddEmployee(companyId, employee.ToEntity());
                 responseModel.IsResponseOK = true;
                 responseModel.Data = EmployeeModel.ToModel(employeeService.GetEmployeeByUsername(employee.UserName));
@@ -97,7 +96,7 @@ namespace ST.Web.API.Controllers
             {
                 var response = new ResponseModel()
                 {
-                    IsResponseOK = true,
+                    IsResponseOK = false,
                     ErrorMessage = he.Message
                 };
 
@@ -144,8 +143,8 @@ namespace ST.Web.API.Controllers
 
         }
 
-        [HttpPut]
-        public IActionResult UpdateEmployee([FromBody] EmployeeModel employee)
+        [HttpPut("{id}")]
+        public IActionResult UpdateEmployee(Guid id, [FromBody] EmployeeModel employee)
         {
             try
             {
@@ -153,7 +152,7 @@ namespace ST.Web.API.Controllers
                 var token = new Guid(Request.Headers["Authorization"]);
                 var user = sessionService.GetUserByToken(token);
                 Administrator admin = administratorService.GetAdminById(user.Id);
-                employeeService.ModifyEmployee(employee.ToEntity());
+                employeeService.ModifyEmployee(id,employee.ToEntity());
                 responseModel.IsResponseOK = true;
                 responseModel.Data = EmployeeModel.ToModel(employeeService.GetEmployeeByUsername(employee.UserName));
                 return Ok(responseModel);
@@ -162,7 +161,7 @@ namespace ST.Web.API.Controllers
             {
                 var response = new ResponseModel()
                 {
-                    IsResponseOK = true,
+                    IsResponseOK = false,
                     ErrorMessage = he.Message
                 };
 

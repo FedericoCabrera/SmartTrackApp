@@ -52,11 +52,22 @@ namespace ST.BusinessLogic
 
         public void AddEmployee(Guid companyId, Employee employee)
         {
-
+            ValidateStringProperty(employee.IdentityNumber);
+            ValidateStringProperty(employee.LastName);
+            ValidateStringProperty(employee.Name);
+            ValidateStringProperty(employee.UserName);
+            ValidateStringProperty(employee.Password);
+            Location location = new Location();
+            location.Latitude = 0;
+            location.Longitude = 0;
+            location.LocationTime = DateTime.Now;
+            var dupEmployee = unitOfWork.EmployeeRepository.Get(x => x.UserName.Equals(employee.UserName)).FirstOrDefault();
+            if (dupEmployee != null)
+                throw new HandledException("Usuario ya existente.");
             Company company = unitOfWork.CompanyRepository.Get(x => x.Id.Equals(companyId),null,"Employees").FirstOrDefault();
             if (company == null)
                 throw new HandledException("Empresa no existente.");
-
+            employee.EmployeeStatus = Employee.Status.DISCONNECTED;
             company.Employees.Add(employee);
             unitOfWork.CompanyRepository.Update(company);
             unitOfWork.CompanyRepository.Save();
@@ -88,6 +99,21 @@ namespace ST.BusinessLogic
 
         }
 
+        private void ValidateEmployeeName(string employeeName)
+        {
+            var employee = unitOfWork.EmployeeRepository.Get(x => x.Name == employeeName).FirstOrDefault();
+            if (employee == null)
+                throw new HandledException("Datos de ingreso invalidos.");
+        }
+
+
+
+        private void ValidateStringProperty(string property)
+        {
+            if (string.IsNullOrEmpty(property))
+                throw new HandledException("Datos de ingreso invalidos.");
+        }
+
         public IEnumerable<Employee> GetEmployeesActiveWithLocation(Guid companyId)
         {
 
@@ -98,10 +124,10 @@ namespace ST.BusinessLogic
             List<Employee> employees = new List<Employee>();
             foreach (Employee emp in company.Employees)
             {
-                employees.Add(unitOfWork.EmployeeRepository.Get(x => x.Id.Equals(emp.Id) && x.EmployeeStatus.Equals(Employee.Status.CONNECTED), null, "Location").FirstOrDefault());
+                employees.Add(unitOfWork.EmployeeRepository.Get(x => x.Id.Equals(emp.Id) && (x.EmployeeStatus.Equals(Employee.Status.CONNECTED) || x.EmployeeStatus.Equals(Employee.Status.ON_A_TRIP)), null, "Location").FirstOrDefault());
+           
             }
             return employees;
-
         }
     }
 }

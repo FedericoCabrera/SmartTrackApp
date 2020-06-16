@@ -25,6 +25,7 @@ public class MainAdminFragment extends Fragment {
 
     private Context thisContext;
     private Button btnEmployees;
+    private Button btnTracking;
     private NavController navController;
 
 
@@ -62,6 +63,14 @@ public class MainAdminFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.action_mainAdminFragment_to_employeesListFragment);
+            }
+        });
+
+        btnTracking = view.findViewById(R.id.am_tracking);
+        btnTracking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_mainAdminFragment_to_adminMapFragment);
             }
         });
     }

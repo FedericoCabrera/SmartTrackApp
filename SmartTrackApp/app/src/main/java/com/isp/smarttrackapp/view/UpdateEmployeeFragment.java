@@ -2,6 +2,12 @@ package com.isp.smarttrackapp.view;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,48 +17,44 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.android.material.textfield.TextInputEditText;
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.Employee;
+import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
-import com.isp.smarttrackapp.viewmodel.CreateEmployeeFragmentViewModel;
+import com.isp.smarttrackapp.model.repository.local.LocalStorage;
+import com.isp.smarttrackapp.viewmodel.UpdateEmployeeFragmentViewModel;
 import com.isp.smarttrackapp.viewmodel.ValuesViewModel;
 
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link CreateEmployeeFragment#newInstance} factory method to
+ * Use the {@link UpdateEmployeeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CreateEmployeeFragment extends Fragment {
+public class UpdateEmployeeFragment extends Fragment {
     private TextView textView;
+    private String employeeId;
     private TextInputEditText txtInputName;
     private TextInputEditText txtInputLastname;
     private TextInputEditText txtInputIdentityNumber;
     private TextInputEditText txtInputUsername;
     private TextInputEditText txtInputPassword;
-    private Button btnAddEmployee;
+    private Button btnUpdateEmployee;
     private Button btnCancel;
 
     private Context thisContext;
     private ValuesViewModel valuesViewModel;
-    private CreateEmployeeFragmentViewModel createEmployeeViewModel;
+    private UpdateEmployeeFragmentViewModel updateEmployeeViewModel;
 
     private NavController navController;
 
-    public CreateEmployeeFragment() {
+    public UpdateEmployeeFragment() {
         // Required empty public constructor
     }
 
-    public static CreateEmployeeFragment newInstance(String param1, String param2) {
-        CreateEmployeeFragment fragment = new CreateEmployeeFragment();
+    public static UpdateEmployeeFragment newInstance(String param1, String param2) {
+        UpdateEmployeeFragment fragment = new UpdateEmployeeFragment();
         return fragment;
     }
 
@@ -61,9 +63,9 @@ public class CreateEmployeeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         thisContext = getActivity();
-        createEmployeeViewModel = new ViewModelProvider(this).get(CreateEmployeeFragmentViewModel.class);
+        updateEmployeeViewModel = new ViewModelProvider(this).get(UpdateEmployeeFragmentViewModel.class);
 
-        return inflater.inflate(R.layout.fragment_create_employee, container, false);
+        return inflater.inflate(R.layout.fragment_update_employee, container, false);
     }
 
     @Override
@@ -72,14 +74,21 @@ public class CreateEmployeeFragment extends Fragment {
 
         navController = Navigation.findNavController(view);
 
-        btnAddEmployee = view.findViewById(R.id.cu_btn_addEmployee);
-        btnCancel = view.findViewById(R.id.cu_btn_cancel);
-        txtInputName = view.findViewById(R.id.cu_txt_input_name);
-        txtInputLastname = view.findViewById(R.id.cu_txt_input_lastname);
-        txtInputIdentityNumber = view.findViewById(R.id.cu_txt_input_identityNumber);
-        txtInputUsername = view.findViewById(R.id.cu_txt_input_username);
-        txtInputPassword = view.findViewById(R.id.cu_txt_input_password);
+        btnUpdateEmployee = view.findViewById(R.id.uu_btn_updateEmployee);
+        btnCancel = view.findViewById(R.id.uu_btn_cancel);
+        txtInputName = view.findViewById(R.id.uu_txt_input_name);
+        txtInputLastname = view.findViewById(R.id.uu_txt_input_lastname);
+        txtInputIdentityNumber = view.findViewById(R.id.uu_txt_input_identityNumber);
+        txtInputUsername = view.findViewById(R.id.uu_txt_input_username);
+        txtInputPassword = view.findViewById(R.id.uu_txt_input_password);
 
+        LocalStorage localStorage = LocalStorage.getInstance();
+        txtInputName.setText(localStorage.getValue("nameEmployeeForUpdate"));
+        txtInputLastname.setText(localStorage.getValue("lastnameEmployeeForUpdate"));
+        txtInputUsername.setText(localStorage.getValue("usernameEmployeeForUpdate"));
+        txtInputPassword.setText(localStorage.getValue("passwordEmployeeForUpdate"));
+        txtInputIdentityNumber.setText(localStorage.getValue("identityNumberEmployeeForUpdate"));
+        employeeId = localStorage.getValue("idEmployeeForUpdate");
         textView = view.findViewById(R.id.cu_title);
 
 
@@ -90,29 +99,24 @@ public class CreateEmployeeFragment extends Fragment {
             }
         });
 
-        btnAddEmployee.setOnClickListener(new View.OnClickListener(){
+        btnUpdateEmployee.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(final View v) {
-                final String name = txtInputName.getText().toString();
+               final String name = txtInputName.getText().toString();
                 final String lastname = txtInputLastname.getText().toString();
                 String identityNumber = txtInputIdentityNumber.getText().toString();
                 String userName = txtInputUsername.getText().toString();
                 String password = txtInputPassword.getText().toString();
 
                 try{
-                    createEmployeeViewModel.createEmployee(name, lastname, identityNumber, userName, password).observe(getViewLifecycleOwner(), new Observer<ResponseModelWithData<Employee>>() {
+                    updateEmployeeViewModel.updateEmployee(name, lastname, identityNumber, userName, password, employeeId).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                         @Override
-                        public void onChanged(ResponseModelWithData<Employee> employee) {
+                        public void onChanged(ResponseModel employee) {
 
                             if(employee.isResponseOK()){
-                                Toast.makeText(thisContext, "El usuario " + name + " " + lastname + " ha sido creado", Toast.LENGTH_LONG).show();
-                                txtInputName.setText("");
-                                txtInputLastname.setText("");
-                                txtInputIdentityNumber.setText("");
-                                txtInputUsername.setText("");
-                                txtInputPassword.setText("");
-
+                                Toast.makeText(thisContext, "El empleado " + name + " " + lastname + " ha sido modificado", Toast.LENGTH_LONG).show();
+                                getActivity().onBackPressed();
                             }else{
                                 Toast.makeText(thisContext, employee.getErrorMessage(), Toast.LENGTH_LONG).show();
                             }

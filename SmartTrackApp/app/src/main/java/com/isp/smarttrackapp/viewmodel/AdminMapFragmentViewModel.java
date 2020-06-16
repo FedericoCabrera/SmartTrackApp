@@ -14,26 +14,21 @@ import com.isp.smarttrackapp.model.repository.remote.EmployeesRepository;
 
 import java.util.List;
 
-public class EmployeeListFragmentViewModel extends AndroidViewModel {
-    public EmployeeListFragmentViewModel(@NonNull Application application) {
+public class AdminMapFragmentViewModel  extends AndroidViewModel {
+
+
+    public AdminMapFragmentViewModel(@NonNull Application application) {
         super(application);
     }
     private MutableLiveData<ResponseModelWithData<List<Employee>>> employeeObservable;
-    private MutableLiveData<ResponseModel> removeEmployeeObservable;
 
-    public LiveData<ResponseModelWithData<List<Employee>>> getEmployees() {
+    public LiveData<ResponseModelWithData<List<Employee>>> getLocation() {
 
-        employeeObservable = EmployeesRepository.getInstance().getEmployees();
+        employeeObservable = EmployeesRepository.getInstance().getLocation();
 
         return employeeObservable;
     }
-
-
-
-    public LiveData<ResponseModel> removeEmployee(Employee employee) {
-
-        removeEmployeeObservable = EmployeesRepository.getInstance().removeEmployee(employee);
-
-        return removeEmployeeObservable;
-    }
 }
+
+
+
