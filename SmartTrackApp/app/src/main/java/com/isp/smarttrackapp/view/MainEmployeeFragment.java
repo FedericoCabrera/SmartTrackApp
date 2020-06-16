@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.ResponseModel;
+import com.isp.smarttrackapp.viewmodel.EmployeeListFragmentViewModel;
 import com.isp.smarttrackapp.viewmodel.MainEmployeeFragmentViewModel;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class MainEmployeeFragment extends Fragment {
     private Button btnNewTraject;
 
     private LocationManager ubicacion;
-
+    private MainEmployeeFragmentViewModel mainEmployeeFragmentViewModel;
     public MainEmployeeFragment() {
         // Required empty public constructor
     }
@@ -56,12 +57,30 @@ public class MainEmployeeFragment extends Fragment {
         super.onAttach(context);
         thisContext = context;
     }
-
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        mainEmployeeFragmentViewModel = new ViewModelProvider(this).get(MainEmployeeFragmentViewModel.class);
+        mainView = inflater.inflate(R.layout.fragment_main_employee, container, false);
+        return mainView;
+    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        try
+        {
+            mainEmployeeFragmentViewModel.updateLocation(77, 52).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
 
-        updateLocation();
+                }
+            });
+        }catch(Exception ex){
+            Toast.makeText(thisContext, ex.toString(), Toast.LENGTH_LONG).show();
+
+        }
+        //updateLocation();
         navController = Navigation.findNavController(view);
 
         btnNewTraject = view.findViewById(R.id.em_btn_new_traject);
@@ -75,13 +94,7 @@ public class MainEmployeeFragment extends Fragment {
         });
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        mainView = inflater.inflate(R.layout.fragment_main_employee, container, false);
-        return mainView;
-    }
+
 
     /*private void location() {
         if (ActivityCompat.checkSelfPermission(thisContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(thisContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -122,6 +135,8 @@ public class MainEmployeeFragment extends Fragment {
         return true;
     }
 */
+
+    /*
     private void updateLocation() {
         ubicacion = (LocationManager) thisContext.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(thisContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(thisContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -171,5 +186,5 @@ public class MainEmployeeFragment extends Fragment {
 
         }
     }
-
+*/
 }

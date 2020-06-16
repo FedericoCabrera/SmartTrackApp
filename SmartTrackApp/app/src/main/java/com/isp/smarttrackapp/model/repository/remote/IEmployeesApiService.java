@@ -29,7 +29,7 @@ public interface IEmployeesApiService {
     @PUT("Users" + "/{id}")
     Call<ResponseModelWithData<Employee>> updateEmployee(@Header("Authorization") String token, @Path("id") String id, @Body Employee employee);
 
-    @PUT("Users")
+    @PUT("Users/location")
     Call<ResponseModel> updateLocation(@Header("Authorization") String token, @Body Position position);
 
     @GET("Users/location")

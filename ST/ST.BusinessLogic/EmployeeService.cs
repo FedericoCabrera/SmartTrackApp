@@ -95,6 +95,8 @@ namespace ST.BusinessLogic
             employee.Password = newEmployee.Password;
             employee.UserName = newEmployee.UserName;
 
+
+
             unitOfWork.EmployeeRepository.Update(employee);
             unitOfWork.EmployeeRepository.Save();
         }
@@ -149,12 +151,16 @@ namespace ST.BusinessLogic
             if (employee.Location != null) 
             {
                 employeeLocation = employee.Location;
+                unitOfWork.LocationRepository.Update(employeeLocation);
+                unitOfWork.LocationRepository.Save();
             }
             employeeLocation.Latitude = location.Latitude;
             employeeLocation.Longitude = location.Longitude;
             employeeLocation.LocationTime = location.LocationTime;
-            unitOfWork.LocationRepository.Update(employeeLocation);
+
+            unitOfWork.LocationRepository.Create(employeeLocation);
             unitOfWork.LocationRepository.Save();
+           
         }
 
     }

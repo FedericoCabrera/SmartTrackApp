@@ -174,7 +174,7 @@ namespace ST.Web.API.Controllers
 
         }
 
-        [HttpPut]
+        [HttpPut("location")]
         public IActionResult UpdateLocation([FromBody] LocationModel location)
         {
             try

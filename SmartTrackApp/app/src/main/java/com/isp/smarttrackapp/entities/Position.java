@@ -7,7 +7,7 @@ public class Position {
     private String Id;
     private double Latitude;
     private double Longitude;
-    private LocalDateTime LocationTime;
+  //  private LocalDateTime LocationTime;
 
     public String getId() {
         return Id;
@@ -21,9 +21,9 @@ public class Position {
         return Longitude;
     }
 
-    public LocalDateTime getLocationTime() {
-        return LocationTime;
-    }
+   // public LocalDateTime getLocationTime() {
+      //  return LocationTime;
+  //  }
 
     public void setId(String id) {
         Id = id;
@@ -37,7 +37,7 @@ public class Position {
         Longitude = longitude;
     }
 
-    public void setLocationTime(LocalDateTime locationTime) {
-        LocationTime = locationTime;
-    }
+   // public void setLocationTime(LocalDateTime locationTime) {
+      //  LocationTime = locationTime;
+  //  }
 }
