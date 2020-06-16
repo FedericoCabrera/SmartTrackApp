@@ -68,19 +68,8 @@ public class MainEmployeeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        try
-        {
-            mainEmployeeFragmentViewModel.updateLocation(77, 52).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
-                @Override
-                public void onChanged(ResponseModel responseModel) {
 
-                }
-            });
-        }catch(Exception ex){
-            Toast.makeText(thisContext, ex.toString(), Toast.LENGTH_LONG).show();
-
-        }
-        //updateLocation();
+        updateLocation();
         navController = Navigation.findNavController(view);
 
         btnNewTraject = view.findViewById(R.id.em_btn_new_traject);
@@ -92,24 +81,6 @@ public class MainEmployeeFragment extends Fragment {
                 navController.navigate(R.id.action_mainEmployeeFragment_to_createIncidentFragment);
             }
         });
-    }
-
-
-
-    /*private void location() {
-        if (ActivityCompat.checkSelfPermission(thisContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(thisContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this.getActivity(), new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
-            }, 1000);
-        }
-        ubicacion = (LocationManager) thisContext.getSystemService(Context.LOCATION_SERVICE);
-        Location loc = ubicacion.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        String latitude;
-        String longitude;
-        if (ubicacion != null) {
-            latitude = String.valueOf(loc.getLatitude());
-            longitude = String.valueOf(loc.getLongitude());
-        }
     }
 
     private void listProviders() {
@@ -134,15 +105,22 @@ public class MainEmployeeFragment extends Fragment {
             return false;
         return true;
     }
-*/
 
-    /*
     private void updateLocation() {
-        ubicacion = (LocationManager) thisContext.getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(thisContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(thisContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+        if(statusGPS()) {
+            ubicacion = (LocationManager) thisContext.getSystemService(Context.LOCATION_SERVICE);
+            if (ActivityCompat.checkSelfPermission(thisContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(thisContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this.getActivity(), new String[]{
+                        Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
+                }, 1000);
+                if (ActivityCompat.checkSelfPermission(thisContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(thisContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+            }
+            ubicacion.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, new myLocationListener());
+        }else{
+            Toast.makeText(thisContext, "El GPS esta apagado!", Toast.LENGTH_LONG).show();
         }
-        ubicacion.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, new myLocationListener());
     }
 
     private class myLocationListener implements LocationListener{
@@ -151,14 +129,11 @@ public class MainEmployeeFragment extends Fragment {
         @Override
         public void onLocationChanged(Location location) {
             try{
-                mainEmployeeViewModel = new  ViewModelProvider((ViewModelStoreOwner) this).get(MainEmployeeFragmentViewModel.class);
                 mainEmployeeViewModel.updateLocation(location.getLatitude(), location.getLongitude()).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                     @Override
                     public void onChanged(ResponseModel response) {
-
                         if(response.isResponseOK()){
                             //Toast.makeText(thisContext, session.getData().getToken() + " Admin: " + session.getData().getIsAdmin(), Toast.LENGTH_LONG).show();
-
                         }else{
                             Toast.makeText(thisContext, response.getErrorMessage(), Toast.LENGTH_LONG).show();
                         }
@@ -186,5 +161,4 @@ public class MainEmployeeFragment extends Fragment {
 
         }
     }
-*/
 }

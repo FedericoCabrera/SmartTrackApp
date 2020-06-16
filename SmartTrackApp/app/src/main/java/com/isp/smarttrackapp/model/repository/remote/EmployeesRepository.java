@@ -59,7 +59,6 @@ public class EmployeesRepository {
         return data;
     }
 
-
     public MutableLiveData<ResponseModelWithData<List<Employee>>> getLocation() {
         final MutableLiveData<ResponseModelWithData<List<Employee>>> data = new MutableLiveData<>();
         String token = LocalStorage.getInstance().getValue("token");
