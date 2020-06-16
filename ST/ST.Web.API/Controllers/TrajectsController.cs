@@ -54,7 +54,7 @@ namespace ST.Web.API.Controllers
             }
             catch (HandledException he)
             {
-                var response = new ResponseModel()
+                var response = new ResponseModelWithData<Guid>()
                 {
                     IsResponseOK = false,
                     ErrorMessage = he.Message
@@ -68,16 +68,19 @@ namespace ST.Web.API.Controllers
             }
         }
 
-        // POST: api/Traject/trajectId
-        [HttpPost("{trajectId}")]
+        // POST: api/Trajects/trajectId
+        [HttpPost("Incidents/{trajectId}")]
         public IActionResult CreateIncident(Guid trajectId, [FromBody] IncidentModel incident)
         {
             try
             {
+                
                 ResponseModelWithData<Guid> responseModel = new ResponseModelWithData<Guid>();
 
                 var token = Utils.GetToken(Request);
                 var employee = sessionService.GetEmployeeByToken(token);
+
+                incident.CreationTime = DateTime.Now;
 
                 trajectService.AssignIncidentToTraject(trajectId, employee, incident.ToEntity());
 
@@ -88,7 +91,7 @@ namespace ST.Web.API.Controllers
             }
             catch (HandledException he)
             {
-                var response = new ResponseModel()
+                var response = new ResponseModelWithData<Guid>()
                 {
                     IsResponseOK = false,
                     ErrorMessage = he.Message

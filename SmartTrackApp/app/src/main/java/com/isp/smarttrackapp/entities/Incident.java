@@ -1,63 +1,63 @@
 package com.isp.smarttrackapp.entities;
 
-import android.location.Location;
+import android.icu.text.Transliterator;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Incident {
 
-    private String incidentId;
-    private Position Location ;
-    private LocalDateTime CreationTime;
-    private String Base64Image;
-    private String Description;
-    private Traject Traject;
+    private String id;
 
-    public String getIncidentId() {
-        return incidentId;
+    //private Date creationTime;
+    private String base64Image;
+    private String description;
+    //private Traject traject;
+
+    public java.lang.String getId() {
+        return id;
     }
 
-    public void setIncidentId(String incidentId) {
-        this.incidentId = incidentId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public Position getLocation() {
-        return Location;
+    /*public String getLocation() {
+        return location;
     }
 
-    public void setLocation(Position location) {
-        Location = location;
+    public void setLocation(String location) {
+        this.location = location;
+    }*/
+
+    /*public Date getCreationTime() {
+        return creationTime;
     }
 
-    public LocalDateTime getCreationTime() {
-        return CreationTime;
-    }
-
-    public void setCreationTime(LocalDateTime creationTime) {
-        CreationTime = creationTime;
-    }
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }*/
 
     public String getBase64Image() {
-        return Base64Image;
+        return base64Image;
     }
 
     public void setBase64Image(String base64Image) {
-        Base64Image = base64Image;
+        this.base64Image = base64Image;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
-    public com.isp.smarttrackapp.entities.Traject getTraject() {
-        return Traject;
+    /*public com.isp.smarttrackapp.entities.Traject getTraject() {
+        return traject;
     }
 
     public void setTraject(com.isp.smarttrackapp.entities.Traject traject) {
-        Traject = traject;
-    }
+        this.traject = traject;
+    }*/
 }

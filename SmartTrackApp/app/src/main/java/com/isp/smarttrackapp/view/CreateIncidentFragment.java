@@ -8,8 +8,11 @@ import android.content.pm.PackageManager;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.hardware.Camera;
+import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
@@ -25,13 +28,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.isp.smarttrackapp.R;
+import com.isp.smarttrackapp.entities.Incident;
+import com.isp.smarttrackapp.entities.ResponseModelWithData;
+import com.isp.smarttrackapp.utils.Utils;
 import com.isp.smarttrackapp.viewmodel.CreateIncidentFragmentViewModel;
 
 import java.io.File;
@@ -40,11 +49,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
-import static android.app.Activity.RESULT_OK;
 import static android.os.Environment.DIRECTORY_PICTURES;
-import static android.os.Environment.getDataDirectory;
-import static android.os.Environment.getExternalStorageDirectory;
-import static android.os.Environment.getExternalStoragePublicDirectory;
 
 public class CreateIncidentFragment  extends Fragment {
 
@@ -99,6 +104,20 @@ public class CreateIncidentFragment  extends Fragment {
                 //takeFullPicture();
                 //cameraIntent();
                 captureImage();
+            }
+        });
+
+        btnAddIncident.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addNewIncident();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
             }
         });
     }
@@ -177,6 +196,45 @@ public class CreateIncidentFragment  extends Fragment {
             Toast.makeText(thisContext,"Cámara no disponible.", Toast.LENGTH_SHORT);
         }
     }
+
+    private void addNewIncident(){
+
+        try{
+            this.btnAddIncident.setClickable(false);
+
+            String location = this.txtInputLocation.getText().toString();
+            String description = this.txtInputDescription.getText().toString();
+
+            String base64Image = "";
+            if(photoFile!=null)
+                base64Image = Utils.encodeFileToBase64Binary(this.photoFile);
+
+            Incident newIncident = new Incident();
+
+            newIncident.setBase64Image(base64Image);
+            newIncident.setDescription(description);
+            //newIncident.setLocation(location);
+
+            createIncidentFragmentViewModel.assignIncidentToTraject(newIncident).observe(getViewLifecycleOwner(), new Observer<ResponseModelWithData<String>>() {
+                @Override
+                public void onChanged(ResponseModelWithData<String> stringResponseModelWithData) {
+                    if(stringResponseModelWithData.isResponseOK()){
+                        Toast.makeText(thisContext,"Incidente agregado correctamente.",Toast.LENGTH_SHORT);
+                        btnAddIncident.setClickable(true);
+                        getActivity().onBackPressed();
+                    }else{
+                        Toast.makeText(thisContext,"Error al agregar incidente.",Toast.LENGTH_SHORT);
+                        btnAddIncident.setClickable(true);
+                    }
+                }
+            });
+
+        }catch(Exception ex){
+
+        }
+
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

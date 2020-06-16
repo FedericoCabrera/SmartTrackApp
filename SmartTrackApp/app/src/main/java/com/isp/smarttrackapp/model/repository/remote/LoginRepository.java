@@ -2,10 +2,12 @@ package com.isp.smarttrackapp.model.repository.remote;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.entities.Login;
 import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.entities.Session;
+import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 
 import java.io.IOException;
 
@@ -41,6 +43,10 @@ public class LoginRepository {
                 if(response.isSuccessful()){
 
                     data.setValue(response.body());
+
+                    //Save token in local storage
+                    String token = response.body().getData().getToken();
+                    LocalStorage.getInstance().setValue(token, Config.KEY_USER_TOKEN);
 
                 }else{
                     String error;

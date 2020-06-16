@@ -2,6 +2,7 @@ package com.isp.smarttrackapp.model.repository.remote;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.entities.Employee;
 import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
@@ -32,7 +33,7 @@ public class EmployeesRepository {
 
     public MutableLiveData<ResponseModelWithData<List<Employee>>> getEmployees() {
         final MutableLiveData<ResponseModelWithData<List<Employee>>> data = new MutableLiveData<>();
-        String token = LocalStorage.getInstance().getValue("token");
+        String token = LocalStorage.getInstance().getValue(Config.KEY_USER_TOKEN);
         Call<ResponseModelWithData<List<Employee>>> call = employeesApiService.getEmployees(token);
         call.enqueue(new Callback<ResponseModelWithData<List<Employee>>>() {
             @Override
@@ -59,7 +60,7 @@ public class EmployeesRepository {
 
     public MutableLiveData<ResponseModelWithData<Employee>> createEmployee(Employee employee) {
         final MutableLiveData<ResponseModelWithData<Employee>> data = new MutableLiveData<>();
-        String token = LocalStorage.getInstance().getValue("token");
+        String token = LocalStorage.getInstance().getValue(Config.KEY_USER_TOKEN);
         Call<ResponseModelWithData<Employee>> call = employeesApiService.createEmployee(token, employee);
         call.enqueue(new Callback<ResponseModelWithData<Employee>>() {
             @Override
@@ -83,7 +84,7 @@ public class EmployeesRepository {
 
     public MutableLiveData<ResponseModel> removeEmployee(Employee employee) {
         final MutableLiveData<ResponseModel> data = new MutableLiveData<>();
-        String token = LocalStorage.getInstance().getValue("token");
+        String token = LocalStorage.getInstance().getValue(Config.KEY_USER_TOKEN);
         Call<ResponseModel> call = employeesApiService.removeEmployee(token, employee.getId());
         call.enqueue(new Callback<ResponseModel>() {
             @Override
@@ -106,7 +107,7 @@ public class EmployeesRepository {
     }
 
     public void updateEmployee(Employee employee) {
-        String token = LocalStorage.getInstance().getValue("token");
+        String token = LocalStorage.getInstance().getValue(Config.KEY_USER_TOKEN);
         Call<ResponseModelWithData<Employee>> call = employeesApiService.updateEmployee(token, employee.getId(), employee);
         call.enqueue(new Callback<ResponseModelWithData<Employee>>() {
             @Override
