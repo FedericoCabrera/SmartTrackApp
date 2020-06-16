@@ -97,18 +97,15 @@ public class LoginFragment extends Fragment {
                             if(session.isResponseOK()){
                                 //Toast.makeText(thisContext, session.getData().getToken() + " Admin: " + session.getData().getIsAdmin(), Toast.LENGTH_LONG).show();
 
-                                //TODO: Pass to viewmodel, dont show setValueOK message
-                                LocalStorage localStorage = LocalStorage.getInstance();
-                                boolean setValueOK = localStorage.setValue(session.getData().getToken(),"token");
-                                setValueOK = localStorage.setValue(session.getData().getUsername(),"username");
+                                String userName = session.getData().getUsername();
+                                String token = session.getData().getToken();
+                                String userRealName = session.getData().getName();
 
-                                //Toast.makeText(thisContext, "SetValueResult: " + setValueOK, Toast.LENGTH_LONG).show();
-                                String fcmToken = localStorage.getValue("fcm_token");
-                                Toast.makeText(thisContext, "FCM_token: " + fcmToken, Toast.LENGTH_LONG).show();
+                                loginViewModel.updateUserLocalData(userRealName, userName, token);
 
-                                if(session.getData().getIsAdmin())
+                                if (session.getData().getIsAdmin()) {
                                     navController.navigate(R.id.action_loginFragment_to_mainAdminFragment);
-                                else{
+                                } else {
                                     navController.navigate(R.id.action_loginFragment_to_mainEmployeeFragment);
                                     //navController.navigate(R.id.action_loginFragment_to_mapsActivity);
                                 }
