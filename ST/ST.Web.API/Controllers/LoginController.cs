@@ -62,7 +62,7 @@ namespace ST.Web.API.Controllers
             }
             catch(HandledException he)
             {
-                var response = new ResponseModel()
+                var response = new ResponseModelWithData<SessionModel>()
                 {
                     IsResponseOK = false,
                     ErrorMessage = he.Message

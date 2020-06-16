@@ -8,6 +8,8 @@ public final class Config {
     public static final String KEY_FCM_TOKEN = "fcm_token";
     public static final String KEY_ACTUAL_TRAJECT_ID = "actual_traject_id";
     public static final String KEY_ACTUAL_INCIDENT_ID = "actual_incident_id";
+    public static final String KEY_USER_USERNAME = "username";
+    public static final String KEY_USER_REALNAME = "realname";
 
     //Common messages
     public static final String UNEXPECTED_ERROR_MSG = "Ha ocurrido un error inesperado.";

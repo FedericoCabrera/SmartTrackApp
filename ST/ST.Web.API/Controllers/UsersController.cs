@@ -64,6 +64,38 @@ namespace ST.Web.API.Controllers
             }
         }
 
+        [HttpPut("FCMToken/{fcmToken}")]
+        public IActionResult Post(string fcmToken)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            try
+            {
+                var token = Utils.GetToken(Request);
+                var user = sessionService.GetUserByToken(token);
+
+                if (user is Administrator)
+                    administratorService.UpdateAdministratorFirebaseDeviceToken(user.Id, fcmToken);
+
+                responseModel.IsResponseOK = true;
+
+                return Ok(responseModel);
+            }
+            catch(UnhandledException ue)
+            {
+                responseModel.IsResponseOK = false;
+                responseModel.ErrorMessage = ue.Message;
+
+                return Ok(responseModel);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.ToString());
+            }
+
+
+
+        }
+
         [HttpGet("location", Name = "Get Location")]
         public IActionResult GetLocation()
         {
