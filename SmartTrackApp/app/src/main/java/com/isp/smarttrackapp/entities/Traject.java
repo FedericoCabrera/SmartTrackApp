@@ -1,26 +1,23 @@
 package com.isp.smarttrackapp.entities;
 
-import android.location.Location;
-
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Traject {
 
-    private String trajectId;
+    private java.lang.String trajectId;
     private double distance;
     private double duration;
     private boolean isFinished ;
-    private LocalDateTime startDate;
-    private Boolean isAdmin;
-    private Position LocationInitial;
-    private Position LocationFinal;
+    private Date startDate;
+    private String locationInitial;
+    private String locationFinal;
 
 
-    public String getTrajectId() {
+    public java.lang.String getTrajectId() {
         return trajectId;
     }
 
-    public void setTrajectId(String trajectId) {
+    public void setTrajectId(java.lang.String trajectId) {
         this.trajectId = trajectId;
     }
 
@@ -48,35 +45,27 @@ public class Traject {
         isFinished = finished;
     }
 
-    public LocalDateTime getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public Boolean getAdmin() {
-        return isAdmin;
+    public String getLocationInitial() {
+        return locationInitial;
     }
 
-    public void setAdmin(Boolean admin) {
-        isAdmin = admin;
+    public void setLocationInitial(String locationInitial) {
+        this.locationInitial = locationInitial;
     }
 
-    public Position getLocationInitial() {
-        return LocationInitial;
+    public String getLocationFinal() {
+        return locationFinal;
     }
 
-    public void setLocationInitial(Position locationInitial) {
-        LocationInitial = locationInitial;
-    }
-
-    public Position getLocationFinal() {
-        return LocationFinal;
-    }
-
-    public void setLocationFinal(Position locationFinal) {
-        LocationFinal = locationFinal;
+    public void setLocationFinal(String locationFinal) {
+        this.locationFinal = locationFinal;
     }
 }

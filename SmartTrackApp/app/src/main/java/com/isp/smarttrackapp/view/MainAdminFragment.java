@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 
@@ -52,7 +53,7 @@ public class MainAdminFragment extends Fragment {
 
         navController = Navigation.findNavController(view);
 
-        String token = LocalStorage.getInstance().getValue("token");
+        String token = LocalStorage.getInstance().getValue(Config.KEY_USER_TOKEN);
 
         Toast.makeText(thisContext, "Admin ingresado con Token: " + token, Toast.LENGTH_LONG).show();
 

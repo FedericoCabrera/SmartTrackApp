@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.RemoteMessage;
+import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 
@@ -35,7 +36,7 @@ public class FMCService extends com.google.firebase.messaging.FirebaseMessagingS
     @Override
     public void onNewToken(String token) {
         //super.onNewToken(token);
-        LocalStorage.getInstance().setValue(token,"fcm_token");
+        LocalStorage.getInstance().setValue(token, Config.KEY_FCM_TOKEN);
         Log.d("FCM Token",token);
     }
 
@@ -73,7 +74,7 @@ public class FMCService extends com.google.firebase.messaging.FirebaseMessagingS
 
                         // Get new Instance ID token
                         token.append(task.getResult().getToken());
-                        LocalStorage.getInstance().setValue(token.toString(),"fcm_token");
+                        LocalStorage.getInstance().setValue(token.toString(),Config.KEY_FCM_TOKEN);
                     }
                 });
 

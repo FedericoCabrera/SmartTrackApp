@@ -18,12 +18,12 @@ namespace ST.Web.API.Models
 
         public override Incident ToEntity() => new Incident()
         {
-            Location = new Location()
+            Location = this.Location != null ? new Location()
             {
                 Latitude = this.Location.Latitude,
                 LocationTime = this.Location.LocationTime,
                 Longitude = this.Location.Longitude
-            },
+            } : null,
             Description = this.Description,
             Base64Image = this.Base64Image,
             CreationTime = this.CreationTime            
@@ -31,12 +31,12 @@ namespace ST.Web.API.Models
 
         protected override IncidentModel SetModel(Incident entity)
         {
-            Location = new LocationModel()
+            Location = entity.Location != null ? new LocationModel()
             {
                 Latitude = entity.Location.Latitude,
                 LocationTime = entity.Location.LocationTime,
                 Longitude = entity.Location.Longitude
-            };
+            } : null;
             CreationTime = entity.CreationTime;
             Base64Image = entity.Base64Image;
             Description = entity.Description;

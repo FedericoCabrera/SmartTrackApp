@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-files-path name="my_images" path="/" />
+    <external-files-path name="st_images" path="/storage/emulated/0/Android/data/com.isp.smarttrackapp/files/Pictures/" />
+    <external-files-path name="st_images2" path="/storage/emulated/0/Android/data/com.isp.smarttrackapp/files/Pictures" />
+
+</paths>
