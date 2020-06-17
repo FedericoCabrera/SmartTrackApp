@@ -69,7 +69,9 @@ public class MainEmployeeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mainEmployeeFragmentViewModel.cleanLastKnownPosition();
         updateLocation();
+
         navController = Navigation.findNavController(view);
 
         btnNewTraject = view.findViewById(R.id.em_btn_new_traject);

@@ -10,6 +10,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.hardware.Camera;
+import android.location.Address;
+import android.location.Geocoder;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
@@ -37,9 +39,13 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.Incident;
+import com.isp.smarttrackapp.entities.Location;
+import com.isp.smarttrackapp.entities.Position;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
+import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 import com.isp.smarttrackapp.utils.Utils;
 import com.isp.smarttrackapp.viewmodel.CreateIncidentFragmentViewModel;
 
@@ -48,6 +54,8 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Locale;
 
 import static android.os.Environment.DIRECTORY_PICTURES;
 
@@ -68,6 +76,11 @@ public class CreateIncidentFragment  extends Fragment {
     private int CAPTURE_IMAGE_REQUEST = 1;
     private File photoFile;
     private Uri photoUri;
+
+    private String lat = "";
+    private String lng = "";
+    private String streetName = "";
+    private String streetNumber = "";
 
     public CreateIncidentFragment() {
     }
@@ -92,7 +105,31 @@ public class CreateIncidentFragment  extends Fragment {
         txtInputLocation = view.findViewById(R.id.ci_txt_input_location);
         imgViewPhoto = view.findViewById(R.id.ci_img_view);
 
+        setPosition();
+
         loadClickListeners();
+    }
+
+    private void setPosition(){
+        this.lat = LocalStorage.getInstance().getValue(Config.KEY_LAST_LATITUDE);
+        this.lng = LocalStorage.getInstance().getValue(Config.KEY_LAST_LONGITUDE);
+        this.streetName = "";
+        this.streetNumber = "";
+        Geocoder geocoder = new Geocoder(thisContext, Locale.getDefault());
+        List<Address> addresses;
+        try{
+            addresses = geocoder.getFromLocation(Double.parseDouble(lat),Double.parseDouble(lng),10);
+            for(Address adr: addresses){
+                if(adr.getLocality() != null && adr.getLocality().length() > 0){
+                    streetName = adr.getThoroughfare();
+                    streetNumber = adr.getSubThoroughfare();
+                    break;
+                }
+            }
+        }catch(Exception e) {
+            txtInputLocation.setText(lat + " " + lng);
+        }
+        txtInputLocation.setText(streetName + " "+ streetNumber);
     }
 
     private void loadClickListeners(){
@@ -202,18 +239,22 @@ public class CreateIncidentFragment  extends Fragment {
         try{
             this.btnAddIncident.setClickable(false);
 
-            String location = this.txtInputLocation.getText().toString();
+            String address = this.txtInputLocation.getText().toString();
             String description = this.txtInputDescription.getText().toString();
 
             String base64Image = "";
             if(photoFile!=null)
                 base64Image = Utils.encodeFileToBase64Binary(this.photoFile);
 
-            Incident newIncident = new Incident();
+            Location location = new Location();
+            location.setLatitude(Double.parseDouble(this.lat));
+            location.setLongitude(Double.parseDouble(this.lng));
 
-            newIncident.setBase64Image(base64Image);
+            Incident newIncident = new Incident(base64Image,description,address,location);
+
+            /*newIncident.setBase64Image(base64Image);
             newIncident.setDescription(description);
-            //newIncident.setLocation(location);
+            newIncident.setAddress(address);*/
 
             createIncidentFragmentViewModel.assignIncidentToTraject(newIncident).observe(getViewLifecycleOwner(), new Observer<ResponseModelWithData<String>>() {
                 @Override

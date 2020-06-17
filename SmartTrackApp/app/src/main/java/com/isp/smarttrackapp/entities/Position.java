@@ -1,5 +1,7 @@
 package com.isp.smarttrackapp.entities;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.time.LocalDateTime;
 
 public class Position {
