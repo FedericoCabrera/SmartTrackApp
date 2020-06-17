@@ -10,6 +10,8 @@ public final class Config {
     public static final String KEY_ACTUAL_INCIDENT_ID = "actual_incident_id";
     public static final String KEY_USER_USERNAME = "username";
     public static final String KEY_USER_REALNAME = "realname";
+    public static final String KEY_LAST_LONGITUDE = "last_longitude";
+    public static final String KEY_LAST_LATITUDE = "last_latitude";
 
     //Common messages
     public static final String UNEXPECTED_ERROR_MSG = "Ha ocurrido un error inesperado.";

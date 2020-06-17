@@ -7,10 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.isp.smarttrackapp.entities.Employee;
 import com.isp.smarttrackapp.entities.Position;
 import com.isp.smarttrackapp.entities.ResponseModel;
-import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.model.repository.remote.EmployeesRepository;
 
 public class MainEmployeeFragmentViewModel extends AndroidViewModel {
@@ -30,5 +28,9 @@ public class MainEmployeeFragmentViewModel extends AndroidViewModel {
         positionObservable = EmployeesRepository.getInstance().updateLocation(positionObj);
 
         return positionObservable;
+    }
+
+    public void cleanLastKnownPosition(){
+        EmployeesRepository.getInstance().cleanLastKnownLocation();
     }
 }

@@ -1,5 +1,7 @@
 package com.isp.smarttrackapp.entities;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.time.LocalDateTime;
 
 public class Position {
@@ -7,6 +9,11 @@ public class Position {
     private String id;
     private double latitude;
     private double longitude;
+    public String address;
+
+    public String getAddress() { return address; }
+
+    public void setAddress(String address) { this.address = address; }
 
     public String getId() {
         return id;
