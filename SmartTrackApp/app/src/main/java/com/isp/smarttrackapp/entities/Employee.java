@@ -13,7 +13,7 @@ public class Employee {
     private String password;
     private String identityNumber;
     private String employeeStatus;
-    @SerializedName("Location")
+    @SerializedName("location")
     private Position position;
 
     public String getEmployeeStatus() {

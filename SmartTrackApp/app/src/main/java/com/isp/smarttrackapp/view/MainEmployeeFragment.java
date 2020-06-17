@@ -125,11 +125,10 @@ public class MainEmployeeFragment extends Fragment {
 
     private class myLocationListener implements LocationListener{
 
-        private MainEmployeeFragmentViewModel mainEmployeeViewModel;
         @Override
         public void onLocationChanged(Location location) {
             try{
-                mainEmployeeViewModel.updateLocation(location.getLatitude(), location.getLongitude()).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                mainEmployeeFragmentViewModel.updateLocation(location.getLatitude(), location.getLongitude()).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                     @Override
                     public void onChanged(ResponseModel response) {
                         if(response.isResponseOK()){

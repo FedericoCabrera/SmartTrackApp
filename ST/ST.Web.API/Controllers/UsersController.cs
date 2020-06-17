@@ -96,14 +96,32 @@ namespace ST.Web.API.Controllers
 
         }
 
-        [HttpGet("location", Name = "Get Location")]
+        [HttpGet("location")]
         public IActionResult GetLocation()
         {
             try
             {
                 var companyId = GetCompanyID();
-                return Ok(companyService.GetEmployeesActiveWithLocation(companyId));
+           
+                var employees = companyService.GetEmployeesActiveWithLocation(companyId);
 
+                var response = new ResponseModelWithData<IEnumerable<EmployeeModel>>()
+                {
+                    Data = EmployeeModel.ToModel(employees),
+                    IsResponseOK = true
+                };
+
+                return Ok(response);
+            }
+            catch (HandledException he)
+            {
+                var response = new ResponseModelWithData<IEnumerable<Employee>>()
+                {
+                    IsResponseOK = true,
+                    ErrorMessage = he.Message
+                };
+
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -211,11 +229,14 @@ namespace ST.Web.API.Controllers
         {
             try
             {
+                ResponseModel responseModel = new ResponseModel();
                 var token = new Guid(Request.Headers["Authorization"]);
                 var user = sessionService.GetUserByToken(token);
                 Employee employee = employeeService.GetEmployeeById(user.Id);
                 employeeService.ModifyLocation(employee, location.ToEntity());
-                return Ok();
+                responseModel.IsResponseOK = true;
+
+                return Ok(responseModel);
             }
             catch (HandledException he)
             {

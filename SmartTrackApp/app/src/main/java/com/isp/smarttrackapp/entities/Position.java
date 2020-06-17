@@ -4,31 +4,31 @@ import java.time.LocalDateTime;
 
 public class Position {
 
-    private String Id;
-    private double Latitude;
-    private double Longitude;
+    private String id;
+    private double latitude;
+    private double longitude;
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public double getLatitude() {
-        return Latitude;
+        return latitude;
     }
 
     public double getLongitude() {
-        return Longitude;
+        return longitude;
     }
 
     public void setId(String id) {
-        Id = id;
+        id = id;
     }
 
     public void setLatitude(double latitude) {
-        Latitude = latitude;
+        this.latitude = latitude;
     }
 
     public void setLongitude(double longitude) {
-        Longitude = longitude;
+        this.longitude = longitude;
     }
 }

@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,22 +87,26 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
         adminMapViewModel.getLocation().observe(getViewLifecycleOwner(), new Observer<ResponseModelWithData<List<Employee>>>() {
             @Override
                 public void onChanged(ResponseModelWithData<List<Employee>> employees) {
-                    ArrayAdapter<Employee> arrayAdapter = new ArrayAdapter<Employee>(thisContext, android.R.layout.simple_list_item_1, employees.getData() );
+                 //   ArrayAdapter<Employee> arrayAdapter = new ArrayAdapter<Employee>(thisContext, android.R.layout.simple_list_item_1, employees.getData() );
                     employeeList = employees.getData();
+                for (Employee e: employeeList) {
+                    LatLng place = new LatLng(e.getPosition().getLatitude(), e.getPosition().getLongitude());
+                    if (e.getStatus().toString().equals(Employee.Status.CONNECTED.toString()))
+                    {
+                    googleMap2.addMarker(new MarkerOptions()
+                            .position(place)
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_truck_red))
+                          .title(e.getName()));
 
-                       LatLng place = new LatLng(-39, -58);
-                       googleMap2.addMarker(new MarkerOptions()
-                               .position(place)
-                               .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_truck_red))
-                               .title("s"));
+                }else{
+                        googleMap2.addMarker(new MarkerOptions()
+                                .position(place)
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_truck))
+                                .title(e.getName()));
+                    }
+                }
+                CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
 
-
-
-                CameraUpdate zoom = CameraUpdateFactory.zoomTo(1);
-                googleMap2.addMarker(new MarkerOptions()
-                        .position(place)
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_truck_red))
-                        .title("dd"));
                 }
             });
 
