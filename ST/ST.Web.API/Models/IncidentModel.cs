@@ -12,7 +12,6 @@ namespace ST.Web.API.Models
         public Guid ID { get; set; }
         public LocationModel Location { get; set; }
         public DateTime CreationTime { get; set; }
-        public string Address { get; set; }
         public string Base64Image { get; set; }
         public string Description { get; set; }
         //public TrajectModel Traject { get; set; }
@@ -23,9 +22,10 @@ namespace ST.Web.API.Models
             {
                 Latitude = this.Location.Latitude,
                 LocationTime = this.Location.LocationTime,
-                Longitude = this.Location.Longitude
+                Longitude = this.Location.Longitude,
+                Address = this.Location.Address
             } : null,
-            Address = this.Address,
+            
             Description = this.Description,
             Base64Image = this.Base64Image,
             CreationTime = this.CreationTime            
@@ -37,9 +37,10 @@ namespace ST.Web.API.Models
             {
                 Latitude = entity.Location.Latitude,
                 LocationTime = entity.Location.LocationTime,
-                Longitude = entity.Location.Longitude
+                Longitude = entity.Location.Longitude,
+                Address = entity.Location.Address
             } : null;
-            Address = entity.Address;
+
             CreationTime = entity.CreationTime;
             Base64Image = entity.Base64Image;
             Description = entity.Description;

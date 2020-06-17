@@ -10,24 +10,18 @@ public class Incident {
     //private Date creationTime;
     private String base64Image;
     private String description;
-    private String address;
     @SerializedName("location")
     private Position location;
 
-    public Incident(String base64Image, String description, String address, Position location) {
+    public Incident(String base64Image, String description, Position location) {
         this.base64Image = base64Image;
         this.description = description;
-        this.address = address;
         this.location = location;
     }
 
     public Position getLocation() { return location; }
 
     public void setLocation(Position location) { this.location = location; }
-
-    public String getAddress() { return address; }
-
-    public void setAddress(String address) { this.address = address; }
 
     public String getId() {
         return id;

@@ -42,7 +42,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.Incident;
-import com.isp.smarttrackapp.entities.Location;
 import com.isp.smarttrackapp.entities.Position;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;
@@ -246,11 +245,12 @@ public class CreateIncidentFragment  extends Fragment {
             if(photoFile!=null)
                 base64Image = Utils.encodeFileToBase64Binary(this.photoFile);
 
-            Location location = new Location();
+            Position location = new Position();
             location.setLatitude(Double.parseDouble(this.lat));
             location.setLongitude(Double.parseDouble(this.lng));
+            location.setAddress(address);
 
-            Incident newIncident = new Incident(base64Image,description,address,location);
+            Incident newIncident = new Incident(base64Image,description,location);
 
             /*newIncident.setBase64Image(base64Image);
             newIncident.setDescription(description);
