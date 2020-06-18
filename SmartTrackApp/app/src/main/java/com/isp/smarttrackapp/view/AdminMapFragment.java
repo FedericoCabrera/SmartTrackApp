@@ -10,6 +10,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +48,9 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
     private AdminMapFragmentViewModel adminMapViewModel;
     private List<Employee> employeeList;
     private Fragment fragment;
+    private ArrayList<MarkerOptions> markers;
+
+
 
     public AdminMapFragment() {
         // Required empty public constructor
@@ -61,6 +66,24 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        markers = new ArrayList<MarkerOptions>();
+      content();
+    }
+
+    public void content(){
+
+        onMapReady(googleMap2);
+        refresh(1000);
+    }
+    private void refresh(int miliseconds){
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                content();
+            }
+        };
+        handler.postDelayed(runnable,miliseconds);
     }
 
     @Override
@@ -77,40 +100,46 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         googleMap2 = googleMap;
-        LatLng place = new LatLng(-34, -57);
-        googleMap2.addMarker(new MarkerOptions()
-                .position(place)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_truck_red))
-                .title("s"));
+
+        if (googleMap2!=null) {
+            googleMap2.clear();
+           for (MarkerOptions m:  markers) {
+                m.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_point));
+                googleMap2.addMarker(m);
+            }
+            drawEmployees();
+        }
+    }
+
+    private void drawEmployees(){
         employeeList = new ArrayList<Employee>();
-        CameraUpdate zoom = CameraUpdateFactory.zoomTo(1);
         adminMapViewModel.getLocation().observe(getViewLifecycleOwner(), new Observer<ResponseModelWithData<List<Employee>>>() {
             @Override
-                public void onChanged(ResponseModelWithData<List<Employee>> employees) {
-                 //   ArrayAdapter<Employee> arrayAdapter = new ArrayAdapter<Employee>(thisContext, android.R.layout.simple_list_item_1, employees.getData() );
-                    employeeList = employees.getData();
+            public void onChanged(ResponseModelWithData<List<Employee>> employees) {
+                employeeList = employees.getData();
                 for (Employee e: employeeList) {
                     LatLng place = new LatLng(e.getPosition().getLatitude(), e.getPosition().getLongitude());
                     if (e.getStatus().toString().equals(Employee.Status.CONNECTED.toString()))
                     {
-                    googleMap2.addMarker(new MarkerOptions()
-                            .position(place)
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_truck_red))
-                          .title(e.getName()));
+                        MarkerOptions m = new MarkerOptions()
+                                .position(place)
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_truck_red))
+                                .title(e.getName());
+                        googleMap2.addMarker(m);
+                        markers.add(m);
 
-                }else{
-                        googleMap2.addMarker(new MarkerOptions()
+                    }else{
+                        MarkerOptions m = new MarkerOptions()
                                 .position(place)
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_truck))
-                                .title(e.getName()));
+                                .title(e.getName());
+                        googleMap2.addMarker(m);
+                        markers.add(m);
                     }
                 }
                 CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
-
-                }
-            });
-
-
+            }
+        });
 
     }
 

@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 
 import android.view.View;
@@ -117,7 +118,7 @@ public class MainEmployeeFragment extends Fragment {
                     return;
                 }
             }
-            ubicacion.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, new myLocationListener());
+            ubicacion.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, new myLocationListener());
         }else{
             Toast.makeText(thisContext, "El GPS esta apagado!", Toast.LENGTH_LONG).show();
         }
@@ -126,13 +127,14 @@ public class MainEmployeeFragment extends Fragment {
     private class myLocationListener implements LocationListener{
 
         @Override
-        public void onLocationChanged(Location location) {
+        public void onLocationChanged(final Location location) {
             try{
                 mainEmployeeFragmentViewModel.updateLocation(location.getLatitude(), location.getLongitude()).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                     @Override
                     public void onChanged(ResponseModel response) {
                         if(response.isResponseOK()){
-                            //Toast.makeText(thisContext, session.getData().getToken() + " Admin: " + session.getData().getIsAdmin(), Toast.LENGTH_LONG).show();
+                            Log.println(Log.INFO, "Ubicacion", "Latitud : " + location.getLatitude() + " Longitud" + location.getLongitude() );
+
                         }else{
                             Toast.makeText(thisContext, response.getErrorMessage(), Toast.LENGTH_LONG).show();
                         }

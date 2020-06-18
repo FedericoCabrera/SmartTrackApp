@@ -232,8 +232,12 @@ namespace ST.Web.API.Controllers
                 ResponseModel responseModel = new ResponseModel();
                 var token = new Guid(Request.Headers["Authorization"]);
                 var user = sessionService.GetUserByToken(token);
-                Employee employee = employeeService.GetEmployeeById(user.Id);
-                employeeService.ModifyLocation(employee, location.ToEntity());
+                if (user is Employee)
+                {
+                    Employee employee = employeeService.GetEmployeeById(user.Id);
+                    employeeService.ModifyLocation(employee, location.ToEntity());
+                }
+               
                 responseModel.IsResponseOK = true;
 
                 return Ok(responseModel);
