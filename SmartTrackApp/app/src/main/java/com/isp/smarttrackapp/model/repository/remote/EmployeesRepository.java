@@ -140,7 +140,8 @@ public class EmployeesRepository {
 
     public MutableLiveData<ResponseModel> updateEmployee(Employee employee) {
         final MutableLiveData<ResponseModel> data = new MutableLiveData<>();
-        String token = LocalStorage.getInstance().getValue("token");
+
+        String token = LocalStorage.getInstance().getValue(Config.KEY_USER_TOKEN);
         Call<ResponseModelWithData<Employee>> call = employeesApiService.updateEmployee(token, employee.getId(), employee);
         call.enqueue(new Callback<ResponseModelWithData<Employee>>() {
             @Override
@@ -162,9 +163,20 @@ public class EmployeesRepository {
         return data;
     }
 
+    public void cleanLastKnownLocation(){
+        //Clean last known location
+        LocalStorage.getInstance().setValue("", Config.KEY_LAST_LATITUDE);
+        LocalStorage.getInstance().setValue("", Config.KEY_LAST_LONGITUDE);
+    }
+
     public MutableLiveData<ResponseModel> updateLocation(Position position) {
         final MutableLiveData<ResponseModel> data = new MutableLiveData<>();
-        String token = LocalStorage.getInstance().getValue("token");
+
+        //Update last known location
+        LocalStorage.getInstance().setValue(position.getLatitude()+"", Config.KEY_LAST_LATITUDE);
+        LocalStorage.getInstance().setValue(position.getLongitude()+"", Config.KEY_LAST_LONGITUDE);
+
+        String token = LocalStorage.getInstance().getValue(Config.KEY_USER_TOKEN);
         Call<ResponseModel> call = employeesApiService.updateLocation(token, position);
         call.enqueue(new Callback<ResponseModel>() {
             @Override

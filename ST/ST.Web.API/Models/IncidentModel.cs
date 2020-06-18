@@ -22,8 +22,10 @@ namespace ST.Web.API.Models
             {
                 Latitude = this.Location.Latitude,
                 LocationTime = this.Location.LocationTime,
-                Longitude = this.Location.Longitude
+                Longitude = this.Location.Longitude,
+                Address = this.Location.Address
             } : null,
+            
             Description = this.Description,
             Base64Image = this.Base64Image,
             CreationTime = this.CreationTime            
@@ -35,8 +37,10 @@ namespace ST.Web.API.Models
             {
                 Latitude = entity.Location.Latitude,
                 LocationTime = entity.Location.LocationTime,
-                Longitude = entity.Location.Longitude
+                Longitude = entity.Location.Longitude,
+                Address = entity.Location.Address
             } : null;
+
             CreationTime = entity.CreationTime;
             Base64Image = entity.Base64Image;
             Description = entity.Description;

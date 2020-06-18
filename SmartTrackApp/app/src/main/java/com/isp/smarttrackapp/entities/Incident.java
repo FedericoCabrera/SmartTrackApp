@@ -1,6 +1,5 @@
 package com.isp.smarttrackapp.entities;
-
-import android.icu.text.Transliterator;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
@@ -11,9 +10,20 @@ public class Incident {
     //private Date creationTime;
     private String base64Image;
     private String description;
-    //private Traject traject;
+    @SerializedName("location")
+    private Position location;
 
-    public java.lang.String getId() {
+    public Incident(String base64Image, String description, Position location) {
+        this.base64Image = base64Image;
+        this.description = description;
+        this.location = location;
+    }
+
+    public Position getLocation() { return location; }
+
+    public void setLocation(Position location) { this.location = location; }
+
+    public String getId() {
         return id;
     }
 

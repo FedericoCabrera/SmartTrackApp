@@ -18,11 +18,13 @@ namespace ST.Web.API.Models
         public Guid Id { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        public string Address { get; set; }
         public DateTime LocationTime { get; set; }
 
         public override Location ToEntity() => new Location()
         {
             Id = this.Id,
+            Address = this.Address,
             Latitude = this.Latitude,
             Longitude = this.Longitude,
             LocationTime = DateTime.Now,
@@ -31,6 +33,7 @@ namespace ST.Web.API.Models
         protected override LocationModel SetModel(Location entity)
         {
             Id = entity.Id;
+            Address = entity.Address;
             Latitude = entity.Latitude;
             Longitude = entity.Longitude;
             LocationTime = entity.LocationTime;
