@@ -29,9 +29,11 @@
     <!-- TODO: Borrar si no se usan -->
     <string name="em_start_traject_btn">Comenzar trayecto</string>
     <string name="em_start_workingday_btn">Comenzar jornada</string>
-    <string name="am_logout_btn">Salir</string>
+    <string name="am_logout_btn">Cerrar sesión</string>
     <string name="emenu_new_traject">Nuevo trayecto</string>
-    <string name="em_btn_new_traject">Nuevo trayecto</string>
+    <string name="em_btn_change_password">Cambiar contraseña</string>
+    <string name="em_txt_title">Menú Principal</string>
+    <string name="em_btn_logout">Cerrar sesión</string>
     <string name="ci_title">Incidente</string>
     <string name="ci_txt_input_location">Ubicación</string>
     <string name="ci_btn_addIncident">Agregar</string>
@@ -45,5 +47,7 @@
     <string name="am_incidents_report_btn">Reporte incidentes</string>
     <string name="ri_btn_accept">Aceptar</string>
     <string name="ri_btn_cancel">Cancelar</string>
+    <string name="am_txt_title">Menú Principal</string>
+
 
 </resources>

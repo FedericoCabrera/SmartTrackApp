@@ -1,7 +1,6 @@
 package com.isp.smarttrackapp.view;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -17,7 +16,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -32,7 +30,6 @@ import android.widget.Toast;
 
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.ResponseModel;
-import com.isp.smarttrackapp.viewmodel.EmployeeListFragmentViewModel;
 import com.isp.smarttrackapp.viewmodel.MainEmployeeFragmentViewModel;
 
 import java.util.List;
@@ -46,8 +43,11 @@ public class MainEmployeeFragment extends Fragment {
     private View mainView;
     private NavController navController;
     private Button btnNewTraject;
+    private Button btnChangePassword;
+    private Button btnLogout;
 
     private LocationManager ubicacion;
+    private myLocationListener locationListener;
     private MainEmployeeFragmentViewModel mainEmployeeFragmentViewModel;
     public MainEmployeeFragment() {
         // Required empty public constructor
@@ -75,15 +75,38 @@ public class MainEmployeeFragment extends Fragment {
 
         navController = Navigation.findNavController(view);
 
-        btnNewTraject = view.findViewById(R.id.em_btn_new_traject);
+        btnNewTraject = view.findViewById(R.id.em_btn_trajects);
+        btnChangePassword = view.findViewById(R.id.em_btn_change_password);
+        btnLogout = view.findViewById(R.id.em_btn_logout);
 
         btnNewTraject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //navController.navigate(R.id.action_mainEmployeeFragment_to_employeeMapFragment);
-                navController.navigate(R.id.action_mainEmployeeFragment_to_createIncidentFragment);
+                navController.navigate(R.id.action_mainEmployeeFragment_to_employeeMapFragment);
             }
         });
+
+        btnChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ubicacion.removeUpdates(locationListener);
+        ubicacion = null;
     }
 
     private void listProviders() {
@@ -120,7 +143,8 @@ public class MainEmployeeFragment extends Fragment {
                     return;
                 }
             }
-            ubicacion.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, new myLocationListener());
+            locationListener = new myLocationListener();
+            ubicacion.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, locationListener);
         }else{
             Toast.makeText(thisContext, "El GPS esta apagado!", Toast.LENGTH_LONG).show();
         }
