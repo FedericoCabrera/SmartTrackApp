@@ -12,18 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button" />
     </LinearLayout>
 
     <LinearLayout
@@ -36,13 +24,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <Button
+                android:id="@+id/em_start_traject_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="right|top"
+                android:text="@string/em_start_traject_btn"
+                android:padding="10dp"
+                android:layout_marginTop="20dp"
+                android:paddingRight="20dp"/>
+
+            <Button
+                android:id="@+id/em_new_incident_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="left|top"
+                android:text="@string/em_new_incident_btn"
+                android:padding="10dp"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="20dp"
+                android:visibility="invisible"
+            />
+
+            <Chronometer
+                android:id="@+id/simpleChronometer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|top"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:translationZ="10dp"/>
+
             <com.google.android.gms.maps.MapView
                 android:id="@+id/emain_map"
                 android:name="com.google.android.gms.maps.MapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
             </com.google.android.gms.maps.MapView>
+
+
+
         </FrameLayout>
 
     </LinearLayout>

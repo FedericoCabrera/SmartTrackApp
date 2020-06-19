@@ -3,27 +3,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal|center_vertical"
+    android:gravity="center_horizontal"
     tools:context=".view.MainEmployeeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Employee" />
+        android:id="@+id/em_txt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:paddingTop="50dp"
+        android:text="@string/em_txt_title"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/em_btn_trajects"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@id/em_txt_title"
         android:text="@string/em_btn_trajects" />
 
     <Button
-        android:id="@+id/em_btn_new_traject"
-        android:layout_width="wrap_content"
+        android:id="@+id/em_btn_change_password"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/em_btn_trajects"
-        android:text="@string/em_btn_new_traject" />
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/em_btn_change_password" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/em_btn_logout"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/em_btn_change_password"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/em_btn_logout" />
 
 </RelativeLayout>
 

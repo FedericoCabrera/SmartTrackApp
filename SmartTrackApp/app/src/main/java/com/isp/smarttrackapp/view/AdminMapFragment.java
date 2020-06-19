@@ -49,7 +49,8 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
     private List<Employee> employeeList;
     private Fragment fragment;
     private ArrayList<MarkerOptions> markers;
-
+    private Handler handler ;
+    private Runnable runnable;
 
 
     public AdminMapFragment() {
@@ -76,8 +77,8 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
         refresh(1000);
     }
     private void refresh(int miliseconds){
-        final Handler handler = new Handler();
-        final Runnable runnable = new Runnable() {
+        handler = new Handler();
+        runnable = new Runnable() {
             @Override
             public void run() {
                 content();
@@ -100,7 +101,6 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         googleMap2 = googleMap;
-
         if (googleMap2!=null) {
             googleMap2.clear();
            for (MarkerOptions m:  markers) {
@@ -109,6 +109,8 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
             }
             drawEmployees();
         }
+        //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 15));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
     }
 
     private void drawEmployees(){
@@ -137,7 +139,6 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
                         markers.add(m);
                     }
                 }
-                CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
             }
         });
 
@@ -153,5 +154,11 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
             mapView.onResume();
             mapView.getMapAsync((OnMapReadyCallback) fragment);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacks(runnable);
     }
 }

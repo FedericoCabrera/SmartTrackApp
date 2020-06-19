@@ -41,7 +41,7 @@ namespace ST.Web.API.Models
             } : null,
             Duration = this.Duration,
             Distance = this.Distance,
-            StartDate = this.StartDate,
+            StartDate = DateTime.Now,
             IsFinished = this.IsFinished
         };
 

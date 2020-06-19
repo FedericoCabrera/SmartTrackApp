@@ -8,8 +8,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.isp.smarttrackapp.Config;
+import com.isp.smarttrackapp.entities.Position;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
+import com.isp.smarttrackapp.entities.Traject;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;
+import com.isp.smarttrackapp.model.repository.remote.TrajectsRepository;
 
 public class CreateTrajectFragmentViewModel extends AndroidViewModel {
 
@@ -19,14 +22,16 @@ public class CreateTrajectFragmentViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public LiveData<ResponseModelWithData<java.lang.String>> createTraject(String locationInitial){
+    public LiveData<ResponseModelWithData<java.lang.String>> createTraject(Position locationInitial){
 
-        /*Traject newTraject = new Traject();
+        Traject newTraject = new Traject();
         newTraject.setLocationInitial(locationInitial);
 
         trajectCreatedId = TrajectsRepository.getInstance().createTraject(newTraject);
-        return trajectCreatedId;*/
 
+      //  LocalStorage.getInstance().setValue( s , Config.KEY_ACTUAL_TRAJECT_ID);
+        return trajectCreatedId;
+/*
         ResponseModelWithData<java.lang.String> t = new ResponseModelWithData<>();
         t.setData("891AD943-B35F-437C-BF62-05BDA8EF1548");
         t.setResponseOK(true);
@@ -37,6 +42,8 @@ public class CreateTrajectFragmentViewModel extends AndroidViewModel {
         LocalStorage.getInstance().setValue("891AD943-B35F-437C-BF62-05BDA8EF1548", Config.KEY_ACTUAL_TRAJECT_ID);
 
         return newLiveData;
+        */
+
     }
 
     public LiveData<ResponseModelWithData<java.lang.String>> getActualTrajectId(){
