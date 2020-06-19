@@ -79,6 +79,48 @@ public class TrajectsRepository {
         return data;
     }
 
+
+    public MutableLiveData<ResponseModelWithData<Traject>> endTraject(Traject traject){
+        final MutableLiveData<ResponseModelWithData<Traject>> data = new MutableLiveData<>();
+
+        String token = LocalStorage.getInstance().getValue(Config.KEY_USER_TOKEN);
+        Call<ResponseModelWithData<Traject>> call = trajectService.endTraject(token,traject);
+
+        call.enqueue(new Callback<ResponseModelWithData<Traject>>() {
+            @Override
+            public void onResponse(Call<ResponseModelWithData<Traject>> call, Response<ResponseModelWithData<Traject>> response) {
+                if(response.isSuccessful()){
+                    data.setValue(response.body());
+                }else{
+                    String error;
+                    ResponseModelWithData<Traject> errorResponse;
+
+                    try {
+                        error = response.errorBody().string();
+                        errorResponse = new ResponseModelWithData(false, error);
+                        data.setValue(errorResponse);
+
+                    } catch (IOException e) {
+                        error = Config.UNEXPECTED_ERROR_MSG;
+                        errorResponse = new ResponseModelWithData(false, error);
+                        data.setValue(errorResponse);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModelWithData<Traject>> call, Throwable t) {
+
+            }
+
+
+        });
+
+        return data;
+    }
+
+
+
     public MutableLiveData<ResponseModelWithData<String>> assignIncidentToTraject(Incident incident){
         final MutableLiveData<ResponseModelWithData<String>> data = new MutableLiveData<>();
 

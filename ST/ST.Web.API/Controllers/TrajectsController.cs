@@ -70,6 +70,41 @@ namespace ST.Web.API.Controllers
             }
         }
 
+        [HttpPut]
+        public IActionResult EndTraject([FromBody] TrajectModel traject)
+        {
+            try
+            {
+                ResponseModelWithData<Traject> responseModel = new ResponseModelWithData<Traject>();
+
+                var token = Utils.GetToken(Request);
+                var employee = sessionService.GetEmployeeByToken(token);
+                employeeService.PutEmployeeStatus(employee.Id, Status.CONNECTED);
+                trajectService.EndTraject(employee, traject.ToEntity());
+
+                responseModel.IsResponseOK = true;
+                responseModel.Data = traject.ToEntity();
+
+                return Ok(responseModel);
+            }
+            catch (HandledException he)
+            {
+                var response = new ResponseModelWithData<Guid>()
+                {
+                    IsResponseOK = false,
+                    ErrorMessage = he.Message
+                };
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+            
+          
+        }
+
         // POST: api/Trajects/trajectId
         [HttpPost("Incidents/{trajectId}")]
         public IActionResult CreateIncident(Guid trajectId, [FromBody] IncidentModel incident)

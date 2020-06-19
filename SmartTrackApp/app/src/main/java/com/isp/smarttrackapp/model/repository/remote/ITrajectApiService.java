@@ -20,6 +20,9 @@ public interface ITrajectApiService {
     @POST("Trajects")
     Call<ResponseModelWithData<String>> createTraject(@Header("Authorization") String token, @Body Traject traject);
 
+    @PUT("Trajects")
+    Call<ResponseModelWithData<Traject>> endTraject(@Header("Authorization") String token, @Body Traject traject);
+
     @POST("Trajects/Incidents/{trajectId}")
     Call<ResponseModelWithData<String>> assignIncidentToTraject(@Header("Authorization") String token, @Path("trajectId") String trajectId, @Body Incident incident);
 

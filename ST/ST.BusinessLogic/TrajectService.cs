@@ -31,6 +31,19 @@ namespace ST.BusinessLogic
             return traject.Id;
         }
 
+        public void EndTraject(Employee employee, Traject traject) 
+        {
+            var t = unitOfWork.TrajectRepository.Get(x => x.Id == traject.Id).FirstOrDefault();
+            t.IsFinished = true;
+            t.LocationFinal = traject.LocationFinal;
+            t.Distance = traject.Distance;
+            var time = (t.LocationFinal.LocationTime - t.LocationFinal.LocationTime);
+            t.Duration = time.TotalMinutes;
+            unitOfWork.TrajectRepository.Update(t);
+            unitOfWork.TrajectRepository.Save();
+
+        }
+
         public void AssignIncidentToTraject(Guid trajectId, Employee employee, Incident incident)
         {
 
