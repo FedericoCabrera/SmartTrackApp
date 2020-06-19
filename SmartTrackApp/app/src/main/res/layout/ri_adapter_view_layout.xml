@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100">
+
+
+    <ImageView
+        android:gravity="center"
+        android:textAlignment="center"
+        android:text="TextView1"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:id="@+id/ri_ad_img_image"
+        android:layout_weight="66.6"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="33.3">
+
+        <TextView
+            android:gravity="center"
+            android:text="TextView2"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:id="@+id/ri_ad_txt_username"/>
+
+        <TextView
+        android:gravity="center"
+        android:text="TextView3"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/ri_ad_txt_address"
+        android:layout_below="@+id/ri_ad_txt_username"/>
+
+        <TextView
+            android:gravity="center"
+            android:text="TextView3"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:id="@+id/ri_ad_txt_date"
+            android:layout_below="@+id/ri_ad_txt_address"/>
+
+        <TextView
+            android:gravity="center"
+            android:text="TextView4"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:id="@+id/ri_ad_txt_description"
+            android:layout_below="@+id/ri_ad_txt_date"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.CreateEmployeeFragment">
+    tools:context=".view.MainAdminFragment">
 
     <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/am_employees_btn"
+            android:layout_marginEnd="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintVertical_bias="0.401" />
@@ -43,9 +44,45 @@
             android:id="@+id/am_tracking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:text="@string/am_tracking"
             tools:layout_editor_absoluteX="161dp"
             tools:layout_editor_absoluteY="243dp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_bias=".35"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:weightSum="100">
+
+        <Button
+            android:id="@+id/am_incidents_report_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/am_incidents_report_btn"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintVertical_bias="0.401" />
+
+
+        <Button
+            android:id="@+id/am_trajects_report_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/am_trajects_report_btn"
+            android:layout_marginStart="5dp"
+            tools:layout_editor_absoluteX="161dp"
+            tools:layout_editor_absoluteY="243dp"/>
 
 
     </LinearLayout>

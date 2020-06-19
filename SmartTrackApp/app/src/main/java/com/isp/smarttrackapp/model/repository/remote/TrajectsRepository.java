@@ -5,7 +5,9 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.isp.smarttrackapp.Config;
+import com.isp.smarttrackapp.entities.DatesFilter;
 import com.isp.smarttrackapp.entities.Incident;
+import com.isp.smarttrackapp.entities.IncidentReport;
 import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.entities.Traject;
@@ -14,6 +16,7 @@ import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -100,22 +103,63 @@ public class TrajectsRepository {
                         errorResponse = new ResponseModelWithData(false, error);
                         data.setValue(errorResponse);
 
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         error = Config.UNEXPECTED_ERROR_MSG;
                         errorResponse = new ResponseModelWithData(false, error);
                         data.setValue(errorResponse);
 
-                        Log.e("onResponse","error: "+e.toString());
+                        Log.e("assignIncidentToTraject","error: "+e.toString());
 
                     }
 
-                    Log.e("onResponse","error: "+error);
+                    Log.e("assignIncidentToTraject","error: "+error);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseModelWithData<String>> call, Throwable t) {
                 Log.e("onFailure", t.toString());
+            }
+        });
+
+        return data;
+    }
+
+    public MutableLiveData<ResponseModelWithData<List<IncidentReport>>> getIncidentsReport(DatesFilter filter){
+        final MutableLiveData<ResponseModelWithData<List<IncidentReport>>> data = new MutableLiveData<>();
+        String token = LocalStorage.getInstance().getValue(Config.KEY_USER_TOKEN);
+
+        Call<ResponseModelWithData<List<IncidentReport>>> call = trajectService.getIncidentsReport(token, filter);
+
+        call.enqueue(new Callback<ResponseModelWithData<List<IncidentReport>>>() {
+            @Override
+            public void onResponse(Call<ResponseModelWithData<List<IncidentReport>>> call, Response<ResponseModelWithData<List<IncidentReport>>> response) {
+                if (response.isSuccessful()) {
+                    data.setValue(response.body());
+
+                } else {
+                    String error = "";
+                    ResponseModelWithData<List<IncidentReport>> errorResponse = new ResponseModelWithData<>();
+
+                    try {
+                        error = response.errorBody().string();
+                        errorResponse = new ResponseModelWithData(false, error);
+                        data.setValue(errorResponse);
+
+                    } catch (Exception e) {
+                        error = Config.UNEXPECTED_ERROR_MSG;
+                        errorResponse = new ResponseModelWithData(false, error);
+                        data.setValue(errorResponse);
+
+                        Log.e("onResponse", "error: " + e.toString());
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModelWithData<List<IncidentReport>>> call, Throwable t) {
+                Log.e("getIncidentsReport", t.toString());
             }
         });
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using ST.BusinessLogic.Interfaces;
 using ST.BusinessLogic.Interfaces.Exceptions;
 using ST.Data.Entities;
@@ -57,5 +58,40 @@ namespace ST.BusinessLogic
             }
         }
 
+        public IEnumerable<IncidentReport> GetIncidentsReport(Administrator admin, DateTime dateFrom, DateTime dateTo)
+        {
+            var company = unitOfWork.CompanyRepository.Get(x => x.Id == admin.Company.Id, null, "Employees").FirstOrDefault();
+            var incidentsList = new List<IncidentReport>();
+
+            if(company != null)
+            {
+                foreach(Employee e in company.Employees)
+                {
+                    var employee = unitOfWork.EmployeeRepository.Get(x => x.Id == e.Id, null, "Trajects").FirstOrDefault();
+                    if(employee != null)
+                    {
+                        var trajectsIds = employee.Trajects.Select(x => x.Id).ToList();
+
+                        var incidents = unitOfWork.IncidentRepository.Get(x => trajectsIds.Contains(x.Traject.Id) && x.CreationTime >= dateFrom && x.CreationTime <= dateTo, null, "Location").ToList();
+
+                        foreach(var incident in incidents)
+                        {
+                            var incidentReport = new IncidentReport()
+                            {
+                                Address = incident.Location!=null? incident.Location.Address:"",
+                                Base64Image = incident.Base64Image,
+                                Date = incident.CreationTime.ToString(),
+                                Description = incident.Description,
+                                UserName = e.UserName
+                            };
+
+                            incidentsList.Add(incidentReport);
+                        }
+                    }                    
+                }
+            }
+
+            return incidentsList;
+        }
     }
 }

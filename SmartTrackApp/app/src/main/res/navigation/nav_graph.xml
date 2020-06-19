@@ -71,15 +71,15 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_mainAdminFragment_to_reportsFragment"
-            app:destination="@id/reportsFragment"
+            android:id="@+id/action_mainAdminFragment_to_adminMapFragment"
+            app:destination="@id/adminMapFragment" />
+        <action
+            android:id="@+id/action_mainAdminFragment_to_reportsIncidentsFragment"
+            app:destination="@id/reportsIncidentsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
-        <action
-            android:id="@+id/action_mainAdminFragment_to_adminMapFragment"
-            app:destination="@id/adminMapFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainEmployeeFragment"
@@ -145,10 +145,6 @@
         android:name="com.isp.smarttrackapp.view.NotificationsFragment"
         android:label="NotificationsFragment" />
     <fragment
-        android:id="@+id/reportsFragment"
-        android:name="com.isp.smarttrackapp.view.ReportsFragment"
-        android:label="ReportsFragment" />
-    <fragment
         android:id="@+id/employeeMapFragment"
         android:name="com.isp.smarttrackapp.view.EmployeeMapFragment"
         android:label="EmployeeMapFragment" />
@@ -160,4 +156,8 @@
         android:id="@+id/adminMapFragment"
         android:name="com.isp.smarttrackapp.view.AdminMapFragment"
         android:label="AdminMapFragment" />
+    <fragment
+        android:id="@+id/reportsIncidentsFragment"
+        android:name="com.isp.smarttrackapp.view.ReportsIncidentsFragment"
+        android:label="ReportsIncidentsFragment" />
 </navigation>

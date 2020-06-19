@@ -11,11 +11,11 @@
     <string name="em_btn_trajects">Viajes</string>
     <string name="el_btn_addEmployee">Nuevo</string>
     <string name="el_btn_removeEmployee">Eliminar</string>
-    <string name="cu_in_username">Nombre de suario</string>
-    <string name="cu_in_password">Contrasena</string>
+    <string name="cu_in_username">Nombre de usuario</string>
+    <string name="cu_in_password">Contraseña</string>
     <string name="cu_in_name">Nombre</string>
     <string name="cu_in_lastname">Apellido</string>
-    <string name="cu_in_identityNumber">Cedula identidad</string>
+    <string name="cu_in_identityNumber">Cédula identidad</string>
     <string name="cu_btn_cancel">Cancelar</string>
     <string name="cu_btn_addEmployee">Agregar</string>
     <string name="cu_title">Empleado</string>
@@ -37,5 +37,13 @@
     <string name="ci_btn_addIncident">Agregar</string>
     <string name="ci_btn_cancel">Cancelar</string>
     <string name="ci_txt_input_description">Descripción</string>
+
+    <string name="ri_title">Listado incidentes</string>
+    <string name="ri_btn_date_from">Fecha desde</string>
+    <string name="ri_btn_date_to">Fecha hasta</string>
+    <string name="am_trajects_report_btn">Reporte trayectos</string>
+    <string name="am_incidents_report_btn">Reporte incidentes</string>
+    <string name="ri_btn_accept">Aceptar</string>
+    <string name="ri_btn_cancel">Cancelar</string>
 
 </resources>

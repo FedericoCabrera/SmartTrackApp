@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/ri_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ri_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="59dp" />
+
+    <Button
+        android:id="@+id/ri_btn_date_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ri_title"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/ri_btn_date_from" />
+    <Button
+        android:id="@+id/ri_btn_date_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ri_btn_date_from"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/ri_btn_date_to" />
+
+    <EditText
+        android:id="@+id/ri_txt_date_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ri_title"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_toEndOf="@+id/ri_btn_date_from"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:inputType="none"
+        android:text=""
+        android:textAlignment="center"/>
+
+    <EditText
+        android:id="@+id/ri_txt_date_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ri_btn_date_from"
+        android:layout_toEndOf="@+id/ri_btn_date_to"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:inputType="none"
+        android:text=""
+        android:textAlignment="center"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
+
+    <ListView
+        android:id="@+id/ri_list_view"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_below="@+id/ri_btn_date_to"
+        android:layout_marginBottom="20dp">
+
+    </ListView>
+
+    <RelativeLayout
+        android:id="@+id/ri_relative_layout_btns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/ri_list_view">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ri_btn_cancel"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_toStartOf="@id/ri_btn_details"
+            android:layout_toLeftOf="@id/ri_btn_details"
+            android:text="@string/ri_btn_cancel" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ri_btn_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="@string/ri_btn_accept" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
