@@ -13,6 +13,9 @@ public final class Config {
     public static final String KEY_LAST_LONGITUDE = "last_longitude";
     public static final String KEY_LAST_LATITUDE = "last_latitude";
 
+    public static final String KEY_USER_PASSWORD = "password";
+    public static final String KEY_AUTH_FINGERPRINT = "password";
+
     //Common messages
     public static final String UNEXPECTED_ERROR_MSG = "Ha ocurrido un error inesperado.";
 }
