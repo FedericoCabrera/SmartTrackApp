@@ -72,7 +72,11 @@
             app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_mainAdminFragment_to_adminMapFragment"
-            app:destination="@id/adminMapFragment" />
+            app:destination="@id/adminMapFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_mainAdminFragment_to_reportsIncidentsFragment"
             app:destination="@id/reportsIncidentsFragment"
@@ -99,10 +103,18 @@
             app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_mainEmployeeFragment_to_employeeMapFragment"
-            app:destination="@id/employeeMapFragment" />
+            app:destination="@id/employeeMapFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_mainEmployeeFragment_to_createIncidentFragment"
-            app:destination="@id/createIncidentFragment" />
+            app:destination="@id/createIncidentFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/employeesListFragment"
@@ -121,7 +133,11 @@
             app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_employeesListFragment_to_updateEmployeeFragment"
-            app:destination="@id/updateEmployeeFragment" />
+            app:destination="@id/updateEmployeeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/createTrajectFragment"

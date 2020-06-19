@@ -16,40 +16,46 @@
                 android:listSelector="#162eb5"
                 android:id="@+id/el_employeesList"
                 android:layout_width="match_parent"
-                android:layout_height="400dp">
+                android:layout_height="500dp"
+                android:layout_marginBottom="50dp">
             </ListView>
 
-            <com.google.android.material.button.MaterialButton
-                android:layout_below="@id/el_employeesList"
-                android:id="@+id/el_btn_addEmployee"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:text="@string/el_btn_addEmployee" />
+                android:layout_below="@id/el_employeesList"
+                android:gravity="center">
 
-            <com.google.android.material.button.MaterialButton
-                android:layout_below="@id/el_employeesList"
-                android:id="@+id/el_btn_editEmployee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_toStartOf="@id/el_btn_removeEmployee"
-                android:layout_toLeftOf="@id/el_btn_addEmployee"
-                android:text="@string/el_btn_editEmployee" />
+                <com.google.android.material.button.MaterialButton
+                    android:layout_below="@id/el_employeesList"
+                    android:id="@+id/el_btn_addEmployee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/el_btn_addEmployee" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/el_btn_removeEmployee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/el_employeesList"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginRight="-194dp"
-                android:layout_toStartOf="@id/el_btn_addEmployee"
-                android:layout_toLeftOf="@id/el_btn_editEmployee"
-                android:text="@string/el_btn_removeEmployee" />
+                <com.google.android.material.button.MaterialButton
+                    android:layout_below="@id/el_employeesList"
+                    android:id="@+id/el_btn_editEmployee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_toStartOf="@id/el_btn_removeEmployee"
+                    android:layout_toLeftOf="@id/el_btn_addEmployee"
+                    android:text="@string/el_btn_editEmployee" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/el_btn_removeEmployee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/el_employeesList"
+                    android:layout_toStartOf="@id/el_btn_addEmployee"
+                    android:layout_toLeftOf="@id/el_btn_editEmployee"
+                    android:text="@string/el_btn_removeEmployee" />
+
+            </LinearLayout>
+
 
         </RelativeLayout>
 </ScrollView>
