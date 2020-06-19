@@ -9,9 +9,24 @@ public class Traject {
     private double duration;
     private boolean isFinished ;
     private Date startDate;
-    private String locationInitial;
-    private String locationFinal;
+    private Position locationInitial;
+    private Position locationFinal;
 
+    public Position getLocationInitial() {
+        return locationInitial;
+    }
+
+    public void setLocationInitial(Position locationInitial) {
+        this.locationInitial = locationInitial;
+    }
+
+    public Position getLocationFinal() {
+        return locationFinal;
+    }
+
+    public void setLocationFinal(Position locationFinal) {
+        this.locationFinal = locationFinal;
+    }
 
     public java.lang.String getTrajectId() {
         return trajectId;
@@ -53,19 +68,5 @@ public class Traject {
         this.startDate = startDate;
     }
 
-    public String getLocationInitial() {
-        return locationInitial;
-    }
 
-    public void setLocationInitial(String locationInitial) {
-        this.locationInitial = locationInitial;
-    }
-
-    public String getLocationFinal() {
-        return locationFinal;
-    }
-
-    public void setLocationFinal(String locationFinal) {
-        this.locationFinal = locationFinal;
-    }
 }

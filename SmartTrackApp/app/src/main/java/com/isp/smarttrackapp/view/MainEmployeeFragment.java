@@ -80,8 +80,8 @@ public class MainEmployeeFragment extends Fragment {
         btnNewTraject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //navController.navigate(R.id.action_mainEmployeeFragment_to_employeeMapFragment);
-                navController.navigate(R.id.action_mainEmployeeFragment_to_createIncidentFragment);
+                navController.navigate(R.id.action_mainEmployeeFragment_to_employeeMapFragment);
+               // navController.navigate(R.id.action_mainEmployeeFragment_to_createIncidentFragment);
             }
         });
     }

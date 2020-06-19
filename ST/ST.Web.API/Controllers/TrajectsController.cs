@@ -10,6 +10,7 @@ using ST.BusinessLogic.Interfaces;
 using ST.BusinessLogic.Interfaces.Exceptions;
 using ST.Data.Entities;
 using ST.Web.API.Models;
+using static ST.Data.Entities.Employee;
 
 namespace ST.Web.API.Controllers
 {
@@ -45,7 +46,7 @@ namespace ST.Web.API.Controllers
 
                 var token = Utils.GetToken(Request);
                 var employee = sessionService.GetEmployeeByToken(token);
-
+                employeeService.PutEmployeeStatus(employee.Id, Status.ON_A_TRIP);
                 var trajectId = trajectService.CreateTraject(employee, traject.ToEntity());
                 
                 responseModel.IsResponseOK = true;
