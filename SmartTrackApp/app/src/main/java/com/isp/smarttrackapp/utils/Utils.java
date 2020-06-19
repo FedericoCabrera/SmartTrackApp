@@ -1,5 +1,8 @@
 package com.isp.smarttrackapp.utils;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -42,5 +45,11 @@ public class Utils {
         }
 
         return encodedfile;
+    }
+
+    public static Bitmap decodeBase64ToBitmap(String base64String){
+        byte[] decodedString = Base64.getDecoder().decode(base64String);
+        Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        return decodedBitmap;
     }
 }

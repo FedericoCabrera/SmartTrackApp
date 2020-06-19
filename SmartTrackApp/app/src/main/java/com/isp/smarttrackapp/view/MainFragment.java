@@ -39,6 +39,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private Context thisContext;
 
     private MainFragmentViewModel viewModel;
+    View viewAux = null;
+    Thread animator;
 
     public MainFragment() {
         // Required empty public constructor
@@ -69,7 +71,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final View viewAux = view;
+        this.viewAux = view;
         textView = view.findViewById(R.id.mf_txtView);
         imgView = view.findViewById(R.id.mf_logo);
 
@@ -78,9 +80,51 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         imgView.startAnimation(myAnim);
 
         //If needed make use of animation time to load app info.
-        //Otherwise keep this value for animation purposes
-        viewModel.initFCMToken();
-        Thread thread = new Thread(){
+
+        myAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                viewModel.initFCMToken();
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                navController = Navigation.findNavController(viewAux);
+                navController.navigate(R.id.action_mainFragment_to_loginFragment);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        //TODO: Delete this commented code
+        /*animator = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                sleep(2000);
+            }
+            // logic to make animation happen
+        });
+        animator.start();
+        try {
+            animator.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+
+        /*view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                viewAux.setVisibility(View.GONE);
+
+            }
+        }, 2000);*/
+
+
+        /*Thread thread = new Thread(){
             public void run(){
                 try {
                     sleep(getResources().getInteger(R.integer.long_anim_time));
@@ -92,11 +136,14 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             }
         };
 
-        thread.start();
+        thread.start();*/
+
+        //getActivity().runOnUiThread(this.run());
 
                 /*navController = Navigation.findNavController(view);
         navController.navigate(R.id.action_mainFragment_to_loginFragment);*/
 
 
     }
+
 }

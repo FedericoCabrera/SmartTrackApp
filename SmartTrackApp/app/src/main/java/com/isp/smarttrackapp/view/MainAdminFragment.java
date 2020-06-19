@@ -28,6 +28,8 @@ public class MainAdminFragment extends Fragment {
     private Context thisContext;
     private Button btnEmployees;
     private Button btnTracking;
+    private Button btnIncidetsReport;
+    private Button btnTrajectsReport;
 
     private MainAdminFragmentViewModel adminViewModel;
     private NavController navController;
@@ -78,6 +80,22 @@ public class MainAdminFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.action_mainAdminFragment_to_adminMapFragment);
+            }
+        });
+
+        btnIncidetsReport = view.findViewById(R.id.am_incidents_report_btn);
+        btnIncidetsReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_mainAdminFragment_to_reportsIncidentsFragment);
+            }
+        });
+
+        btnTrajectsReport = view.findViewById(R.id.am_trajects_report_btn);
+        btnTrajectsReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO Trajects Report
             }
         });
     }

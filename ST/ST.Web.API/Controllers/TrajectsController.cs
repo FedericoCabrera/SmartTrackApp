@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using ST.BusinessLogic;
 using ST.BusinessLogic.Interfaces;
 using ST.BusinessLogic.Interfaces.Exceptions;
@@ -105,6 +106,40 @@ namespace ST.Web.API.Controllers
             }
         }
 
+        [HttpPut("Incidents")]
+        public IActionResult GetIncidentsReport([FromBody]DatesFilter datesFilter)
+        {
+            ResponseModelWithData<IEnumerable<IncidentReportModel>> responseModel = new ResponseModelWithData<IEnumerable<IncidentReportModel>>();
+
+            try
+            {
+                var token = Utils.GetToken(Request);
+
+                var dateFrom = new DateTime(datesFilter.YearFrom, datesFilter.MonthFrom, datesFilter.DayFrom);
+                var dateTo = new DateTime(datesFilter.YearTo, datesFilter.MonthTo, datesFilter.DayTo);
+
+                var admin = sessionService.AuthorizeAdminByToken(token);
+
+                var list = trajectService.GetIncidentsReport(admin, dateFrom, dateTo);
+
+                responseModel.Data = IncidentReportModel.ToModel(list);
+                responseModel.IsResponseOK = true;
+
+                return Ok(responseModel);
+            }
+            catch (HandledException he)
+            {
+
+                responseModel.IsResponseOK = false;
+                responseModel.ErrorMessage = he.Message;
+
+                return Ok(responseModel);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
 
     }
 }

@@ -8,6 +8,6 @@ namespace ST.BusinessLogic.Interfaces
     {
         Guid CreateTraject(Employee employee, Traject traject);
         void AssignIncidentToTraject(Guid trajectId, Employee employeeId, Incident incident);
-
+        IEnumerable<IncidentReport> GetIncidentsReport(Administrator admin, DateTime dateFrom, DateTime dateTo);
     }
 }
