@@ -91,7 +91,7 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mainView = inflater.inflate(R.layout.fragment_employee_map, container, false);
+        mainView = inflater.inflate(R.layout.fragment_admin_map, container, false);
         adminMapViewModel = new ViewModelProvider(this).get(AdminMapFragmentViewModel.class);
 
 
@@ -110,7 +110,7 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
             drawEmployees();
         }
         //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 15));
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
+     // googleMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
     }
 
     private void drawEmployees(){
@@ -125,7 +125,7 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
                     {
                         MarkerOptions m = new MarkerOptions()
                                 .position(place)
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_truck_red))
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_truck))
                                 .title(e.getName());
                         googleMap2.addMarker(m);
                         markers.add(m);
@@ -133,10 +133,9 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
                     }else{
                         MarkerOptions m = new MarkerOptions()
                                 .position(place)
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_truck))
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_truck_red))
                                 .title(e.getName());
                         googleMap2.addMarker(m);
-                        markers.add(m);
                     }
                 }
             }
