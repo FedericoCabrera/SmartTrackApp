@@ -6,6 +6,7 @@
     <string name="user_hint">Usuario</string>
     <string name="password_hint">Contraseña</string>
     <string name="li_btn_login">Ingresar</string>
+    <string name="li_cb_auth_fingerprint">¿Desea utilizar el lector de huella digital?</string>
     <string name="cancel_btn">Cancelar</string>
     <string name="am_employees_btn">Empleados</string>
     <string name="em_btn_trajects">Viajes</string>
