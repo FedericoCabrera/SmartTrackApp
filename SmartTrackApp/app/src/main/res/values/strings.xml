@@ -49,6 +49,7 @@
     <string name="ri_btn_accept">Aceptar</string>
     <string name="ri_btn_cancel">Cancelar</string>
     <string name="am_txt_title">Menú Principal</string>
+    <string name="ri_btn_export">Exportar</string>
 
 
 </resources>

@@ -164,7 +164,7 @@ public class CreateIncidentFragment  extends Fragment {
             startActivityForResult(intent,0);
 
         }else{
-            Toast.makeText(thisContext,"Cámara no disponible.", Toast.LENGTH_SHORT);
+            Toast.makeText(thisContext,"Cámara no disponible.", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -181,7 +181,7 @@ public class CreateIncidentFragment  extends Fragment {
                 intent.putExtra(MediaStore.EXTRA_OUTPUT,photoURI);
                 startActivityForResult(intent,0);
             }else{
-                Toast.makeText(thisContext,"Error al guardar la imagen.", Toast.LENGTH_SHORT);
+                Toast.makeText(thisContext,"Error al guardar la imagen.", Toast.LENGTH_SHORT).show();
             }
 
             //startActivityForResult(intent,0);
@@ -194,7 +194,7 @@ public class CreateIncidentFragment  extends Fragment {
 
             startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);*/
         }else{
-            Toast.makeText(thisContext,"Cámara no disponible.", Toast.LENGTH_SHORT);
+            Toast.makeText(thisContext,"Cámara no disponible.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -229,7 +229,7 @@ public class CreateIncidentFragment  extends Fragment {
                 startActivityForResult(intent, CAPTURE_IMAGE_REQUEST);
             }
         }catch (Exception ex){
-            Toast.makeText(thisContext,"Cámara no disponible.", Toast.LENGTH_SHORT);
+            Toast.makeText(thisContext,"Cámara no disponible.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -260,11 +260,11 @@ public class CreateIncidentFragment  extends Fragment {
                 @Override
                 public void onChanged(ResponseModelWithData<String> stringResponseModelWithData) {
                     if(stringResponseModelWithData.isResponseOK()){
-                        Toast.makeText(thisContext,"Incidente agregado correctamente.",Toast.LENGTH_SHORT);
+                        Toast.makeText(thisContext,"Incidente agregado correctamente.",Toast.LENGTH_SHORT).show();
                         btnAddIncident.setClickable(true);
                         getActivity().onBackPressed();
                     }else{
-                        Toast.makeText(thisContext,"Error al agregar incidente.",Toast.LENGTH_SHORT);
+                        Toast.makeText(thisContext,"Error al agregar incidente.",Toast.LENGTH_SHORT).show();
                         btnAddIncident.setClickable(true);
                     }
                 }

@@ -83,6 +83,14 @@
         android:layout_marginRight="10dp"
         android:layout_below="@+id/ri_list_view">
 
+        <ImageButton
+            android:id="@+id/ri_btn_export"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_pdf_export"
+            android:text="@string/ri_btn_export" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ri_btn_cancel"
             style="@style/Widget.MaterialComponents.Button.TextButton"
