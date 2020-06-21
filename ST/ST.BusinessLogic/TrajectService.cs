@@ -24,6 +24,7 @@ namespace ST.BusinessLogic
         public Guid CreateTraject(Employee employee, Traject traject)
         {
 
+            traject.LocationInitial.LocationTime = DateTime.Now;
             employee.Trajects.Add(traject);
             unitOfWork.EmployeeRepository.Update(employee);
             unitOfWork.EmployeeRepository.Save();
@@ -31,14 +32,14 @@ namespace ST.BusinessLogic
             return traject.Id;
         }
 
-        public void EndTraject(Employee employee, Traject traject) 
-        {
-            var t = unitOfWork.TrajectRepository.Get(x => x.Id == traject.Id).FirstOrDefault();
+        public void EndTraject(Employee employee, Traject traject)  {
+            var t = unitOfWork.TrajectRepository.Get(x => x.Id == traject.Id,null,"LocationInitial").FirstOrDefault();
             t.IsFinished = true;
             t.LocationFinal = traject.LocationFinal;
+            t.LocationFinal.LocationTime = DateTime.Now;
             t.Distance = traject.Distance;
-            var time = (t.LocationFinal.LocationTime - t.LocationFinal.LocationTime);
-            t.Duration = time.TotalMinutes;
+            var time = (t.LocationFinal.LocationTime - t.LocationInitial.LocationTime);
+            t.Duration = time.TotalSeconds;
             unitOfWork.TrajectRepository.Update(t);
             unitOfWork.TrajectRepository.Save();
 

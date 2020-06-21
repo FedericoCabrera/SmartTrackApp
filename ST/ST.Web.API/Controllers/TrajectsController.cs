@@ -80,7 +80,10 @@ namespace ST.Web.API.Controllers
                 var token = Utils.GetToken(Request);
                 var employee = sessionService.GetEmployeeByToken(token);
                 employeeService.PutEmployeeStatus(employee.Id, Status.CONNECTED);
-                trajectService.EndTraject(employee, traject.ToEntity());
+                var trajectId = traject.Id;
+                var trajectEntity = traject.ToEntity();
+                trajectEntity.Id = trajectId;
+                trajectService.EndTraject(employee, trajectEntity);
 
                 responseModel.IsResponseOK = true;
                 responseModel.Data = traject.ToEntity();

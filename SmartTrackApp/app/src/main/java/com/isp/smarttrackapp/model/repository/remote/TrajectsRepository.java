@@ -125,8 +125,8 @@ public class TrajectsRepository {
         final MutableLiveData<ResponseModelWithData<String>> data = new MutableLiveData<>();
 
         String token = LocalStorage.getInstance().getValue(Config.KEY_USER_TOKEN);
-        //String trajectId = LocalStorage.getInstance().getValue(Config.KEY_ACTUAL_TRAJECT_ID);
-        String trajectId = "891AD943-B35F-437C-BF62-05BDA8EF1548";
+        String trajectId = LocalStorage.getInstance().getValue(Config.KEY_ACTUAL_TRAJECT_ID);
+        //String trajectId = "891AD943-B35F-437C-BF62-05BDA8EF1548";
 
         Call<ResponseModelWithData<String>> call = trajectService.assignIncidentToTraject(token, trajectId, incident);
 

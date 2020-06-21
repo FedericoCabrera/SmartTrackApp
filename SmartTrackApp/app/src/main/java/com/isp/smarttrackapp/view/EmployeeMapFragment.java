@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.dynamic.IFragmentWrapper;
@@ -44,9 +45,13 @@ import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.Position;
 import com.isp.smarttrackapp.entities.ResponseModel;
+import com.isp.smarttrackapp.entities.ResponseModelWithData;
+import com.isp.smarttrackapp.entities.Traject;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 import com.isp.smarttrackapp.viewmodel.CreateTrajectFragmentViewModel;
 import com.isp.smarttrackapp.viewmodel.UpdateEmployeeFragmentViewModel;
+
+import java.text.DecimalFormat;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -71,6 +76,7 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
     private CreateTrajectFragmentViewModel createTrajectFragmentViewModel;
     private boolean onAtrip;
     private Chronometer simpleChronometer;
+    private TextView distanceView;
 
     public EmployeeMapFragment() {
         // Required empty public constructor
@@ -159,17 +165,6 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-        //onAtrip = false;
-        /*LocalStorage localStorage = LocalStorage.getInstance();
-        double latitude = Double.parseDouble(localStorage.getValue(Config.KEY_LAST_LATITUDE));
-        double longitude = Double.parseDouble(localStorage.getValue(Config.KEY_LAST_LONGITUDE));
-        LatLng place = new LatLng(latitude, longitude);
-        this.marker =
-        this.googleMap.addMarker(new MarkerOptions().position(place).title(localStorage.getValue(localStorage.getValue(Config.KEY_USER_USERNAME))));
-        this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(place));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 15));
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);*/
-
         if (!isGPSEnabled()) {
             showInfoAlert();
         } else {
@@ -201,7 +196,14 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
 
 
     private void finishTraject(){
-
+        LocalStorage localStorage = LocalStorage.getInstance();
+        String trajectId = localStorage.getValue(Config.KEY_ACTUAL_TRAJECT_ID);
+        Position position = getPosition();
+        Traject traject = new Traject();
+        traject.setTrajectId(trajectId);
+        traject.setDistance(trajectDistance);
+        traject.setLocationFinal(position);
+        createTrajectFragmentViewModel.endTraject(traject);
         simpleChronometer.stop();
         btnStartTraject.setText("Comenzar!");
         btnNewIncident.setVisibility(View.INVISIBLE);
@@ -209,16 +211,24 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
 
     }
 
+    private Position getPosition()
+    {
+        LocalStorage localStorage = LocalStorage.getInstance();
+        double latitude = Double.parseDouble(localStorage.getValue(Config.KEY_LAST_LATITUDE));
+        double longitude = Double.parseDouble(localStorage.getValue(Config.KEY_LAST_LONGITUDE));
+        Position p= new Position();
+        p.setLatitude(latitude);
+        p.setLongitude(longitude);
+        return p;
+    }
 
     private void startTraject(){
         try {
-            LocalStorage localStorage = LocalStorage.getInstance();
-            double latitude = Double.parseDouble(localStorage.getValue(Config.KEY_LAST_LATITUDE));
-            double longitude = Double.parseDouble(localStorage.getValue(Config.KEY_LAST_LONGITUDE));
-            Position p= new Position();
-            p.setLatitude(latitude);
-            p.setLongitude(longitude);
-            createTrajectFragmentViewModel.createTraject(p);
+            createTrajectFragmentViewModel.createTraject(getPosition()).observe(getViewLifecycleOwner(), new Observer<ResponseModelWithData<String>>() {
+                @Override
+                public void onChanged(ResponseModelWithData<String> stringResponseModelWithData) {
+            }
+            });
             onAtrip = true;
             btnStartTraject.setText("Terminar");
             simpleChronometer.setBase(SystemClock.elapsedRealtime());
@@ -237,6 +247,7 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
+        distanceView = mainView.findViewById((R.id.em_distance));
         mapView = (MapView) mainView.findViewById(R.id.emain_map);
         if (mapView != null) {
             mapView.onCreate(null);
@@ -273,10 +284,11 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
 
     @Override
     public void onLocationChanged(Location location) {
-        //Toast.makeText(getContext(), "Cambio! -> " + location.getProvider(), Toast.LENGTH_LONG).show();
         if(onAtrip){
             trajectDistance += currentLocation.distanceTo(location);
-            Toast.makeText(getContext(), "Ha recorrido " + trajectDistance + " metros.", Toast.LENGTH_SHORT).show();
+            DecimalFormat df = new DecimalFormat("#");
+           String d = (df.format(trajectDistance));
+            distanceView.setText("Distancia - " + d + "m");
         }else{
             trajectDistance = 0;
         }

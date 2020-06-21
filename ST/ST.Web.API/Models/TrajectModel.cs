@@ -42,7 +42,8 @@ namespace ST.Web.API.Models
             Duration = this.Duration,
             Distance = this.Distance,
             StartDate = DateTime.Now,
-            IsFinished = this.IsFinished
+            IsFinished = this.IsFinished,
+            Id = this.Id
         };
 
         protected override TrajectModel SetModel(Traject entity)
@@ -63,7 +64,7 @@ namespace ST.Web.API.Models
             Distance = entity.Distance;
             StartDate = entity.StartDate;
             IsFinished = entity.IsFinished;
-
+            Id = entity.Id;
             return this;
         }
     }
