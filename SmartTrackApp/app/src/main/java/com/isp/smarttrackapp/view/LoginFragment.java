@@ -129,8 +129,9 @@ public class LoginFragment extends Fragment {
                                 String userName = session.getData().getUsername();
                                 String token = session.getData().getToken();
                                 String userRealName = session.getData().getName();
+                                String userId = session.getData().getUserId();
 
-                                loginViewModel.updateUserLocalData(userRealName, userName, token);
+                                loginViewModel.updateUserLocalData(userRealName, userName, token, userId);
 
                                 if (session.getData().getIsAdmin()) {
                                     navController.navigate(R.id.action_loginFragment_to_mainAdminFragment);
@@ -174,8 +175,9 @@ public class LoginFragment extends Fragment {
                                 String userName = session.getData().getUsername();
                                 String token = session.getData().getToken();
                                 String userRealName = session.getData().getName();
+                                String userId = session.getData().getUserId();
 
-                                loginViewModel.updateUserLocalData(userRealName, userName, token);
+                                loginViewModel.updateUserLocalData(userRealName, userName, token, userId);
 
                                 if (session.getData().getIsAdmin()) {
                                     navController.navigate(R.id.action_loginFragment_to_mainAdminFragment);
@@ -200,9 +202,9 @@ public class LoginFragment extends Fragment {
         });
 
         promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Biometric login for my app")
-                .setSubtitle("Log in using your biometric credential")
-                .setNegativeButtonText("Use account password")
+                .setTitle("Login por Autenticación con Huella")
+                .setSubtitle("Credenciales Dactilares")
+                .setNegativeButtonText("Usar Usuario y Contraseña")
                 .build();
 
         // Prompt appears when user clicks "Log in".

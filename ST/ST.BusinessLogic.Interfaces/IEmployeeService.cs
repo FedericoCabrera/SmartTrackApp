@@ -17,6 +17,6 @@ namespace ST.BusinessLogic.Interfaces
         void ConnectedEmployee(string username);
         Employee GetEmployeeById(Guid employeeId);
         void PutEmployeeStatus(Guid employeeId, Status employeeStatus);
-
+        void UpdatePassword(Guid id, String password);
     }
 }

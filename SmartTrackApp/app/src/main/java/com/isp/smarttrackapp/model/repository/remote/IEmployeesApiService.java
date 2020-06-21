@@ -34,4 +34,8 @@ public interface IEmployeesApiService {
 
     @GET("Users/location")
     Call<ResponseModelWithData<List<Employee>>> getLocation(@Header("Authorization") String token);
+
+    @PUT("Users/password")
+    Call<ResponseModelWithData<Employee>> updatePassword(@Header("Authorization") String token, @Body String password);
+
 }
