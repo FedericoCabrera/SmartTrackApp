@@ -103,7 +103,20 @@ public class MainEmployeeFragment extends Fragment {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                try{
+                    mainEmployeeFragmentViewModel.logout().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                        @Override
+                        public void onChanged(ResponseModel res) {
+                            if(res.isResponseOK()){
+                                navController.navigate(R.id.action_mainEmployeeFragment_to_mainFragment);
+                            }else{
+                                Toast.makeText(thisContext, res.getErrorMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }catch(Exception ex){
+                    Toast.makeText(thisContext, ex.toString(), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

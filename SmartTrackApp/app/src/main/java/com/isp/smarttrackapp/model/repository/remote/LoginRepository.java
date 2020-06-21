@@ -78,4 +78,41 @@ public class LoginRepository {
 
         return data;
     }
+
+    public MutableLiveData<ResponseModel> logout() {
+        final MutableLiveData<ResponseModel> data = new MutableLiveData<>();
+        String token = LocalStorage.getInstance().getValue("token");
+        Call<ResponseModel> call = loginService.logout(token);
+        call.enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                if(response.isSuccessful()){
+
+                    if(response.body().isResponseOK()) {
+                        data.setValue(response.body());
+                    }else{
+                        ResponseModel errorResponse = new ResponseModel();
+                        errorResponse.setResponseOK(false);
+                        errorResponse.setErrorMessage(response.body().getErrorMessage());
+                        data.setValue(errorResponse);
+                    }
+                }else{
+                    String error;
+                    ResponseModel errorResponse;
+                    try {
+                        error = response.errorBody().string();
+                        errorResponse = new ResponseModel(false, error);
+                        data.setValue(errorResponse);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t){
+            }
+        });
+
+        return data;
+    }
 }

@@ -11,12 +11,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.R;
+import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 import com.isp.smarttrackapp.viewmodel.MainAdminFragmentViewModel;
 
@@ -30,6 +32,7 @@ public class MainAdminFragment extends Fragment {
     private Button btnTracking;
     private Button btnIncidetsReport;
     private Button btnTrajectsReport;
+    private Button btnLogout;
 
     private MainAdminFragmentViewModel adminViewModel;
     private NavController navController;
@@ -96,6 +99,27 @@ public class MainAdminFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //TODO Trajects Report
+            }
+        });
+
+        btnLogout = view.findViewById(R.id.am_logout_btn);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    adminViewModel.logout().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                        @Override
+                        public void onChanged(ResponseModel res) {
+                            if(res.isResponseOK()){
+                                navController.navigate(R.id.action_mainAdminFragment_to_mainFragment);
+                            }else{
+                                Toast.makeText(thisContext, res.getErrorMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }catch(Exception ex){
+                    Toast.makeText(thisContext, ex.toString(), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

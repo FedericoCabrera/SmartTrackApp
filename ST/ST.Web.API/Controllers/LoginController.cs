@@ -77,15 +77,20 @@ namespace ST.Web.API.Controllers
         }
 
 
-        [HttpPut("{id}")]
+        [HttpPut("logout")]
         public IActionResult Logout(Guid id)
         {
             try
             {
-                var user = userService.GetUserById(id);
-                if (user is Employee)
-                employeeService.GetEmployeeById(id);
-                employeeService.PutEmployeeStatus(id , Status.DISCONNECTED);
+                ResponseModel responseModel = new ResponseModel();
+                var token = new Guid(Request.Headers["Authorization"]);
+                var user = sessionService.GetUserByToken(token);
+                sessionService.Logout(user.UserName);
+                if (user is Employee) 
+                { 
+                    employeeService.GetEmployeeById(id);
+                    employeeService.PutEmployeeStatus(id , Status.DISCONNECTED);
+                }
                 var response = new ResponseModel()
                 {
                     ErrorMessage = "",
