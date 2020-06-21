@@ -82,17 +82,6 @@
                 android:layout_alignParentRight="true"
                 android:text="@string/li_btn_login" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/li_btn_authenticate_fingerprint"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_toStartOf="@id/li_btn_login"
-                android:layout_toLeftOf="@id/li_btn_login"
-                android:text="Huella" />
-
         </RelativeLayout>
 
 

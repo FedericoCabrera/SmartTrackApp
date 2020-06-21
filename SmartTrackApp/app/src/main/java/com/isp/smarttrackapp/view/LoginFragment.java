@@ -56,10 +56,7 @@ public class LoginFragment extends Fragment {
     private TextInputEditText txtInputUser;
     private TextInputEditText txtInputPassword;
     private Button btnLogin;
-    private Button btnCancelar;
-    private Button btnBiometricLogin;
     private Context thisContext;
-    private ValuesViewModel valuesViewModel;
     private LoginFragmentViewModel loginViewModel;
     private CheckBox cbAuthFingerprint;
     private NavController navController;
@@ -90,21 +87,13 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        String prueba = LocalStorage.getInstance().getValue(Config.KEY_USER_TOKEN);
-        Toast.makeText(thisContext,"Token: " + prueba, Toast.LENGTH_SHORT).show();
-
         navController = Navigation.findNavController(view);
-
         btnLogin = view.findViewById(R.id.li_btn_login);
-        //btnCancelar = view.findViewById(R.id.li_btn_cancel);
         txtInputUser = view.findViewById(R.id.li_txt_input_username);
         txtInputPassword = view.findViewById(R.id.li_txt_input_password);
         cbAuthFingerprint = view.findViewById(R.id.li_cb_auth_fingerprint);
 
         textView = view.findViewById(R.id.li_title);
-
-        //this.observeViewModel(this.valuesViewModel);
 
         btnLogin.setOnClickListener(new View.OnClickListener(){
 
@@ -112,10 +101,11 @@ public class LoginFragment extends Fragment {
             public void onClick(final View v) {
                 String userName = txtInputUser.getText().toString();
                 String password = txtInputPassword.getText().toString();
+                LocalStorage.getInstance().setValue(userName, Config.KEY_USER_USERNAME);
 
                 if(cbAuthFingerprint.isChecked()) {
-                    LocalStorage.getInstance().setValue(userName, Config.KEY_USER_TOKEN);
-                    LocalStorage.getInstance().setValue(password, Config.KEY_USER_PASSWORD);
+                    LocalStorage.getInstance().setValue(userName, Config.KEY_AUTH_USERNAME);
+                    LocalStorage.getInstance().setValue(password, Config.KEY_AUTH_PASSWORD);
                     LocalStorage.getInstance().setValue("true", Config.KEY_AUTH_FINGERPRINT);
                 }else{
                     LocalStorage.getInstance().setValue("false", Config.KEY_AUTH_FINGERPRINT);
@@ -164,8 +154,8 @@ public class LoginFragment extends Fragment {
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
                 Toast.makeText(thisContext,"Authentication succeeded!", Toast.LENGTH_SHORT).show();
-                String authUsername = LocalStorage.getInstance().getValue(Config.KEY_USER_USERNAME);
-                String authPassword = LocalStorage.getInstance().getValue(Config.KEY_USER_PASSWORD);
+                String authUsername = LocalStorage.getInstance().getValue(Config.KEY_AUTH_USERNAME);
+                String authPassword = LocalStorage.getInstance().getValue(Config.KEY_AUTH_PASSWORD);
                 try{
                     loginViewModel.login(authUsername, authPassword).observe(getViewLifecycleOwner(), new Observer<ResponseModelWithData<Session>>() {
                         @Override
@@ -207,21 +197,9 @@ public class LoginFragment extends Fragment {
                 .setNegativeButtonText("Usar Usuario y Contraseña")
                 .build();
 
-        // Prompt appears when user clicks "Log in".
-        // Consider integrating with the keystore to unlock cryptographic operations,
-        // if needed by your app.
-
-        if(LocalStorage.getInstance().getValue(Config.KEY_AUTH_FINGERPRINT) != null && LocalStorage.getInstance().getValue(Config.KEY_AUTH_FINGERPRINT) == "true"){
+        if(LocalStorage.getInstance().getValue(Config.KEY_AUTH_FINGERPRINT) != null && LocalStorage.getInstance().getValue(Config.KEY_AUTH_FINGERPRINT).equals("true")){
             biometricPrompt.authenticate(promptInfo);
         }
-        /*btnBiometricLogin = view.findViewById(R.id.li_btn_authenticate_fingerprint);
-        btnBiometricLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                    biometricPrompt.authenticate(promptInfo);
-            }
-        });*/
     }
 
     @Override

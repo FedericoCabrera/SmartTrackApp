@@ -61,15 +61,9 @@ public class MainAdminFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         navController = Navigation.findNavController(view);
-
         String token = LocalStorage.getInstance().getValue(Config.KEY_USER_TOKEN);
-
-        Toast.makeText(thisContext, "Admin" + LocalStorage.getInstance().getValue(Config.KEY_USER_USERNAME) +" ingresado con Token: " + token, Toast.LENGTH_LONG).show();
-
         adminViewModel.updateFCMToken();
-
         btnEmployees = view.findViewById(R.id.am_employees_btn);
         btnEmployees.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +105,8 @@ public class MainAdminFragment extends Fragment {
                         @Override
                         public void onChanged(ResponseModel res) {
                             if(res.isResponseOK()){
-                                navController.navigate(R.id.action_mainAdminFragment_to_mainFragment);
+                              //  navController.navigate(R.id.action_mainAdminFragment_to_mainFragment);
+                                getActivity().onBackPressed();
                             }else{
                                 Toast.makeText(thisContext, res.getErrorMessage(), Toast.LENGTH_LONG).show();
                             }

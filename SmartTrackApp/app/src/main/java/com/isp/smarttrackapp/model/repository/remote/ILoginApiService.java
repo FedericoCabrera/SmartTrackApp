@@ -15,6 +15,6 @@ public interface ILoginApiService {
     @POST("Login")
     Call<ResponseModelWithData<Session>> login(@Body Login login);
 
-    @PUT("Login/loguot")
+    @PUT("Login/logout")
     Call<ResponseModel> logout(@Header("Authorization") String token);
 }
