@@ -197,4 +197,30 @@ public class EmployeesRepository {
         });
         return data;
     }
+
+    public MutableLiveData<ResponseModel> updatePassword(String password) {
+        final MutableLiveData<ResponseModel> data = new MutableLiveData<>();
+
+        String token = LocalStorage.getInstance().getValue(Config.KEY_USER_TOKEN);
+        Call<ResponseModelWithData<Employee>> call = employeesApiService.updatePassword(token, password);
+        call.enqueue(new Callback<ResponseModelWithData<Employee>>() {
+            @Override
+            public void onResponse(Call<ResponseModelWithData<Employee>> call, Response<ResponseModelWithData<Employee>> response) {
+                if(response.isSuccessful()){
+                    data.setValue(response.body());
+                }else{
+                    try {
+                        String error = response.errorBody().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseModelWithData<Employee>> call, Throwable t) {
+            }
+        });
+        return data;
+    }
+
 }

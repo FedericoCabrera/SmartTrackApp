@@ -84,6 +84,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_mainAdminFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainEmployeeFragment"
@@ -101,6 +104,12 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_mainEmployeeFragment_to_updatePasswordFragment"
+            app:destination="@id/updatePasswordFragment" />
+        <action
+            android:id="@+id/action_mainEmployeeFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/employeesListFragment"
@@ -168,4 +177,8 @@
         android:id="@+id/reportsIncidentsFragment"
         android:name="com.isp.smarttrackapp.view.ReportsIncidentsFragment"
         android:label="ReportsIncidentsFragment" />
+    <fragment
+        android:id="@+id/updatePasswordFragment"
+        android:name="com.isp.smarttrackapp.view.UpdatePasswordFragment"
+        android:label="UpdatePasswordFragment" />
 </navigation>

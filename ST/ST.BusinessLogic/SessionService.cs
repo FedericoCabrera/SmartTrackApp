@@ -129,5 +129,24 @@ namespace ST.BusinessLogic
             }
              
         }
+
+        public Session Logout(string username)
+        {
+
+            var user = unitOfWork.UserRepository.Get(x => x.UserName.Equals(username)).FirstOrDefault();
+
+            if (user == null)
+                throw new HandledException("Datos de ingreso inválidos.");
+
+            var session = unitOfWork.SessionRepository.Get(x => x.UserId.Equals(user.Id)).FirstOrDefault();
+            if (session != null)
+            {
+                session.Token = Guid.Empty;
+                session.Update(session);
+                unitOfWork.SessionRepository.Update(session);
+            }
+            unitOfWork.SessionRepository.Save();
+            return session;
+        }
     }
 }

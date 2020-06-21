@@ -14,7 +14,6 @@ namespace ST.BusinessLogic.Interfaces
         bool IsAuthentication(Guid token);
         IEnumerable<Session> GetAll();
         Administrator AuthorizeAdminByToken(Guid token);
-
-
+        Session Logout(string username);
     }
 }

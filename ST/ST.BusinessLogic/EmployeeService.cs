@@ -161,5 +161,20 @@ namespace ST.BusinessLogic
             unitOfWork.EmployeeRepository.Save();
         }
 
+
+        public void UpdatePassword(Guid id, String password)
+        {
+            var employee = unitOfWork.EmployeeRepository.Get(x => x.Id.Equals(id)).FirstOrDefault();
+            if (employee == null)
+                throw new HandledException("No existe empleado a modificar.");
+
+            ValidateStringProperty(password);
+
+            employee.Password = password;
+
+            unitOfWork.EmployeeRepository.Update(employee);
+            unitOfWork.EmployeeRepository.Save();
+        }
+
     }
 }
