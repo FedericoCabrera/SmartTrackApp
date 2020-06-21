@@ -16,6 +16,7 @@ public final class Config {
     public static final String KEY_USER_PASSWORD = "password";
     public static final String KEY_AUTH_FINGERPRINT = "password";
 
+    public static final int UPDATE_LOCATION_TIME = 3000;
     //Common messages
     public static final String UNEXPECTED_ERROR_MSG = "Ha ocurrido un error inesperado.";
 }

@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
+import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.viewmodel.MainEmployeeFragmentViewModel;
@@ -144,9 +145,9 @@ public class MainEmployeeFragment extends Fragment {
                 }
             }
             locationListener = new myLocationListener();
-            ubicacion.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, locationListener);
+            ubicacion.requestLocationUpdates(LocationManager.GPS_PROVIDER, Config.UPDATE_LOCATION_TIME, 0, locationListener);
         }else{
-            Toast.makeText(thisContext, "El GPS esta apagado!", Toast.LENGTH_LONG).show();
+            Toast.makeText(thisContext, "Asigne permiso para utilizar localización por GPS.", Toast.LENGTH_LONG).show();
         }
     }
 
