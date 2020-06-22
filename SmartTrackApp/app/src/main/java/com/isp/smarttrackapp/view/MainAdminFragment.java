@@ -95,7 +95,7 @@ public class MainAdminFragment extends Fragment {
         btnTrajectsReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO Trajects Report
+                navController.navigate(R.id.action_mainAdminFragment_to_reportsTrajectsFragment);
             }
         });
     }

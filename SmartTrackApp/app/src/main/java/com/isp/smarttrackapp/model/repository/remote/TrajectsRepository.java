@@ -11,6 +11,7 @@ import com.isp.smarttrackapp.entities.IncidentReport;
 import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.entities.Traject;
+import com.isp.smarttrackapp.entities.TrajectReport;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 
 import java.io.IOException;
@@ -208,4 +209,45 @@ public class TrajectsRepository {
         return data;
     }
 
+    public MutableLiveData<ResponseModelWithData<TrajectReport>> getTrajectsReport(DatesFilter datesFilter) {
+        final MutableLiveData<ResponseModelWithData<TrajectReport>> data = new MutableLiveData<>();
+
+        String token = LocalStorage.getInstance().getValue(Config.KEY_USER_TOKEN);
+        Call<ResponseModelWithData<TrajectReport>> call = trajectService.getTrajectsReport(token, datesFilter);
+
+        call.enqueue(new Callback<ResponseModelWithData<TrajectReport>>() {
+            @Override
+            public void onResponse(Call<ResponseModelWithData<TrajectReport>> call, Response<ResponseModelWithData<TrajectReport>> response) {
+                if (response.isSuccessful()) {
+                    data.setValue(response.body());
+
+                } else {
+                    String error = "";
+                    ResponseModelWithData<TrajectReport> errorResponse = new ResponseModelWithData<>();
+
+                    try {
+                        error = response.errorBody().string();
+                        errorResponse = new ResponseModelWithData(false, error);
+                        data.setValue(errorResponse);
+
+                    } catch (Exception e) {
+                        error = Config.UNEXPECTED_ERROR_MSG;
+                        errorResponse = new ResponseModelWithData(false, error);
+                        data.setValue(errorResponse);
+
+                        Log.e("onResponse", "error: " + e.toString());
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModelWithData<TrajectReport>> call, Throwable t) {
+
+            }
+        });
+
+    return data;
+
+    }
 }

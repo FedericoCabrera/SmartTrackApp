@@ -142,7 +142,7 @@ namespace ST.Web.API.Controllers
             }
         }
 
-        [HttpPut("Incidents")]
+        [HttpPut("IncidentsReport")]
         public IActionResult GetIncidentsReport([FromBody]DatesFilter datesFilter)
         {
             ResponseModelWithData<IEnumerable<IncidentReportModel>> responseModel = new ResponseModelWithData<IEnumerable<IncidentReportModel>>();
@@ -177,5 +177,39 @@ namespace ST.Web.API.Controllers
             }
         }
 
+        [HttpPut("TrajectsReport")]
+        public IActionResult GetTrajectsReport([FromBody]DatesFilter datesFilter)
+        {
+            ResponseModelWithData<TrajectReportModel> responseModel = new ResponseModelWithData<TrajectReportModel>();
+
+            try
+            {
+                var token = Utils.GetToken(Request);
+
+                var dateFrom = new DateTime(datesFilter.YearFrom, datesFilter.MonthFrom, datesFilter.DayFrom);
+                var dateTo = new DateTime(datesFilter.YearTo, datesFilter.MonthTo, datesFilter.DayTo);
+
+                var admin = sessionService.AuthorizeAdminByToken(token);
+
+                var trajectReport = trajectService.GetTrajectsReport(admin, dateFrom, dateTo);
+
+                responseModel.Data = TrajectReportModel.ToModel(trajectReport);
+                responseModel.IsResponseOK = true;
+
+                return Ok(responseModel);
+            }
+            catch (HandledException he)
+            {
+
+                responseModel.IsResponseOK = false;
+                responseModel.ErrorMessage = he.Message;
+
+                return Ok(responseModel);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
     }
 }

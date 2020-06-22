@@ -106,5 +106,50 @@ namespace ST.BusinessLogic
 
             return incidentsList;
         }
+
+        public TrajectReport GetTrajectsReport(Administrator admin, DateTime dateFrom, DateTime dateTo)
+        {
+            var company = unitOfWork.CompanyRepository.Get(x => x.Id == admin.Company.Id, null, "Employees").FirstOrDefault();
+            var trajectReport = new TrajectReport();
+            var trajectsList = new List<TrajectReportLine>();
+
+            double totalDistance = 0;
+            double totalDuration = 0;
+
+            if (company != null)
+            {
+                foreach (Employee e in company.Employees)
+                {
+                    var employee = unitOfWork.EmployeeRepository.Get(x => x.Id == e.Id, null, "Trajects").FirstOrDefault();
+                    if (employee != null)
+                    {
+
+                        List<Traject> trajects = employee.Trajects.Where(x => x.IsFinished && x.StartDate >= dateFrom && x.StartDate < dateTo.AddDays(1)).ToList();
+                        foreach (Traject t in trajects)
+                        {
+                            TrajectReportLine line = new TrajectReportLine()
+                            {
+                                Distance = t.Distance,
+                                Duration = t.Duration,
+                                StartDate = t.StartDate.ToString(),
+                                UserName = e.UserName
+                            };
+
+                            trajectsList.Add(line);
+                            totalDistance += t.Distance;
+                            totalDuration += t.Duration;
+
+                        }
+                        
+                    }
+                }
+            }
+
+            trajectReport.Lines = trajectsList.OrderBy(x => x.StartDate).ToList();
+            trajectReport.TotalDistance = totalDistance;
+            trajectReport.TotalDuration = totalDuration;
+
+            return trajectReport;
+        }
     }
 }
