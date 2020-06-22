@@ -31,8 +31,6 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.dynamic.IFragmentWrapper;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -48,8 +46,7 @@ import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.entities.Traject;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;
-import com.isp.smarttrackapp.viewmodel.CreateTrajectFragmentViewModel;
-import com.isp.smarttrackapp.viewmodel.UpdateEmployeeFragmentViewModel;
+import com.isp.smarttrackapp.viewmodel.EmployeeMapFragmentViewModel;
 
 import java.text.DecimalFormat;
 
@@ -73,7 +70,7 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
     private Button btnNewIncident;
     private Button btnStartTraject;
     private NavController navController;
-    private CreateTrajectFragmentViewModel createTrajectFragmentViewModel;
+    private EmployeeMapFragmentViewModel employeeMapFragmentViewModel;
     private boolean onAtrip;
     private Chronometer simpleChronometer;
     private TextView distanceView;
@@ -100,7 +97,7 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mainView = inflater.inflate(R.layout.fragment_employee_map, container, false);
-        createTrajectFragmentViewModel = new ViewModelProvider(this).get(CreateTrajectFragmentViewModel.class);
+        employeeMapFragmentViewModel = new ViewModelProvider(this).get(EmployeeMapFragmentViewModel.class);
         locationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
 
         return mainView;
@@ -203,7 +200,7 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
         traject.setTrajectId(trajectId);
         traject.setDistance(trajectDistance);
         traject.setLocationFinal(position);
-        createTrajectFragmentViewModel.endTraject(traject);
+        employeeMapFragmentViewModel.endTraject(traject);
         simpleChronometer.stop();
         btnStartTraject.setText("Comenzar!");
         btnNewIncident.setVisibility(View.INVISIBLE);
@@ -224,7 +221,7 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
 
     private void startTraject(){
         try {
-            createTrajectFragmentViewModel.createTraject(getPosition()).observe(getViewLifecycleOwner(), new Observer<ResponseModelWithData<String>>() {
+            employeeMapFragmentViewModel.createTraject(getPosition()).observe(getViewLifecycleOwner(), new Observer<ResponseModelWithData<String>>() {
                 @Override
                 public void onChanged(ResponseModelWithData<String> stringResponseModelWithData) {
             }
@@ -283,12 +280,30 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
     }
 
     @Override
-    public void onLocationChanged(Location location) {
+    public void onLocationChanged(final Location location) {
+        try{
+            employeeMapFragmentViewModel.updateLocation(location.getLatitude(), location.getLongitude()).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel response) {
+                    if(response.isResponseOK()){
+                        Log.println(Log.INFO, "Ubicacion", "Latitud : " + location.getLatitude() + " Longitud" + location.getLongitude() );
+
+                    }else{
+                        Toast.makeText(thisContext, response.getErrorMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            });
+
+        }catch(Exception ex){
+            Toast.makeText(thisContext, ex.toString(), Toast.LENGTH_LONG).show();
+        }
         if(onAtrip){
             trajectDistance += currentLocation.distanceTo(location);
             DecimalFormat df = new DecimalFormat("#");
            String d = (df.format(trajectDistance));
             distanceView.setText("Distancia - " + d + "m");
+
         }else{
             trajectDistance = 0;
         }
@@ -297,8 +312,6 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
         setLastKnownLocationLocally();
         createOrUpdateMarkerByLocation(location);
         zoomToLocation(location);
-
-
     }
 
     @Override
