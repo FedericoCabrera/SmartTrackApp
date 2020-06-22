@@ -5,6 +5,7 @@ import com.isp.smarttrackapp.entities.Incident;
 import com.isp.smarttrackapp.entities.IncidentReport;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.entities.Traject;
+import com.isp.smarttrackapp.entities.TrajectReport;
 
 import java.util.List;
 
@@ -26,7 +27,10 @@ public interface ITrajectApiService {
     @POST("Trajects/Incidents/{trajectId}")
     Call<ResponseModelWithData<String>> assignIncidentToTraject(@Header("Authorization") String token, @Path("trajectId") String trajectId, @Body Incident incident);
 
-    @PUT("Trajects/Incidents")
+    @PUT("Trajects/IncidentsReport")
     Call<ResponseModelWithData<List<IncidentReport>>> getIncidentsReport(@Header("Authorization") String token, @Body DatesFilter filter);
+
+    @PUT("Trajects/TrajectsReport")
+    Call<ResponseModelWithData<TrajectReport>> getTrajectsReport(@Header("Authorization") String token, @Body DatesFilter filter);
 
 }

@@ -50,6 +50,13 @@
     <string name="ri_btn_cancel">Cancelar</string>
     <string name="am_txt_title">Menú Principal</string>
     <string name="ri_btn_export">Exportar</string>
+    <string name="rt_title">Reporte trayectos</string>
+    <string name="rt_btn_date_from">Fecha desde</string>
+    <string name="rt_btn_date_to">Fecha hasta</string>
+    <string name="rt_btn_export" />
+    <string name="rt_btn_accept">Aceptar</string>
+    <string name="rt_total_distance">Distancia total: 0.0 m</string>
+    <string name="rt_total_duration">Duración total: 0.0 s</string>
 
 
 </resources>
