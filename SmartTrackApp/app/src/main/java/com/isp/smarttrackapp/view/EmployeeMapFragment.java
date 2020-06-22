@@ -45,7 +45,6 @@ import com.isp.smarttrackapp.entities.Position;
 import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.entities.Traject;
-import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 import com.isp.smarttrackapp.viewmodel.EmployeeMapFragmentViewModel;
 
 import java.text.DecimalFormat;
@@ -187,14 +186,13 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
     }
 
     private void setLastKnownLocationLocally(){
-        LocalStorage.getInstance().setValue(currentLocation.getLatitude()+"", Config.KEY_LAST_LATITUDE);
-        LocalStorage.getInstance().setValue(currentLocation.getLongitude()+"", Config.KEY_LAST_LONGITUDE);
+        employeeMapFragmentViewModel.setLocalStorage(currentLocation.getLatitude()+"", Config.KEY_LAST_LATITUDE);
+        employeeMapFragmentViewModel.setLocalStorage(currentLocation.getLongitude()+"", Config.KEY_LAST_LONGITUDE);
     }
 
 
     private void finishTraject(){
-        LocalStorage localStorage = LocalStorage.getInstance();
-        String trajectId = localStorage.getValue(Config.KEY_ACTUAL_TRAJECT_ID);
+        String trajectId = employeeMapFragmentViewModel.getLocalStorage(Config.KEY_ACTUAL_TRAJECT_ID);
         Position position = getPosition();
         Traject traject = new Traject();
         traject.setTrajectId(trajectId);
@@ -210,9 +208,8 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
 
     private Position getPosition()
     {
-        LocalStorage localStorage = LocalStorage.getInstance();
-        double latitude = Double.parseDouble(localStorage.getValue(Config.KEY_LAST_LATITUDE));
-        double longitude = Double.parseDouble(localStorage.getValue(Config.KEY_LAST_LONGITUDE));
+        double latitude = Double.parseDouble(employeeMapFragmentViewModel.getLocalStorage(Config.KEY_LAST_LATITUDE));
+        double longitude = Double.parseDouble(employeeMapFragmentViewModel.getLocalStorage(Config.KEY_LAST_LONGITUDE));
         Position p= new Position();
         p.setLatitude(latitude);
         p.setLongitude(longitude);

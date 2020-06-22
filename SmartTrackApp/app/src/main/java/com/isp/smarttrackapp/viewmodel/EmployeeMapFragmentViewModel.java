@@ -46,40 +46,19 @@ public class EmployeeMapFragmentViewModel extends AndroidViewModel {
         return locationObservable;
     }
 
-
     public void endTraject(Traject traject){
-
         TrajectsRepository.getInstance().endTraject(traject);
-
-
-/*
-
-        employeeObservable = EmployeesRepository.getInstance().createEmployee(employeeObj);
-
-        return employeeObservable;
-
-        ResponseModelWithData<java.lang.String> t = new ResponseModelWithData<>();
-        t.setData("891AD943-B35F-437C-BF62-05BDA8EF1548");
-        t.setResponseOK(true);
-
-        MutableLiveData<ResponseModelWithData<java.lang.String>> newLiveData = new MutableLiveData<>();
-        newLiveData.setValue(t);
-
-        LocalStorage.getInstance().setValue("891AD943-B35F-437C-BF62-05BDA8EF1548", Config.KEY_ACTUAL_TRAJECT_ID);
-
-        return newLiveData;
-        */
     }
-
-
-
-
-
-
-
-
 
     public LiveData<ResponseModelWithData<java.lang.String>> getActualTrajectId(){
         return trajectCreatedId;
+    }
+
+    public String getLocalStorage(String key){
+        return LocalStorage.getInstance().getValue(key);
+    }
+
+    public void setLocalStorage(String value, String key){
+        LocalStorage.getInstance().setValue(value, key);
     }
 }
