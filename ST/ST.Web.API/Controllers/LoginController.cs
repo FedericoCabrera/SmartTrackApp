@@ -78,7 +78,7 @@ namespace ST.Web.API.Controllers
 
 
         [HttpPut("logout")]
-        public IActionResult Logout(Guid id)
+        public IActionResult Logout()
         {
             try
             {
@@ -88,8 +88,8 @@ namespace ST.Web.API.Controllers
                 sessionService.Logout(user.UserName);
                 if (user is Employee) 
                 { 
-                    employeeService.GetEmployeeById(id);
-                    employeeService.PutEmployeeStatus(id , Status.DISCONNECTED);
+                    employeeService.GetEmployeeById(user.Id);
+                    employeeService.PutEmployeeStatus(user.Id , Status.DISCONNECTED);
                 }
                 var response = new ResponseModel()
                 {

@@ -107,7 +107,7 @@ public class MainEmployeeFragment extends Fragment {
                         @Override
                         public void onChanged(ResponseModel res) {
                             if(res.isResponseOK()){
-                                navController.navigate(R.id.action_mainEmployeeFragment_to_mainFragment);
+                                getActivity().onBackPressed();
                             }else{
                                 Toast.makeText(thisContext, res.getErrorMessage(), Toast.LENGTH_LONG).show();
                             }
