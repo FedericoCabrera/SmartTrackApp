@@ -82,13 +82,12 @@ public class UpdateEmployeeFragment extends Fragment {
         txtInputUsername = view.findViewById(R.id.uu_txt_input_username);
         txtInputPassword = view.findViewById(R.id.uu_txt_input_password);
 
-        LocalStorage localStorage = LocalStorage.getInstance();
-        txtInputName.setText(localStorage.getValue("nameEmployeeForUpdate"));
-        txtInputLastname.setText(localStorage.getValue("lastnameEmployeeForUpdate"));
-        txtInputUsername.setText(localStorage.getValue("usernameEmployeeForUpdate"));
-        txtInputPassword.setText(localStorage.getValue("passwordEmployeeForUpdate"));
-        txtInputIdentityNumber.setText(localStorage.getValue("identityNumberEmployeeForUpdate"));
-        employeeId = localStorage.getValue("idEmployeeForUpdate");
+        txtInputName.setText(updateEmployeeViewModel.getLocalStorage("nameEmployeeForUpdate"));
+        txtInputLastname.setText(updateEmployeeViewModel.getLocalStorage("lastnameEmployeeForUpdate"));
+        txtInputUsername.setText(updateEmployeeViewModel.getLocalStorage("usernameEmployeeForUpdate"));
+        txtInputPassword.setText(updateEmployeeViewModel.getLocalStorage("passwordEmployeeForUpdate"));
+        txtInputIdentityNumber.setText(updateEmployeeViewModel.getLocalStorage("identityNumberEmployeeForUpdate"));
+        employeeId = updateEmployeeViewModel.getLocalStorage("idEmployeeForUpdate");
         textView = view.findViewById(R.id.cu_title);
 
 

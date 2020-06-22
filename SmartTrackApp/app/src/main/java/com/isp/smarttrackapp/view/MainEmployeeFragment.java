@@ -31,7 +31,6 @@ import android.widget.Toast;
 import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.ResponseModel;
-import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 import com.isp.smarttrackapp.viewmodel.MainEmployeeFragmentViewModel;
 
 import java.util.List;

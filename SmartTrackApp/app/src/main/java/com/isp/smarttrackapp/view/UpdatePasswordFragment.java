@@ -21,8 +21,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.ResponseModel;
-import com.isp.smarttrackapp.model.repository.local.LocalStorage;
-import com.isp.smarttrackapp.viewmodel.UpdateEmployeeFragmentViewModel;
 import com.isp.smarttrackapp.viewmodel.UpdatePasswordFragmentViewModel;
 import com.isp.smarttrackapp.viewmodel.ValuesViewModel;
 
@@ -76,7 +74,7 @@ public class UpdatePasswordFragment extends Fragment {
         txtInputUsername = view.findViewById(R.id.up_txt_input_username);
         txtInputPassword = view.findViewById(R.id.up_txt_input_password);
 
-        username = LocalStorage.getInstance().getValue(Config.KEY_USER_USERNAME);
+        username = updatePasswordViewModel.getLocalStorage(Config.KEY_USER_USERNAME);
         txtInputUsername.setText(username);
         txtInputUsername.setEnabled(false);
         textView = view.findViewById(R.id.cu_title);

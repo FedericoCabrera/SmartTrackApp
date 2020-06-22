@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.isp.smarttrackapp.entities.Employee;
 import com.isp.smarttrackapp.entities.ResponseModel;
+import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 import com.isp.smarttrackapp.model.repository.remote.EmployeesRepository;
 
 public class UpdatePasswordFragmentViewModel extends AndroidViewModel {
@@ -24,5 +25,9 @@ public class UpdatePasswordFragmentViewModel extends AndroidViewModel {
         employeeObservable = EmployeesRepository.getInstance().updatePassword(password);
 
         return employeeObservable;
+    }
+
+    public String getLocalStorage(String key){
+        return LocalStorage.getInstance().getValue(key);
     }
 }

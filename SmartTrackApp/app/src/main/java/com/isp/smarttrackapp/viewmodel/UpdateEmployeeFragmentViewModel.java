@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.isp.smarttrackapp.entities.Employee;
 import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
+import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 import com.isp.smarttrackapp.model.repository.remote.EmployeesRepository;
 
 public class UpdateEmployeeFragmentViewModel extends AndroidViewModel {
@@ -33,5 +34,13 @@ public class UpdateEmployeeFragmentViewModel extends AndroidViewModel {
         employeeObservable = EmployeesRepository.getInstance().updateEmployee(employeeObj);
 
         return employeeObservable;
+    }
+
+    public String getLocalStorage(String key){
+        return LocalStorage.getInstance().getValue(key);
+    }
+
+    public void setLocalStorage(String value, String key){
+        LocalStorage.getInstance().setValue(value, key);
     }
 }

@@ -31,10 +31,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.Employee;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
-import com.isp.smarttrackapp.model.repository.local.LocalStorage;
-import com.isp.smarttrackapp.model.repository.remote.EmployeesRepository;
 import com.isp.smarttrackapp.viewmodel.AdminMapFragmentViewModel;
-import com.isp.smarttrackapp.viewmodel.EmployeeListFragmentViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

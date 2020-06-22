@@ -45,4 +45,12 @@ public class LoginFragmentViewModel extends AndroidViewModel {
     public void updateFCMToken(){
         AdministratorRepository.getInstance().updateFirebaseMessagingToken();
     }
+
+    public String getLocalStorage(String key){
+        return LocalStorage.getInstance().getValue(key);
+    }
+
+    public void setLocalStorage(String value, String key){
+        LocalStorage.getInstance().setValue(value, key);
+    }
 }
