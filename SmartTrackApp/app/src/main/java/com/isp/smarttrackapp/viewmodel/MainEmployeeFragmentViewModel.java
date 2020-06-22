@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.isp.smarttrackapp.entities.Position;
 import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.model.repository.remote.EmployeesRepository;
+import com.isp.smarttrackapp.model.repository.remote.LoginRepository;
 
 public class MainEmployeeFragmentViewModel extends AndroidViewModel {
 
@@ -27,6 +28,11 @@ public class MainEmployeeFragmentViewModel extends AndroidViewModel {
 
         positionObservable = EmployeesRepository.getInstance().updateLocation(positionObj);
 
+        return positionObservable;
+    }
+
+    public LiveData<ResponseModel> logout() {
+        positionObservable = LoginRepository.getInstance().logout();
         return positionObservable;
     }
 

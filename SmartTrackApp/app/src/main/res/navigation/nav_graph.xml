@@ -108,6 +108,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_mainEmployeeFragment_to_updatePasswordFragment"
+            app:destination="@id/updatePasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/employeesListFragment"
@@ -179,4 +182,8 @@
         android:id="@+id/reportsTrajectsFragment"
         android:name="com.isp.smarttrackapp.view.ReportsTrajectsFragment"
         android:label="ReportsTrajectsFragment" />
+    <fragment
+        android:id="@+id/updatePasswordFragment"
+        android:name="com.isp.smarttrackapp.view.UpdatePasswordFragment"
+        android:label="UpdatePasswordFragment" />
 </navigation>

@@ -1,10 +1,13 @@
 package com.isp.smarttrackapp.entities;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public class Traject {
 
-    private java.lang.String trajectId;
+    @SerializedName("id")
+    private String trajectId;
     private double distance;
     private double duration;
     private boolean isFinished ;
@@ -28,11 +31,11 @@ public class Traject {
         this.locationFinal = locationFinal;
     }
 
-    public java.lang.String getTrajectId() {
+    public String getTrajectId() {
         return trajectId;
     }
 
-    public void setTrajectId(java.lang.String trajectId) {
+    public void setTrajectId(String trajectId) {
         this.trajectId = trajectId;
     }
 

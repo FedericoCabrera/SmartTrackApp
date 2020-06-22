@@ -35,13 +35,22 @@ public class LoginFragmentViewModel extends AndroidViewModel {
         return sessionObservable;
     }
 
-    public void updateUserLocalData(String name, String userName, String token){
+    public void updateUserLocalData(String name, String userName, String token, String id){
         LocalStorage.getInstance().setValue(Config.KEY_USER_TOKEN, token);
         LocalStorage.getInstance().setValue(Config.KEY_USER_REALNAME, name);
         LocalStorage.getInstance().setValue(Config.KEY_USER_USERNAME, userName);
+        LocalStorage.getInstance().setValue(Config.KEY_USER_ID, id);
     }
 
     public void updateFCMToken(){
         AdministratorRepository.getInstance().updateFirebaseMessagingToken();
+    }
+
+    public String getLocalStorage(String key){
+        return LocalStorage.getInstance().getValue(key);
+    }
+
+    public void setLocalStorage(String value, String key){
+        LocalStorage.getInstance().setValue(value, key);
     }
 }

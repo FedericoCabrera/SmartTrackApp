@@ -1,6 +1,7 @@
 package com.isp.smarttrackapp.view;
 
 import android.content.Context;
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,16 +26,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.Employee;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
-import com.isp.smarttrackapp.model.repository.local.LocalStorage;
-import com.isp.smarttrackapp.model.repository.remote.EmployeesRepository;
 import com.isp.smarttrackapp.viewmodel.AdminMapFragmentViewModel;
-import com.isp.smarttrackapp.viewmodel.EmployeeListFragmentViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +50,8 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
     private ArrayList<MarkerOptions> markers;
     private Handler handler ;
     private Runnable runnable;
+    private CameraPosition camera;
+    private boolean first;
 
 
     public AdminMapFragment() {
@@ -68,13 +69,14 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         markers = new ArrayList<MarkerOptions>();
+        first=true;
       content();
     }
 
     public void content(){
 
         onMapReady(googleMap2);
-        refresh(1000);
+        refresh(2000);
     }
     private void refresh(int miliseconds){
         handler = new Handler();
@@ -98,11 +100,27 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
         return mainView;
     }
 
+    private void zoomToLocation() {
+        if (first){
+            camera = new CameraPosition.Builder()
+                    .target(new LatLng(-34.901112, -56.164532))
+                    .zoom(13)           // limit -> 21
+                    .bearing(0)         // 0 - 365º
+                    .tilt(30)           // limit -> 90
+                    .build();
+            googleMap2.animateCamera(CameraUpdateFactory.newCameraPosition(camera), 2000, null);
+        }
+        first=false;
+        //googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18.0f));
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         googleMap2 = googleMap;
+
         if (googleMap2!=null) {
             googleMap2.clear();
+            zoomToLocation();
            for (MarkerOptions m:  markers) {
                 m.icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_point));
                 googleMap2.addMarker(m);
@@ -112,6 +130,15 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
         //googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 15));
      // googleMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
     }
+/*
+    private void createOrUpdateMarkerByLocation(Location location) {
+        if (marker == null) {
+            marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())));
+        } else {
+            marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
+        }
+    }
+*/
 
     private void drawEmployees(){
         employeeList = new ArrayList<Employee>();
@@ -128,7 +155,7 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_truck))
                                 .title(e.getName());
                         googleMap2.addMarker(m);
-                        markers.add(m);
+
 
                     }else{
                         MarkerOptions m = new MarkerOptions()
@@ -136,6 +163,7 @@ public class AdminMapFragment extends Fragment implements OnMapReadyCallback {
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_truck_red))
                                 .title(e.getName());
                         googleMap2.addMarker(m);
+                        markers.add(m);
                     }
                 }
             }

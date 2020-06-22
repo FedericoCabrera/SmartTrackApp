@@ -25,7 +25,6 @@ import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.Employee;
 import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
-import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 import com.isp.smarttrackapp.viewmodel.EmployeeListFragmentViewModel;
 
 import java.util.ArrayList;
@@ -134,13 +133,12 @@ public class EmployeesListFragment extends Fragment {
             public void onClick(final View v) {
                 try{
                     if(employeeSelected != null){
-                        LocalStorage localStorage = LocalStorage.getInstance();
-                        boolean setValueOK = localStorage.setValue(employeeSelected.getId(),"idEmployeeForUpdate");
-                        setValueOK = localStorage.setValue(employeeSelected.getIdentityNumber(),"identityNumberEmployeeForUpdate");
-                        setValueOK = localStorage.setValue(employeeSelected.getLastName(),"lastnameEmployeeForUpdate");
-                        setValueOK = localStorage.setValue(employeeSelected.getName(),"nameEmployeeForUpdate");
-                        setValueOK = localStorage.setValue(employeeSelected.getPassword(),"passwordEmployeeForUpdate");
-                        setValueOK = localStorage.setValue(employeeSelected.getUserName(),"usernameEmployeeForUpdate");
+                        employeesViewModel.setLocalStorage(employeeSelected.getId(),"idEmployeeForUpdate");
+                        employeesViewModel.setLocalStorage(employeeSelected.getIdentityNumber(),"identityNumberEmployeeForUpdate");
+                        employeesViewModel.setLocalStorage(employeeSelected.getLastName(),"lastnameEmployeeForUpdate");
+                        employeesViewModel.setLocalStorage(employeeSelected.getName(),"nameEmployeeForUpdate");
+                        employeesViewModel.setLocalStorage(employeeSelected.getPassword(),"passwordEmployeeForUpdate");
+                        employeesViewModel.setLocalStorage(employeeSelected.getUserName(),"usernameEmployeeForUpdate");
 
                         navController.navigate(R.id.action_employeesListFragment_to_updateEmployeeFragment);
                     }

@@ -259,6 +259,37 @@ namespace ST.Web.API.Controllers
 
         }
 
+        [HttpPut("password")]
+        public IActionResult UpdatePassword(Guid id, [FromBody] String password)
+        {
+            try
+            {
+                ResponseModelWithData<EmployeeModel> responseModel = new ResponseModelWithData<EmployeeModel>();
+                var token = new Guid(Request.Headers["Authorization"]);
+                var user = sessionService.GetUserByToken(token);
+                employeeService.UpdatePassword(user.Id, password);
+                responseModel.IsResponseOK = true;
+                responseModel.Data = EmployeeModel.ToModel(employeeService.GetEmployeeById(user.Id));
+                return Ok(responseModel);
+            }
+            catch (HandledException he)
+            {
+                var response = new ResponseModel()
+                {
+                    IsResponseOK = false,
+                    ErrorMessage = he.Message
+                };
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+
+        }
+
+
         private Guid GetCompanyID() 
         {
             var token = Utils.GetToken(Request);
