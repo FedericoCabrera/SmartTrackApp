@@ -86,7 +86,7 @@ namespace ST.BusinessLogic
                     {
                         var trajectsIds = employee.Trajects.Select(x => x.Id).ToList();
 
-                        var incidents = unitOfWork.IncidentRepository.Get(x => trajectsIds.Contains(x.Traject.Id) && x.CreationTime >= dateFrom && x.CreationTime <= dateTo, null, "Location").ToList();
+                        var incidents = unitOfWork.IncidentRepository.Get(x => trajectsIds.Contains(x.Traject.Id) && x.CreationTime >= dateFrom && x.CreationTime < dateTo.AddDays(1), null, "Location").ToList();
 
                         foreach(var incident in incidents)
                         {
@@ -130,8 +130,8 @@ namespace ST.BusinessLogic
                         {
                             TrajectReportLine line = new TrajectReportLine()
                             {
-                                Distance = t.Distance,
-                                Duration = t.Duration,
+                                Distance = Math.Round(t.Distance, 2),
+                                Duration = Math.Round(t.Duration, 2),
                                 StartDate = t.StartDate.ToString(),
                                 UserName = e.UserName
                             };
@@ -147,8 +147,8 @@ namespace ST.BusinessLogic
             }
 
             trajectReport.Lines = trajectsList.OrderBy(x => x.StartDate).ToList();
-            trajectReport.TotalDistance = totalDistance;
-            trajectReport.TotalDuration = totalDuration;
+            trajectReport.TotalDistance = Math.Round(totalDistance, 2);
+            trajectReport.TotalDuration = Math.Round(totalDuration, 2);
 
             return trajectReport;
         }

@@ -35,6 +35,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -141,7 +142,9 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
 
     private void createOrUpdateMarkerByLocation(Location location) {
         if (marker == null) {
-            marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())));
+            marker = googleMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_truck_red)));
         } else {
             marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
         }
@@ -150,9 +153,9 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
     private void zoomToLocation(Location location) {
         camera = new CameraPosition.Builder()
                 .target(new LatLng(location.getLatitude(), location.getLongitude()))
-                .zoom(15)           // limit -> 21
-                .bearing(0)         // 0 - 365º
-                .tilt(30)           // limit -> 90
+                .zoom(16)                           // limit -> 21
+                .bearing(location.getBearing())     // 0 - 365º
+                .tilt(45)                           // limit -> 90
                 .build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(camera), 2000, null);
         //googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18.0f));
@@ -298,7 +301,7 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
         if(onAtrip){
             trajectDistance += currentLocation.distanceTo(location);
             DecimalFormat df = new DecimalFormat("#");
-           String d = (df.format(trajectDistance));
+            String d = (df.format(trajectDistance));
             distanceView.setText("Distancia - " + d + "m");
 
         }else{
