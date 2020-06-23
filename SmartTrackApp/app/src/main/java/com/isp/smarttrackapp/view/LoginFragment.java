@@ -76,9 +76,7 @@ public class LoginFragment extends Fragment {
 
         // Inflate the layout for this fragment
         thisContext = getActivity();
-        //valuesViewModel = new ViewModelProvider(this).get(ValuesViewModel.class);
         loginViewModel = new ViewModelProvider(this).get(LoginFragmentViewModel.class);
-
 
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
@@ -149,12 +147,11 @@ public class LoginFragment extends Fragment {
             @Override
             public void onAuthenticationError(int errorCode,@NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
-                Toast.makeText(thisContext,"Authentication error: " + errString, Toast.LENGTH_SHORT).show();
+                Toast.makeText(thisContext,"Error al autenticar: " + errString, Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
-                Toast.makeText(thisContext,"Authentication succeeded!", Toast.LENGTH_SHORT).show();
 
                 String authUsername = loginViewModel.getLocalStorage(Config.KEY_AUTH_USERNAME);
                 String authPassword = loginViewModel.getLocalStorage(Config.KEY_AUTH_PASSWORD);
@@ -211,21 +208,6 @@ public class LoginFragment extends Fragment {
         thisContext = context;
     }
 
-    // TODO: Delete
-    private void observeViewModel(ValuesViewModel valuesViewModel) {
-
-        valuesViewModel.getValuesListObservable().observe(getViewLifecycleOwner(), new Observer<List<Value>>() {
-            @Override
-            public void onChanged(List<Value> values) {
-                if (values != null) {
-                    for (Value s : values) {
-                        Toast.makeText(thisContext, s.getV1() + " " + s.getV2(), Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-        });
-    }
-
     private boolean authenticateFingerprint() {
         if(statusFingerprint()) {
             if (ActivityCompat.checkSelfPermission(thisContext, Manifest.permission.USE_BIOMETRIC) != PackageManager.PERMISSION_GRANTED) {
@@ -233,24 +215,23 @@ public class LoginFragment extends Fragment {
                         Manifest.permission.USE_BIOMETRIC
                 }, 1000);
                 if (ActivityCompat.checkSelfPermission(thisContext, Manifest.permission.USE_BIOMETRIC) != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(thisContext, "date permisos vejiga", Toast.LENGTH_LONG).show();
+                    Toast.makeText(thisContext, "Asignar permisos para uso de huella.", Toast.LENGTH_LONG).show();
                     return false;
                 }
                 return true;
             }
         }
-        Toast.makeText(thisContext, "La autenticacion por huella esta apagada!", Toast.LENGTH_LONG).show();
+        Toast.makeText(thisContext, "La autenticación por huella esta apagada.", Toast.LENGTH_LONG).show();
         return false;
     }
     private boolean statusFingerprint() {
         KeyguardManager km = (KeyguardManager) thisContext.getSystemService(Context.KEYGUARD_SERVICE);
         if (!km.isKeyguardSecure()){
-            Toast.makeText(thisContext, "is keyguard secure... ni idea", Toast.LENGTH_LONG).show();
             return false;
         }
         PackageManager packageManager = thisContext.getPackageManager();
         if(!packageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
-            Toast.makeText(thisContext, "El dispositivo no tiene huella digital", Toast.LENGTH_LONG).show();
+            Toast.makeText(thisContext, "El dispositivo no tiene huella digital.", Toast.LENGTH_LONG).show();
             return false;
         }
         return true;
