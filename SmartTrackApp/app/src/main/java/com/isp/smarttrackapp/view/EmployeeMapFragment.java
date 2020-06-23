@@ -88,8 +88,8 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        /*trajectDistance = 0;
-        onAtrip = false;*/
+        trajectDistance = 0;
+        //onAtrip = false;
     }
 
     @Override

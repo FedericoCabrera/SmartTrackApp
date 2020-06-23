@@ -26,14 +26,14 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.Incident;
 import com.isp.smarttrackapp.entities.Position;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
-import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 import com.isp.smarttrackapp.utils.Utils;
 import com.isp.smarttrackapp.viewmodel.CreateIncidentFragmentViewModel;
 
@@ -67,6 +67,8 @@ public class CreateIncidentFragment  extends Fragment {
     private String streetName = "";
     private String streetNumber = "";
 
+    private NavController navController;
+
     public CreateIncidentFragment() {
     }
 
@@ -82,6 +84,8 @@ public class CreateIncidentFragment  extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        navController = Navigation.findNavController(view);
 
         btnAddIncident = view.findViewById(R.id.ci_btn_addIncident);
         btnCancel = view.findViewById(R.id.ci_btn_cancel);
@@ -182,7 +186,8 @@ public class CreateIncidentFragment  extends Fragment {
                     if(stringResponseModelWithData.isResponseOK()){
                         Toast.makeText(thisContext,"Incidente agregado correctamente.",Toast.LENGTH_SHORT).show();
                         btnAddIncident.setClickable(true);
-                        getActivity().onBackPressed();
+                        //getActivity().onBackPressed();
+                        navController.navigate(R.id.action_createIncidentFragment_to_employeeMapFragment);
                     }else{
                         Toast.makeText(thisContext,"Error al agregar incidente.",Toast.LENGTH_SHORT).show();
                         btnAddIncident.setClickable(true);
