@@ -106,6 +106,7 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
     public void onDestroyView() {
         super.onDestroyView();
         locationManager.removeUpdates(this);
+        marker = null;
     }
 
     private boolean isGPSEnabled() {
@@ -140,6 +141,7 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
 
     private void createOrUpdateMarkerByLocation(Location location) {
         if (marker == null) {
+
             marker = googleMap.addMarker(new MarkerOptions()
                     .position(new LatLng(location.getLatitude(), location.getLongitude()))
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_truck_red)));

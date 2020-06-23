@@ -132,11 +132,7 @@
     <fragment
         android:id="@+id/createIncidentFragment"
         android:name="com.isp.smarttrackapp.view.CreateIncidentFragment"
-        android:label="CreateIncidentFragment" >
-        <action
-            android:id="@+id/action_createIncidentFragment_to_employeeMapFragment"
-            app:destination="@id/employeeMapFragment" />
-    </fragment>
+        android:label="CreateIncidentFragment" />
     <fragment
         android:id="@+id/employeeMapFragment"
         android:name="com.isp.smarttrackapp.view.EmployeeMapFragment"

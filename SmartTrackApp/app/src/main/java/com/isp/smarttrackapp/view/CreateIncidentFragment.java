@@ -186,8 +186,7 @@ public class CreateIncidentFragment  extends Fragment {
                     if(stringResponseModelWithData.isResponseOK()){
                         Toast.makeText(thisContext,"Incidente agregado correctamente.",Toast.LENGTH_SHORT).show();
                         btnAddIncident.setClickable(true);
-                        //getActivity().onBackPressed();
-                        navController.navigate(R.id.action_createIncidentFragment_to_employeeMapFragment);
+                        getActivity().onBackPressed();
                     }else{
                         Toast.makeText(thisContext,"Error al agregar incidente.",Toast.LENGTH_SHORT).show();
                         btnAddIncident.setClickable(true);
@@ -200,7 +199,6 @@ public class CreateIncidentFragment  extends Fragment {
         }
 
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
