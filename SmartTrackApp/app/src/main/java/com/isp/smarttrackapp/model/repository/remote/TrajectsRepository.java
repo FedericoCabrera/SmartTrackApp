@@ -8,15 +8,12 @@ import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.entities.DatesFilter;
 import com.isp.smarttrackapp.entities.Incident;
 import com.isp.smarttrackapp.entities.IncidentReport;
-import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.entities.Traject;
 import com.isp.smarttrackapp.entities.TrajectReport;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;

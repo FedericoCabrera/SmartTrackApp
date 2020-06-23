@@ -2,7 +2,6 @@ package com.isp.smarttrackapp.model.repository.remote;
 
 
 import android.app.NotificationManager;
-import android.graphics.Color;
 import android.util.Log;
 
 import androidx.annotation.NonNull;

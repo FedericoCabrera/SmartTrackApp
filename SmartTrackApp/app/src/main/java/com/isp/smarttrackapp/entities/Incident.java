@@ -1,13 +1,10 @@
 package com.isp.smarttrackapp.entities;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
 
 public class Incident {
 
     private String id;
-
-    //private Date creationTime;
     private String base64Image;
     private String description;
     @SerializedName("location")

@@ -3,7 +3,7 @@ package com.isp.smarttrackapp.entities;
 import com.google.gson.annotations.SerializedName;
 
 public class Value {
-    @SerializedName("v1") /*Optional*/
+    @SerializedName("v1")
     private String v1;
 
     private String v2;

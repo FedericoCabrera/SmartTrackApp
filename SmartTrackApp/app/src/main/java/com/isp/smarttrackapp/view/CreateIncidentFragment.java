@@ -96,8 +96,8 @@ public class CreateIncidentFragment  extends Fragment {
     }
 
     private void setPosition(){
-        this.lat = LocalStorage.getInstance().getValue(Config.KEY_LAST_LATITUDE);
-        this.lng = LocalStorage.getInstance().getValue(Config.KEY_LAST_LONGITUDE);
+        this.lat = createIncidentFragmentViewModel.getLastLatitudeValue();
+        this.lng = createIncidentFragmentViewModel.getLastLongitudeValue();
         this.streetName = "";
         this.streetNumber = "";
         Geocoder geocoder = new Geocoder(thisContext, Locale.getDefault());
@@ -175,10 +175,6 @@ public class CreateIncidentFragment  extends Fragment {
             location.setAddress(address);
 
             Incident newIncident = new Incident(base64Image,description,location);
-
-            /*newIncident.setBase64Image(base64Image);
-            newIncident.setDescription(description);
-            newIncident.setAddress(address);*/
 
             createIncidentFragmentViewModel.assignIncidentToTraject(newIncident).observe(getViewLifecycleOwner(), new Observer<ResponseModelWithData<String>>() {
                 @Override

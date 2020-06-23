@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.entities.Position;
 import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
@@ -31,7 +30,6 @@ public class EmployeeMapFragmentViewModel extends AndroidViewModel {
         Traject newTraject = new Traject();
         newTraject.setLocationInitial(locationInitial);
         trajectCreatedId = TrajectsRepository.getInstance().createTraject(newTraject);
-      //  LocalStorage.getInstance().setValue(trajectCreatedId.getValue().getData(), Config.KEY_ACTUAL_TRAJECT_ID);
         return trajectCreatedId;
     }
 

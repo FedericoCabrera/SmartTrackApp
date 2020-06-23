@@ -26,13 +26,10 @@ import android.widget.Toast;
 
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.DatesFilter;
-import com.isp.smarttrackapp.entities.IncidentReport;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
-import com.isp.smarttrackapp.entities.Traject;
 import com.isp.smarttrackapp.entities.TrajectReport;
 import com.isp.smarttrackapp.entities.TrajectReportLine;
 import com.isp.smarttrackapp.utils.Utils;
-import com.isp.smarttrackapp.viewmodel.ReportsIncidentsFragmentViewModel;
 import com.isp.smarttrackapp.viewmodel.ReportsTrajectsFragmentViewModel;
 
 import java.util.ArrayList;

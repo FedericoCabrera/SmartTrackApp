@@ -17,13 +17,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.isp.smarttrackapp.R;
-import com.isp.smarttrackapp.viewmodel.LoginFragmentViewModel;
 import com.isp.smarttrackapp.viewmodel.MainFragmentViewModel;
-
-import static android.os.SystemClock.sleep;
 
 
 /**
@@ -40,7 +36,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
     private MainFragmentViewModel viewModel;
     View viewAux = null;
-    Thread animator;
 
     public MainFragment() {
         // Required empty public constructor
@@ -98,51 +93,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
             }
         });
-
-        //TODO: Delete this commented code
-        /*animator = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                sleep(2000);
-            }
-            // logic to make animation happen
-        });
-        animator.start();
-        try {
-            animator.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-
-        /*view.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                viewAux.setVisibility(View.GONE);
-
-            }
-        }, 2000);*/
-
-
-        /*Thread thread = new Thread(){
-            public void run(){
-                try {
-                    sleep(getResources().getInteger(R.integer.long_anim_time));
-                    navController = Navigation.findNavController(viewAux);
-                    navController.navigate(R.id.action_mainFragment_to_loginFragment);
-                } catch (InterruptedException e) {
-                    Toast.makeText(thisContext,"Ha ocurrido un error inesperado.",Toast.LENGTH_LONG);
-                }
-            }
-        };
-
-        thread.start();*/
-
-        //getActivity().runOnUiThread(this.run());
-
-                /*navController = Navigation.findNavController(view);
-        navController.navigate(R.id.action_mainFragment_to_loginFragment);*/
-
 
     }
 

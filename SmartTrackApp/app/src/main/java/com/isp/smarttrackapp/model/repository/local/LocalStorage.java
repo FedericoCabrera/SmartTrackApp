@@ -2,9 +2,6 @@ package com.isp.smarttrackapp.model.repository.local;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
-import androidx.annotation.Nullable;
 
 public class LocalStorage {
     private static LocalStorage instance;

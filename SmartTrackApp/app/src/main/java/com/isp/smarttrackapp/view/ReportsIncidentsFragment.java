@@ -24,18 +24,13 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.DatesFilter;
-import com.isp.smarttrackapp.entities.Incident;
 import com.isp.smarttrackapp.entities.IncidentReport;
-import com.isp.smarttrackapp.entities.Position;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.utils.Utils;
 import com.isp.smarttrackapp.viewmodel.ReportsIncidentsFragmentViewModel;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 

@@ -27,8 +27,6 @@
     <string name="em_start_traject_btn">Comenzar!</string>
     <string name="em_new_incident_btn">Incidentes</string>
 
-    <!-- TODO: Borrar si no se usan -->
-
     <string name="em_start_workingday_btn">Comenzar jornada</string>
     <string name="am_logout_btn">Cerrar sesión</string>
     <string name="emenu_new_traject">Nuevo trayecto</string>
@@ -41,7 +39,7 @@
     <string name="ci_btn_cancel">Cancelar</string>
     <string name="ci_txt_input_description">Descripción</string>
 
-    <string name="ri_title">Listado incidentes</string>
+    <string name="ri_title">Reporte incidentes</string>
     <string name="ri_btn_date_from">Fecha desde</string>
     <string name="ri_btn_date_to">Fecha hasta</string>
     <string name="am_trajects_report_btn">Reporte trayectos</string>

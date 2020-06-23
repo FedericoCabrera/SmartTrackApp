@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.viewmodel.MainActivityViewModel;

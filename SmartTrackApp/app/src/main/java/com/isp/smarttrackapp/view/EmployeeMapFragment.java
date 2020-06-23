@@ -53,7 +53,6 @@ import java.text.DecimalFormat;
 import static android.content.Context.LOCATION_SERVICE;
 
 public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
-    // TODO: Rename parameter arguments, choose names that match
     private Context thisContext;
     private View mainView;
 
@@ -107,7 +106,6 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
     public void onDestroyView() {
         super.onDestroyView();
         locationManager.removeUpdates(this);
-        //locationListener = null;
     }
 
     private boolean isGPSEnabled() {
@@ -158,7 +156,6 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
                 .tilt(45)                           // limit -> 90
                 .build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(camera), 2000, null);
-        //googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18.0f));
     }
 
     @Override

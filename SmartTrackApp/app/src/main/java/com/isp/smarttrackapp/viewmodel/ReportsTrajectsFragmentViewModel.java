@@ -7,13 +7,9 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.isp.smarttrackapp.entities.DatesFilter;
-import com.isp.smarttrackapp.entities.IncidentReport;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.entities.TrajectReport;
 import com.isp.smarttrackapp.model.repository.remote.TrajectsRepository;
-
-import java.util.List;
-
 
 
 public class ReportsTrajectsFragmentViewModel extends AndroidViewModel {
