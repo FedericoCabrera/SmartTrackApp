@@ -23,7 +23,6 @@ import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.Employee;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.viewmodel.CreateEmployeeFragmentViewModel;
-import com.isp.smarttrackapp.viewmodel.ValuesViewModel;
 
 
 /**
@@ -42,7 +41,6 @@ public class CreateEmployeeFragment extends Fragment {
     private Button btnCancel;
 
     private Context thisContext;
-    private ValuesViewModel valuesViewModel;
     private CreateEmployeeFragmentViewModel createEmployeeViewModel;
 
     private NavController navController;
