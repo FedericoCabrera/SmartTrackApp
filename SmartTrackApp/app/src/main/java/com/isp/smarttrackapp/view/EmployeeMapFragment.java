@@ -53,7 +53,6 @@ import java.text.DecimalFormat;
 import static android.content.Context.LOCATION_SERVICE;
 
 public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
-    // TODO: Rename parameter arguments, choose names that match
     private Context thisContext;
     private View mainView;
 
@@ -89,8 +88,8 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        /*trajectDistance = 0;
-        onAtrip = false;*/
+        trajectDistance = 0;
+        //onAtrip = false;
     }
 
     @Override
@@ -107,7 +106,7 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
     public void onDestroyView() {
         super.onDestroyView();
         locationManager.removeUpdates(this);
-        //locationListener = null;
+        marker = null;
     }
 
     private boolean isGPSEnabled() {
@@ -142,6 +141,7 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
 
     private void createOrUpdateMarkerByLocation(Location location) {
         if (marker == null) {
+
             marker = googleMap.addMarker(new MarkerOptions()
                     .position(new LatLng(location.getLatitude(), location.getLongitude()))
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.icon_truck_red)));
@@ -158,7 +158,6 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
                 .tilt(45)                           // limit -> 90
                 .build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(camera), 2000, null);
-        //googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 18.0f));
     }
 
     @Override
@@ -169,7 +168,7 @@ public class EmployeeMapFragment extends Fragment implements OnMapReadyCallback,
         } else {
             if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(thisContext, "Asigne permiso para utilizar localización por GPS.", Toast.LENGTH_LONG);
+                Toast.makeText(thisContext, "Asigne permiso para utilizar localización por GPS.", Toast.LENGTH_LONG).show();
             } else {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Config.UPDATE_LOCATION_TIME, 0, this);
 

@@ -1,13 +1,11 @@
 package com.isp.smarttrackapp.view;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
 import androidx.biometric.BiometricPrompt;
 
 import android.content.pm.PackageManager;
-import android.hardware.biometrics.BiometricManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,33 +14,26 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.R;
-import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.entities.Session;
-import com.isp.smarttrackapp.entities.Value;
 import com.isp.smarttrackapp.viewmodel.LoginFragmentViewModel;
-import com.isp.smarttrackapp.viewmodel.ValuesViewModel;
 
-import java.util.List;
 import java.util.concurrent.Executor;
 
 
@@ -187,7 +178,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
-                Toast.makeText(thisContext, "Authentication failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(thisContext, "Fallo de autenticación.", Toast.LENGTH_SHORT).show();
             }
         });
 

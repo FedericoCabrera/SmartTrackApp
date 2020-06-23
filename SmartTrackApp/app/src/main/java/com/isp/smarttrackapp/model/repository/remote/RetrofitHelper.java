@@ -1,10 +1,6 @@
 package com.isp.smarttrackapp.model.repository.remote;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.isp.smarttrackapp.Config;
-
-import java.util.Date;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

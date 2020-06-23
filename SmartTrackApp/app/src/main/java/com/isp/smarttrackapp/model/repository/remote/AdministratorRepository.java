@@ -2,8 +2,6 @@ package com.isp.smarttrackapp.model.repository.remote;
 
 import android.util.Log;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;

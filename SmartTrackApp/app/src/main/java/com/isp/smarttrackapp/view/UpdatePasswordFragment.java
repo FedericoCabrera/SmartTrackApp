@@ -22,7 +22,6 @@ import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.R;
 import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.viewmodel.UpdatePasswordFragmentViewModel;
-import com.isp.smarttrackapp.viewmodel.ValuesViewModel;
 
 
 /**
@@ -39,7 +38,6 @@ public class UpdatePasswordFragment extends Fragment {
     private Button btnCancel;
 
     private Context thisContext;
-    private ValuesViewModel valuesViewModel;
     private UpdatePasswordFragmentViewModel updatePasswordViewModel;
 
     private NavController navController;

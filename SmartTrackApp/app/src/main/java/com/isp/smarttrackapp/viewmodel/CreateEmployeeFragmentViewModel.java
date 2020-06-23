@@ -9,7 +9,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.isp.smarttrackapp.entities.Employee;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
-import com.isp.smarttrackapp.entities.Session;
 import com.isp.smarttrackapp.model.repository.remote.EmployeesRepository;
 
 public class CreateEmployeeFragmentViewModel extends AndroidViewModel {

@@ -7,8 +7,10 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.entities.Incident;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
+import com.isp.smarttrackapp.model.repository.local.LocalStorage;
 import com.isp.smarttrackapp.model.repository.remote.TrajectsRepository;
 
 public class CreateIncidentFragmentViewModel extends AndroidViewModel {
@@ -27,4 +29,11 @@ public class CreateIncidentFragmentViewModel extends AndroidViewModel {
         return incidentCreatedId;
     }
 
+    public String getLastLatitudeValue(){
+        return LocalStorage.getInstance().getValue(Config.KEY_LAST_LATITUDE);
+    }
+
+    public String getLastLongitudeValue(){
+        return LocalStorage.getInstance().getValue(Config.KEY_LAST_LONGITUDE);
+    }
 }

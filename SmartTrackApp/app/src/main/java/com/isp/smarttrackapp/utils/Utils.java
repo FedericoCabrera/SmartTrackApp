@@ -2,16 +2,12 @@ package com.isp.smarttrackapp.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.icu.text.CaseMap;
 import android.os.Environment;
 import android.util.Log;
 
 import com.itextpdf.text.Document;
-import com.itextpdf.text.Header;
 import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.PdfBody;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.File;

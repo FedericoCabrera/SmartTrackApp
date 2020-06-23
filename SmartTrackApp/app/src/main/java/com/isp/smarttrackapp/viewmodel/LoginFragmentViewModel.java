@@ -9,7 +9,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.isp.smarttrackapp.Config;
 import com.isp.smarttrackapp.entities.Login;
-import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.entities.Session;
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;

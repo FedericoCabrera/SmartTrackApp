@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,10 +26,8 @@ import com.isp.smarttrackapp.entities.ResponseModel;
 import com.isp.smarttrackapp.entities.ResponseModelWithData;
 import com.isp.smarttrackapp.viewmodel.EmployeeListFragmentViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.http.HEAD;
 
 /**
  * A simple {@link Fragment} subclass.

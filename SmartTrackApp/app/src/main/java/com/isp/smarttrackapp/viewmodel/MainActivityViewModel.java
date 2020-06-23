@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.isp.smarttrackapp.model.repository.local.LocalStorage;
-import com.isp.smarttrackapp.model.repository.remote.FMCService;
 
 public class MainActivityViewModel extends AndroidViewModel {
 
